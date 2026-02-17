@@ -1,0 +1,189 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+\title{Reading Report: GIG Random Matrices and a Yang--Baxter Extension of the Matsumoto--Yor Property}
+\author{arXiv:2602.12713 --- G.~Letac, M.~Piccioni, J.~Weso{\l}owski}
+\date{February 2026}
+
+\begin{document}
+\maketitle
+
+%% ---------------------------------------------------------------
+\section{Core Question}
+%% ---------------------------------------------------------------
+
+Given two independent random matrices $X,Y$ taking values in the cone of symmetric positive-definite (SPD) matrices, a certain rational map $\varphi^{(\alpha,\beta)}$ produces a new pair $(U,V)$.
+The paper asks: \emph{if $(U,V)$ are again independent, must $X$ and $Y$ follow matrix-variate Generalized Inverse Gaussian (MGIG) distributions?}
+A secondary question is whether the map $\varphi^{(\alpha,\beta)}$ satisfies the parametric Yang--Baxter equation on the SPD cone.
+
+%% ---------------------------------------------------------------
+\section{Exact Main Statements}
+%% ---------------------------------------------------------------
+
+\paragraph{Setup and notation.}
+Let $r\ge 1$ be fixed.  Write $\Omega_+$ for the cone of $r\times r$ real symmetric positive-definite matrices, equipped with inner product $\langle a,b\rangle = \operatorname{tr}(ab)$.
+
+\begin{definition}[Matrix GIG distribution]
+A random matrix $W\in\Omega_+$ has distribution $\mathrm{MGIG}(\lambda, a, b)$ with $\lambda\in\mathbb{R}$, $a,b\in\Omega_+$, if its density on $\Omega_+$ is
+\[
+  f(x) \;\propto\; (\det x)^{\lambda - \frac{r+1}{2}}\,
+  \exp\!\bigl(-\langle a,x\rangle - \langle b,x^{-1}\rangle\bigr).
+\]
+\end{definition}
+
+\begin{definition}[The map $\varphi^{(\alpha,\beta)}$]
+For $\alpha,\beta\ge 0$, define $\varphi^{(\alpha,\beta)}\colon \Omega_+^2\to\Omega_+^2$ by
+\[
+  \varphi^{(\alpha,\beta)}(x,y)
+  = \Bigl(y\,(I+\alpha xy)^{-1}(I+\beta xy),\;
+         x\,(I+\beta yx)^{-1}(I+\alpha yx)\Bigr).
+\]
+\end{definition}
+
+\begin{theorem}[Direct result --- Letac--Weso{\l}owski 2024]\label{thm:direct}
+If $X\sim\mathrm{MGIG}(\lambda,\alpha a,b)$ and $Y\sim\mathrm{MGIG}(\lambda,\beta b,a)$ are independent, and $(U,V)=\varphi^{(\alpha,\beta)}(X,Y)$, then $U$ and $V$ are independent with
+\[
+  U\sim\mathrm{MGIG}(\lambda,\alpha b,a),\qquad
+  V\sim\mathrm{MGIG}(\lambda,\beta a,b).
+\]
+\end{theorem}
+
+\begin{theorem}[Characterization --- Theorem 1.2 of the paper]\label{thm:char}
+Let $\alpha\neq\beta$ and let $X,Y$ be independent $\Omega_+$-valued random matrices with strictly positive $C^2$ densities on $\Omega_+$.  If $(U,V)=\varphi^{(\alpha,\beta)}(X,Y)$ are independent, then there exist $\lambda\in\mathbb{R}$ and $a,b\in\Omega_+$ such that
+\[
+  X\sim\mathrm{MGIG}(\lambda,\alpha a,b),\quad
+  Y\sim\mathrm{MGIG}(\lambda,\beta b,a),\quad
+  U\sim\mathrm{MGIG}(\lambda,\alpha b,a),\quad
+  V\sim\mathrm{MGIG}(\lambda,\beta a,b).
+\]
+\end{theorem}
+
+\begin{theorem}[Yang--Baxter property --- Theorem 1.3]\label{thm:yb}
+The map $\varphi^{(\cdot,\cdot)}$ is a parametric Yang--Baxter map on $\Omega_+$, i.e.\ the equation
+\[
+  F^{(\alpha,\beta)}_{12}\circ F^{(\alpha,\gamma)}_{13}\circ F^{(\beta,\gamma)}_{23}
+  = F^{(\beta,\gamma)}_{23}\circ F^{(\alpha,\gamma)}_{13}\circ F^{(\alpha,\beta)}_{12}
+\]
+holds on $\Omega_+^3$, where $F^{(\alpha,\beta)}_{12}(x,y,z)=(\varphi_1^{(\alpha,\beta)}(x,y),\varphi_2^{(\alpha,\beta)}(x,y),z)$, etc.
+\end{theorem}
+
+%% ---------------------------------------------------------------
+\section{A Concrete Example: the Scalar Case}
+%% ---------------------------------------------------------------
+
+\begin{example}[Matsumoto--Yor property, $r=1$, $\alpha=1$, $\beta=0$]
+Take $r=1$ so that $\Omega_+=\mathbb{R}_{>0}$.  A scalar $\mathrm{GIG}(-\lambda,\gamma_1,\gamma_2)$ has density $f(x)\propto x^{-\lambda-1}e^{-\gamma_1 x - \gamma_2/x}$ on $(0,\infty)$.
+
+Let $X\sim\mathrm{GIG}(-\lambda,\gamma_1,\gamma_2)$ and $Y\sim\mathrm{Gamma}(\lambda,\gamma_1)$ be independent.  Set
+\[
+  U = \frac{1}{X+Y},\qquad V = \frac{1}{X} - \frac{1}{X+Y}.
+\]
+Then $U\sim\mathrm{GIG}(-\lambda,\gamma_2,\gamma_1)$ and $V\sim\mathrm{Gamma}(\lambda,\gamma_2)$, and $U\perp V$.
+This is the \emph{classical Matsumoto--Yor property} (2001), originally discovered via exponential Brownian motion.
+
+The general $(\alpha,\beta)$ case (Croydon--Sasada 2020) replaces the Gamma with another GIG and connects to discrete KdV integrable systems.
+\end{example}
+
+%% ---------------------------------------------------------------
+\section{Intuition and Setup}
+%% ---------------------------------------------------------------
+
+The Matsumoto--Yor (MY) property is a rare ``independence preservation'' phenomenon: a nonlinear, non-affine map sends a pair of independent random variables to another independent pair, and the distributions involved are precisely GIG and Gamma.  Such phenomena are scarce and typically tied to deep algebraic structure.
+
+Croydon and Sasada (2020) discovered that the MY property is a special case ($\alpha=1,\beta=0$) of a broader family of independence-preserving maps $H^{(\alpha,\beta)}_{III,B}$ arising from the \emph{discrete Korteweg--de Vries (KdV) equation}.  These maps are \emph{parametric Yang--Baxter maps}, meaning they satisfy the Yang--Baxter equation --- a consistency condition central to integrable systems.
+
+Letac and Weso{\l}owski (2024) extended the map $H^{(\alpha,\beta)}_{III,B}$ from scalars to SPD matrices, proving the \emph{direct} independence-preserving result (Theorem~\ref{thm:direct}).  The present paper completes the picture:
+\begin{itemize}[nosep]
+  \item \textbf{Characterization (converse):} MGIG distributions are the \emph{only} laws for which $\varphi^{(\alpha,\beta)}$ preserves independence.
+  \item \textbf{Yang--Baxter:} The matrix map $\varphi^{(\alpha,\beta)}$ inherits the YB property from its scalar ancestor.
+\end{itemize}
+
+%% ---------------------------------------------------------------
+\section{Main Results (Bulleted)}
+%% ---------------------------------------------------------------
+
+\begin{itemize}
+  \item \textbf{Characterization of MGIG by independence} (Theorem~\ref{thm:char}): Under $C^2$, strictly-positive density assumptions, independence of $(U,V)=\varphi^{(\alpha,\beta)}(X,Y)$ with $\alpha\neq\beta$ forces all four variables $X,Y,U,V$ to be MGIG with linked parameters.
+
+  \item \textbf{Yang--Baxter equation on $\Omega_+$} (Theorem~\ref{thm:yb}): $\varphi^{(\alpha,\beta)}$ is a parametric YB map, extending the known scalar result to the non-commutative cone of SPD matrices.
+
+  \item \textbf{Unification:} The classical MY property ($\alpha=1,\beta=0$), its matrix version, and the Croydon--Sasada KdV connection are all special cases of the framework.
+\end{itemize}
+
+%% ---------------------------------------------------------------
+\section{Proof Sketch}
+%% ---------------------------------------------------------------
+
+\subsection*{Characterization (Theorem~\ref{thm:char})}
+
+The proof proceeds in ten steps.  We outline the key ideas.
+
+\begin{enumerate}[label=\textbf{Step \arabic*.}, leftmargin=2.5em]
+
+\item \textbf{Reduction to a scalar functional equation.}
+Independence of $(U,V)$ yields a functional equation for the log-densities:
+\[
+  g_U(u) + g_V(v) = g_X(x) + g_Y(y), \quad (u,v)=\psi(x,y).
+\]
+Restricting to the one-parameter subfamily $(x,y)=(\sigma w,\tau w)$ for fixed $w\in\Omega_+$ reduces this to a \emph{scalar} functional equation of the form
+\[
+  m_U\!\Bigl(\tfrac{\tau+\beta\sigma}{\tau+\alpha\sigma}\,\tfrac{1}{\tau}\Bigr)
+  + m_V\!\Bigl(\tfrac{\tau+\beta\sigma}{\tau+\alpha\sigma}\,\tfrac{1}{\sigma}\Bigr)
+  = m_X(\sigma)+m_Y(\tau).
+\]
+
+\item \textbf{Invoke the scalar characterization.}
+Multiply the restricted log-densities by known scalar GIG densities to construct integrable densities satisfying the scalar version of the functional equation (equation~(1.6) in the paper).  By the \emph{known univariate characterization} (Letac--Weso{\l}owski 2024), these must be GIG.  This gives, for each $w$, a parametric form:
+\[
+  g_X(\tau w) = -l(w)\log\tau - \alpha\, a(w)\,\tau - \frac{b(w)}{\tau} + C_X(w),
+\]
+and analogously for $Y,U,V$, with functions $a,b,l,C_W$ depending on $w$.
+
+\item \textbf{Scaling analysis.}
+Replace $w$ by $\rho w$ and use the known scaling of each $h_W^{(w)}$ to deduce homogeneity:
+\[
+  a(\rho w) = \rho\, a(w),\quad b(\rho w) = \rho^{-1}b(w),\quad l(\rho w) = l(w).
+\]
+
+\item \textbf{Separation into individual equations.}
+Set $\tau=1$, substitute the parametric forms back into the full matrix functional equation, and use the linear independence of $\{1,\rho,\rho^{-1},\log\rho\}$ to obtain \emph{separate} matrix functional equations for $a$, $b$, $l$, and $C_W$.
+
+\item \textbf{Identify $a(w) = \operatorname{tr}[a\, w]$ for some $a\in\Omega_+$.}
+Differentiate the equation for $a$ twice (with respect to $x$ and then $y$), specialize to $y=\rho x$, and use the factorization of a coefficient $C(\rho)=(\rho^2-\alpha\beta)/(\beta+\rho)^3$ (which is nonzero for suitable $\rho$) to conclude $a''(x)=0$.  Combined with homogeneity, $a(w)=\operatorname{tr}[a\,w]$.
+
+\item \textbf{Identify $b(w) = \operatorname{tr}[b\, w^{-1}]$ for some $b\in\Omega_+$.}
+Define $\tilde{b}(w)=b(w^{-1})$; then $\tilde{b}$ satisfies the same homogeneity and functional equation as $a$.  Hence $\tilde{b}(w)=\operatorname{tr}[b\,w]$, i.e.\ $b(w)=\operatorname{tr}[b\,w^{-1}]$.
+
+\item \textbf{Identify $l\equiv \text{const}$.}
+A similar double-differentiation argument yields a matrix ODE $-2l''(x)[h] = l'(x)hx^{-1} + x^{-1}h\,l'(x)$.  An asymptotic argument ($y\to\rho y$, $\rho\to\infty$) gives a trace identity, which together with the ODE forces $l'(x) = c\,x^{-1}$ for a scalar matrix $c$.  A commutation argument (using $cy = yc$ for all $y\in\Omega_+$) shows $c\propto I$, and homogeneity $l(\rho w)=l(w)$ then forces $c=0$, so $l$ is constant.
+
+\item \textbf{Identify the constants $C_W$.}
+Since $l$ is constant, the equations for $C_W$ reduce to the same structural form.  Separation of variables and a limiting argument ($\rho\to 0^+$) show each $F_W$ (a modified $C_W$) is constant.
+
+\item \textbf{Assemble the distributions.}
+Substituting $a(w)=\operatorname{tr}[aw]$, $b(w)=\operatorname{tr}[bw^{-1}]$, $l=\tilde\lambda$, and the constants into the log-densities recovers exactly the MGIG form for $X,Y,U,V$ with linked parameters.
+
+\item \textbf{Integrability forces $a,b\in\Omega_+$.}
+Since all four densities must integrate to~1 over $\Omega_+$, the parameter matrices $a,b$ must be strictly positive definite.
+\end{enumerate}
+
+\subsection*{Yang--Baxter Property (Theorem~\ref{thm:yb})}
+
+The proof is a direct algebraic verification on $\Omega_+^3$.  One must show
+\[
+  (x_3,y_3,z_3) = (X_3,Y_3,Z_3)
+\]
+where both triples are obtained by composing the maps $F_{12},F_{13},F_{23}$ in the two different orders.  Each component ($x_3=X_3$, $z_3=Z_3$, $y_3=Y_3$) is verified separately:
+\begin{itemize}[nosep]
+  \item For $x_3=X_3$ and $z_3=Z_3$: expand using the identity $s(I+ts)=(I+st)s$ and its inverse version, then simplify.  The two cases are symmetric (swap roles of $x$ and $z$).
+  \item For $y_3=Y_3$: the most involved calculation.  After substitution $u=yx$, $v=yz$, the equation reduces to verifying an identity involving $(I+\kappa s)^{-1}$ for $\kappa\in\{\alpha,\beta,\gamma\}$ and $s=u+v+\beta uv$.  A key step uses $\alpha=\gamma$ as trivial, then for $\alpha\neq\gamma$ factors the difference into two identities, both following from $s(I+\beta u)=(I+\beta v)^T s^T$-type commutation relations.
+\end{itemize}
+
+\end{document}
