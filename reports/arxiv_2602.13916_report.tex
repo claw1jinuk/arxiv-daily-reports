@@ -1,0 +1,124 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\title{Report: Bulk--Boundary Correspondence in 2D Non-Hermitian Systems\\via Toeplitz Operators and Singular Values\\[6pt]
+\large arXiv:2602.13916 --- J.\ Sirker}
+\author{Daily arXiv Report}
+\date{February 20, 2026}
+
+\begin{document}
+\maketitle
+
+%------------------------------------------------------------------
+\section{Core Question}
+%------------------------------------------------------------------
+How should one formulate the bulk--boundary correspondence for two-dimensional non-Hermitian lattice Hamiltonians, given that the eigenvalue spectrum is generically unstable under changes of boundary conditions and therefore cannot serve as the basis for topological classification? The paper argues that \emph{singular values}---not eigenvalues---provide the correct, stable foundation and develops the full theory using Toeplitz operator index theorems and $K$-splitting results.
+
+%------------------------------------------------------------------
+\section{Main Statement (Informal)}
+%------------------------------------------------------------------
+Let $H$ be a two-dimensional translation-invariant non-Hermitian lattice Hamiltonian with scalar symbol $F(k_x,k_y)$ satisfying a point gap ($\det F(k_x,k_y)\neq 0$ for all $(k_x,k_y)\in\mathbb{T}^2$). Define the \emph{slice winding numbers}
+\[
+I_\alpha = \frac{1}{2\pi i}\int_0^{2\pi} dk_\alpha\;\partial_{k_\alpha}\ln \det F(k_x,k_y),\qquad \alpha\in\{x,y\}.
+\]
+Then, for the finite system on an $N_x\times N_y$ lattice with periodic boundary conditions in the $x$-direction and open boundary conditions in the $y$-direction:
+\begin{enumerate}[label=(\roman*)]
+\item There are exactly $K = N_x|I_y|$ singular values of the finite Hamiltonian matrix $H_L$ that are separated from the bulk singular-value spectrum by a gap $\Delta > 0$.
+\item These $K$ singular values converge to zero as $N_y\to\infty$ (exponentially in the clean case, polynomially under random perturbations).
+\item The corresponding singular vectors are exponentially localized at the boundary.
+\item The gap $\Delta$ is stable against any perturbation $\delta H$ with $\|\delta H\|_2 < \Delta$.
+\end{enumerate}
+For matrix-valued symbols, $K \geq N_x|I_y|$ (lower bound only). Corner modes require gapped edges and are controlled by a distinct corner Fredholm index.
+
+%------------------------------------------------------------------
+\section{A Concrete Example: The 2D Hatano--Nelson Model}
+%------------------------------------------------------------------
+
+Consider the non-reciprocal hopping model on a square lattice:
+\[
+H = \sum_{i,j}\bigl(t_R\, c^\dagger_{i+1,j}c_{i,j} + t_L\, c^\dagger_{i,j}c_{i+1,j} + t_D\, c^\dagger_{i,j+1}c_{i,j} + t_U\, c^\dagger_{i,j}c_{i,j+1}\bigr),
+\]
+where $t_R,t_L,t_U,t_D > 0$ are generally different (non-reciprocal) hopping amplitudes. Its \textbf{symbol} (Bloch Hamiltonian) is:
+\[
+F(k_x,k_y) = t_L e^{-ik_x} + t_R e^{ik_x} + t_U e^{-ik_y} + t_D e^{ik_y}.
+\]
+This traces out two ellipses $E_x$ and $E_y$ in the complex plane with semi-axes $|t_R\pm t_L|$ and $|t_D\pm t_U|$, respectively. The point gap is open when one ellipse is contained inside the other:
+\begin{itemize}
+\item $E_x \subset E_y$: $(I_x,I_y) = (0,\pm 1)$, giving $N_x$ protected edge modes along the $y$-boundaries.
+\item $E_y \subset E_x$: $(I_x,I_y) = (\pm 1,0)$, giving $N_y$ protected edge modes along the $x$-boundaries.
+\end{itemize}
+With parameters $t_R=0.5$, $t_L=0.9$, $t_U=1.2$, $t_D=0.5$, one gets $(I_x,I_y)=(0,-1)$. The paper demonstrates that the $N_x$ smallest singular values decay to zero with $N_y$, while the eigenvalue spectrum is completely destabilized by even a tiny perturbation ($\varepsilon = 0.1$).
+
+%------------------------------------------------------------------
+\section{Key Definitions and Setup}
+%------------------------------------------------------------------
+
+\begin{definition}[Singular values]
+For a (possibly non-Hermitian) matrix $H$, the \emph{singular values} are $\sigma_i(H) = \sqrt{\lambda_i(H^\dagger H)}$, always real and non-negative. For Hermitian $H$, $\sigma_i = |\lambda_i|$; for non-normal $H$, the singular-value and eigenvalue spectra can behave completely differently.
+\end{definition}
+
+\begin{definition}[Toeplitz operator]
+Given a translation-invariant lattice Hamiltonian on a semi-infinite lattice, the Hamiltonian matrix $H$ has the form $H_{ij} = h_{i-j}$ (Toeplitz structure). The \emph{symbol} is the Fourier transform $h(k) = \sum_j h_j e^{-ikj}$. In two dimensions, one obtains a \emph{block-Toeplitz-with-Toeplitz-blocks} (BTTB) matrix with two-dimensional symbol $F(k_x,k_y)$.
+\end{definition}
+
+\begin{definition}[Index of a Toeplitz operator]
+For a semi-infinite Toeplitz operator $H$:
+\[
+\mathrm{ind}(H) = \dim(\ker H) - \dim(\ker H^\dagger).
+\]
+By Gohberg's theorem, $-\mathrm{ind}(H)$ equals the winding number of $\det h(k)$ around the origin.
+\end{definition}
+
+\begin{definition}[$K$-splitting property]
+The singular-value spectrum of a finite truncation $H_L$ has the $K$-splitting property if
+\[
+\lim_{L\to\infty}\sigma_n(H_L) = \begin{cases} 0 & 1\leq n \leq K,\\ >0 & n > K.\end{cases}
+\]
+The $K$ small singular values are separated from the bulk by a gap $\Delta > 0$. For scalar symbols, $K = |I|$ (exact count); for matrix symbols, $K\geq |I|$ (lower bound).
+\end{definition}
+
+\paragraph{Why eigenvalues fail.} For non-normal $H$, the Bauer--Fike theorem gives a perturbation bound $|\lambda - \mu| \leq \kappa(V)\|\delta H\|_2$ where $\kappa(V) = \|V\|\|V^{-1}\|$ can be arbitrarily large. By contrast, singular values always satisfy Weyl's inequality: $|\sigma_k(H+\delta H) - \sigma_k(H)|\leq \|\delta H\|_2$, ensuring Lipschitz stability regardless of non-normality.
+
+%------------------------------------------------------------------
+\section{Main Results}
+%------------------------------------------------------------------
+
+\begin{itemize}
+\item \textbf{Half-plane (edge modes):} For a scalar symbol with point gap, the number of topologically protected edge modes on an $N_x\times N_y$ tube (PBC in $x$, OBC in $y$) is exactly $K = N_x|I_y|$. For matrix-valued symbols, $K \geq N_x|I_y|$. These modes are ``hidden zero modes'': not eigenstates of the finite system, but vectors mapped exponentially close to zero (detectable only via singular values).
+
+\item \textbf{Quarter-plane with gapless edges:} When both $I_x\neq 0$ and $I_y\neq 0$, edge-mode families along both boundaries hybridize near corners. For scalar symbols, the generic result is edge-type states $|\Psi_{ij}|\sim |z|^i + |w|^j$ (additive, not multiplicative). True corner modes $|\Psi_{ij}|\sim |z|^i|w|^j$ require additional structure (e.g., symbol factorization) and are only \emph{spectrally} protected, not index-protected.
+
+\item \textbf{Quarter-plane with gapped edges (higher-order topology):} When both the bulk and edges are gapped ($I_x=I_y=0$ but a non-trivial corner Fredholm index exists), one obtains genuine topologically protected corner modes. The non-Hermitian BBH model provides a concrete example: sublattice symmetry $\{\Pi, h(k_x,k_y)\}=0$ protects the corner index even when all crystalline symmetries are broken and non-reciprocal hoppings are introduced. The number of corner modes is $K = (n_x^L + n_x^R)(n_y^L + n_y^R)$, determined by four winding numbers $(I_1^x, I_2^x, I_1^y, I_2^y)$ of the one-dimensional sublattice-symmetric chains.
+
+\item \textbf{Stability:} All topologically protected singular values (and corresponding boundary/corner modes) are stable against perturbations $\delta H$ with $\|\delta H\|_2 < \Delta$ (the singular-value gap). This is guaranteed by Weyl's inequality for singular values---no analogue holds for eigenvalues of non-normal operators.
+\end{itemize}
+
+%------------------------------------------------------------------
+\section{Proof Sketch}
+%------------------------------------------------------------------
+
+\begin{enumerate}
+\item \textbf{Establish spectral instability of eigenvalues.} Via the Bauer--Fike theorem, show that for non-normal $H$, the condition number $\kappa(V)$ of the eigenvector matrix can be arbitrarily large, so eigenvalue perturbation bounds are vacuous. The pseudospectrum $\sigma_\varepsilon(H) = \{\lambda : \|(H-\lambda I)^{-1}\|>1/\varepsilon\}$ extends far from true eigenvalues, confirming instability.
+
+\item \textbf{Prove stability of singular values.} Since $H^\dagger H$ is Hermitian positive semidefinite, Weyl's inequality directly applies: $|\sigma_k(H+\delta H) - \sigma_k(H)|\leq \|\delta H\|_2$. This is the key reason singular values are the correct spectral quantity for non-Hermitian topology.
+
+\item \textbf{Set up Toeplitz structure.} Cast the translation-invariant bulk Hamiltonian as a (multi-level) Toeplitz operator. In 2D, this gives a BTTB matrix with symbol $F(k_x,k_y)$. The point-gap condition $\det F\neq 0$ ensures Fredholm property.
+
+\item \textbf{Apply index theorems.} For the half-plane truncation (semi-infinite Toeplitz operator), Gohberg's theorem gives $\mathrm{ind}(H) = -I$ where $I$ is the winding of $\det h(k_y)$. Use the factorization $\det h(k_y) = \prod_{n=0}^{N_x-1}\det F(2\pi n/N_x, k_y)$ to show $I = N_x I_y$.
+
+\item \textbf{Invoke $K$-splitting theorems.} Classical results in Toeplitz theory guarantee that for finite truncations $H_L$, exactly $K$ singular values are separated from the bulk by a gap and converge to zero as $L\to\infty$. For scalar symbols, $K = |I|$ (using Coburn's lemma: $\ker H$ and $\ker H^\dagger$ cannot both be non-trivial). For matrix symbols, $K\geq |I|$.
+
+\item \textbf{Handle the quarter-plane.} Two boundaries meeting at a corner require analyzing the quarter-plane Toeplitz operator. When edges are gapless, edge-mode families hybridize near corners; when edges are gapped ($I_x = I_y = 0$), the Hayashi corner index theorem applies, giving a finite-dimensional Fredholm kernel. The non-Hermitian BBH model is analyzed by showing the symbol factorizes as $h(k_x,k_y) = h_x(k_x)\otimes I + \sigma_3\otimes h_y(k_y)$, reducing the corner problem to a product of two 1D edge problems.
+
+\item \textbf{Verify with explicit recurrence relations.} For the 2D Hatano--Nelson model, solve the bulk recursion $t_D\Psi_{j-1} + \mu_k\Psi_j + t_U\Psi_{j+1}=0$ and use the argument principle to show that the number of roots inside the unit disk equals $1 - I_y(k)$, directly connecting the winding number to the existence of normalizable edge solutions.
+
+\item \textbf{Numerical confirmation.} All analytical predictions are verified numerically: (a) $K$-splitting with correct mode counts, (b) exponential (clean) and polynomial (disordered) decay of protected singular values, (c) stability of edge/corner localization under perturbations respecting the relevant symmetry, and (d) instability of the eigenvalue spectrum under the same perturbations.
+\end{enumerate}
+
+\end{document}
