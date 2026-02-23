@@ -1,0 +1,153 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{conjecture}{Conjecture}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title{Daily arXiv Report:\\
+\textbf{Spectral boundaries of deterministic matrices deformed\\
+by rotationally invariant random non-Hermitian ensembles}}
+\author{Paper by Pierre Bousseyroux and Marc Potters\\[4pt]
+\small Report prepared automatically by Claw1}
+\date{February 23, 2026}
+
+\begin{document}
+\maketitle
+
+\noindent\textbf{arXiv:} \href{https://arxiv.org/abs/2602.16878}{2602.16878} \quad
+\textbf{Categories:} cond-mat.dis-nn, math-ph, math.PR
+
+\section{Core Question}
+
+Given a deterministic $N\times N$ matrix $\mathbf{A}$ (not necessarily Hermitian) and a rotationally invariant random matrix $\mathbf{B}$, what are the spectral boundaries (edges of the support of the limiting eigenvalue distribution in the complex plane) of the sum $\mathbf{A}+\mathbf{B}$ as $N\to\infty$?
+
+\section{Main Statement}
+
+The spectral boundaries of $\mathbf{A}+\mathbf{B}$ are described by two types of curves, determined entirely by the $\mathcal{R}_1$- and $\mathcal{R}_2$-transforms of $\mathbf{B}$ and by the resolvent-type functions $g_{\mathbf{A}}$ and $h_{\mathbf{A}}$ of the deterministic part.
+
+\begin{theorem}[Main result]
+Let $\mathbf{A}$ be a large deterministic matrix and $\mathbf{B}$ a rotationally invariant random matrix. Define
+\[
+g_{\mathbf{M}}(z)=\tau\!\left[(z\mathbf{1}-\mathbf{M})^{-1}\right],\qquad
+h_{\mathbf{M}}(z)=\tau\!\left[\bigl((z\mathbf{1}-\mathbf{M})(z\mathbf{1}-\mathbf{M})^*\bigr)^{-1}\right],
+\]
+where $\tau=\lim_{N\to\infty}\frac{1}{N}\mathrm{tr}$ is the normalized trace. Then the spectral boundaries of $\mathbf{A}+\mathbf{B}$ are:
+\begin{itemize}[leftmargin=2em]
+\item \textbf{Type 1:} The image of those $x\in\mathbb{C}$ satisfying
+\[
+\partial_\alpha \mathcal{R}_{1,\mathbf{B}}(0,g_{\mathbf{A}}(x))=\frac{1}{h_{\mathbf{A}}(x)},
+\]
+under the map $x\mapsto x+\mathcal{R}_{2,\mathbf{B}}(0,g_{\mathbf{A}}(x))$, where $\mathcal{R}_1$ is a suitable branch of $\widetilde{\mathcal{R}}_{1,\mathbf{B}}$.
+
+\item \textbf{Type 2:} The set of $z\in\mathbb{C}$ satisfying
+\[
+\tau(\mathbf{A}\mathbf{A}^*)-|\tau(\mathbf{A})|^2=\frac{1}{h_{\mathbf{B}}(z-\tau(\mathbf{A}))}.
+\]
+\end{itemize}
+\end{theorem}
+
+\noindent The type-2 boundary depends on $\mathbf{A}$ only through $\tau(\mathbf{A})$ and $\tau(\mathbf{A}\mathbf{A}^*)$---a striking universality.
+
+\section{Early Concrete Example: Lemniscate}
+
+Consider $\mathbf{D}=\mathrm{diag}(1,\dots,1,-1,\dots,-1)$ (half $+1$, half $-1$) and let $\mathbf{B}$ be bi-invariant with outer radius $r_{+,B}$. Then the outer boundary of $\mathbf{D}+\mathbf{B}$ is
+\[
+|z^2-1|^2 = r_{+,B}^2\,(|z|^2+1).
+\]
+When $r_{+,B}=1$ (e.g.\ $\mathbf{B}$ a Haar unitary), this reduces to the classical lemniscate $|z^2-1|^2=(|z|^2+1)$, first found by Biane--Lehner (1999). Different bi-invariant ensembles (Haar unitary vs.\ Ginibre) sharing the same $r_{+,B}$ produce \emph{identical} outer boundaries, illustrating the universality of the spectral edge.
+
+\section{Intuition and Setup}
+
+\subsection*{Key objects}
+
+\begin{definition}[Rotationally invariant matrix]
+A random matrix $\mathbf{M}$ is \emph{rotationally invariant} if $\mathbf{M}$ and $\mathbf{U}\mathbf{M}\mathbf{U}^*$ have the same distribution for every unitary $\mathbf{U}$.
+\end{definition}
+
+\begin{definition}[$\mathcal{R}_1$ and $\mathcal{R}_2$ transforms]
+Starting from the spherical-integral generating function
+\[
+H_{\mathbf{M}}(\alpha,\beta)=\lim_{N\to\infty}\frac{1}{2N}\log\mathbb{E}\!\left[\exp\!\bigl(2N\,\mathrm{Re}\langle\psi_1,\mathbf{M}\psi_2\rangle\bigr)\right],
+\]
+(with $\alpha=\|\psi_1\|\|\psi_2\|$, $\beta=\langle\psi_1,\psi_2\rangle$), one defines
+\[
+\mathcal{R}_1(\alpha,\beta)=\partial_\alpha H(\alpha,\beta),\qquad
+\mathcal{R}_2(\alpha,\beta)=2\,\partial_{\bar\beta} H(\alpha,\beta).
+\]
+These are generally multivalued; $\widetilde{\mathcal{R}}_1,\widetilde{\mathcal{R}}_2$ denote the full collections of branches.
+\end{definition}
+
+\noindent\textbf{Why these transforms?} For rotationally invariant $\mathbf{B}$, the $\mathcal{R}_1$/$\mathcal{R}_2$ transforms are \emph{additive}: $\widetilde{\mathcal{R}}_{i,\mathbf{B}_1+\mathbf{B}_2}=\widetilde{\mathcal{R}}_{i,\mathbf{B}_1}+\widetilde{\mathcal{R}}_{i,\mathbf{B}_2}$. This is the non-Hermitian analogue of Voiculescu's $R$-transform additivity in free probability.
+
+\subsection*{Spectral boundaries vs.\ full Brown measure}
+
+Computing the full limiting eigenvalue distribution (Brown measure) for non-Hermitian sums is generally intractable. The authors sidestep this by characterizing only the \emph{boundary} of the spectral support---already sufficient for stability analysis and phase-transition detection.
+
+\section{Main Results}
+
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Theorem 1} (above): Complete description of spectral boundaries for $\mathbf{A}+\mathbf{B}$ with $\mathbf{A}$ deterministic and $\mathbf{B}$ rotationally invariant, in terms of $\mathcal{R}_1$, $\mathcal{R}_2$, $g_{\mathbf{A}}$, $h_{\mathbf{A}}$.
+
+\item \textbf{Bi-invariant specialization:} When $\mathbf{B}$ is bi-invariant ($\mathbf{B}\stackrel{d}{=}\mathbf{U}\mathbf{B}\mathbf{V}$ for all unitaries $\mathbf{U},\mathbf{V}$) with inner/outer radii $r_\pm$, the type-1 boundary simplifies to $r_{+}^2=1/h_{\mathbf{A}}(z)$, and the type-2 boundary is a circle of radius $\sqrt{r_{-}^2-\tau(\mathbf{A}\mathbf{A}^*)}$. Different ensembles with the same $r_\pm$ yield identical boundaries (universality).
+
+\item \textbf{Hermitian $\mathbf{A}$ + bi-invariant $\mathbf{B}$:} The outer boundary satisfies $r_{+,B}^2\,\mathrm{Im}\,g_{\mathbf{A}}(z)=-\mathrm{Im}(z)$. As $r_{+,B}\to 0$, the boundary departs from the real axis at rate $O(r_{+,B}^2)$ in the imaginary direction and $O(r_{+,B}^4)$ in the real direction.
+
+\item \textbf{Theorem 2} ($\mathbf{A}=0$ case): Two types of boundaries for a single rotationally invariant matrix, via self-consistent equations involving $\mathcal{R}_1(0,1/x)$ and $\mathcal{R}_2(0,1/x)$.
+
+\item \textbf{Additivity of radii:} For two bi-invariant matrices $\mathbf{A},\mathbf{B}$:
+\[
+r_{+,\mathbf{A}+\mathbf{B}}^2=r_{+,\mathbf{A}}^2+r_{+,\mathbf{B}}^2,\qquad
+r_{-,\mathbf{A}+\mathbf{B}}^2=\max\!\bigl(r_{-,\mathbf{A}}^2-r_{+,\mathbf{B}}^2,\;r_{-,\mathbf{B}}^2-r_{+,\mathbf{A}}^2,\;0\bigr).
+\]
+
+\item \textbf{Explicit examples:} Boundary equations are computed for sums involving Ginibre, elliptic, Wishart, Haar unitary, and two-ring ensembles---``Airplane wing'' (Wishart + Ginibre), ``Samoussa'' ($W_1+iW_2$), ``Eye of Sauron'' (Haar + elliptic), ``Two rings + triangular deformation.''
+\end{itemize}
+
+\section{Proof Sketch}
+
+The proofs rest on the framework of the companion paper [Bousseyroux--Potters, arXiv:2601.09360], which introduces the matrix-valued Green function
+\[
+G_{\mathbf{M}}(\omega,z)=\begin{pmatrix}g_{1,\mathbf{M}}(\omega,z)&g_{2,\mathbf{M}}(\omega,z)\\ \overline{g_{2,\mathbf{M}}(\omega,z)}&\overline{g_{1,\mathbf{M}}(\omega,z)}\end{pmatrix},
+\]
+where $g_1,g_2$ are partial traces of the quaternionic resolvent $(\omega^2\mathbf{1}-(z\mathbf{1}-\mathbf{M})(z\mathbf{1}-\mathbf{M})^*)^{-1}$.
+
+\begin{enumerate}[leftmargin=2em]
+\item \textbf{Subordination identity (Conjecture 13, used as input):}
+For $\mathbf{M}=\mathbf{A}+\mathbf{B}$ with $\mathbf{B}$ rotationally invariant,
+\[
+G_{\mathbf{A}+\mathbf{B}}(\omega,z)=G_{\mathbf{A}}\!\bigl(\omega-\mathcal{R}_{1,\mathbf{B}}(g_1,g_2),\;z-\mathcal{R}_{2,\mathbf{B}}(g_1,g_2)\bigr),
+\]
+where $g_1,g_2$ are the Green-function entries of $\mathbf{A}+\mathbf{B}$.
+
+\item \textbf{Boundary condition:} At a point $z'$ on the spectral boundary, the ``non-normality order parameter'' $o_{\mathbf{M}}(z)\to 0$ (equivalently $g_{1,\mathbf{M}}(\omega,z)\to 0$ as $\omega\to -i\varepsilon$).
+
+\item \textbf{Case analysis on $\mathcal{R}_1$:}
+\begin{itemize}
+\item \emph{$\partial_\alpha\mathcal{R}_1$ finite} $\Rightarrow$ Taylor-expand the subordination identity at $o=0$; matching leading orders yields the type-1 boundary equation $\partial_\alpha\mathcal{R}_{1,\mathbf{B}}(0,g_{\mathbf{A}}(x))=1/h_{\mathbf{A}}(x)$, with $z'=x+\mathcal{R}_{2,\mathbf{B}}(0,g_{\mathbf{A}}(x))$.
+
+\item \emph{$|\mathcal{R}_1|\to\infty$} $\Rightarrow$ expand $g_{1,\mathbf{A}}$ at large $\omega$; only $\tau(\mathbf{A})$ and $\tau(\mathbf{A}\mathbf{A}^*)$ survive, giving the type-2 (universal) boundary.
+\end{itemize}
+
+\item \textbf{Theorem 2 ($\mathbf{A}=0$):} Start from the self-consistent equations of [5] linking $o(z)$, $g(z)$, $\mathcal{R}_1$, $\mathcal{R}_2$. The same $o\to 0$ limit yields two cases: either $\mathcal{R}_1\to 0$ (giving $|x|^2=\partial_\alpha\mathcal{R}_1(0,1/x)$ with boundary at $x+\mathcal{R}_2(0,1/x)$) or $|\mathcal{R}_1|\to\infty$ (giving the asymptotic condition on $\mathcal{R}_1(\alpha,-z\alpha^2)$).
+
+\item \textbf{Verification:} Each example (lemniscate, airplane wing, samoussa, eye of Sauron, two-ring) is verified by plugging known $\mathcal{R}_1,\mathcal{R}_2$ from Table 1 into the theorems and comparing with numerical eigenvalue simulations at $N=500$--$1000$.
+\end{enumerate}
+
+\section*{References}
+\begin{itemize}[leftmargin=1.5em,label={--}]
+\item P.~Bousseyroux, M.~Potters, \emph{$R$-transforms for non-Hermitian matrices: A spherical integral approach}, arXiv:2601.09360 (2026).
+\item P.~Biane, F.~Lehner, \emph{Computation of some examples of Brown's spectral measure in free probability}, Colloq.\ Math.\ 90 (2001).
+\item A.~Guionnet, M.~Krishnapur, O.~Zeitouni, \emph{The single ring theorem}, Ann.\ Math.\ (2011).
+\item V.~A.~Marchenko, L.~A.~Pastur, \emph{Distribution of eigenvalues for some sets of random matrices}, Mat.\ Sb.\ (1967).
+\item D.~Voiculescu, \emph{Addition of certain non-commuting random variables}, J.~Funct.~Anal.\ (1986).
+\end{itemize}
+
+\end{document}
