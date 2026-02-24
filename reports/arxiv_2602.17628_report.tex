@@ -1,0 +1,174 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Paper Report: The Eigenvalues of I.I.D.\ Matrices Are Hyperuniform\\[6pt]
+\large G.~Cipolloni, L.~Erd\H{o}s, O.~Kolupaiev \quad (arXiv:2602.17628)}
+\author{Auto-generated report}
+\date{February 24, 2026}
+
+\begin{document}
+\maketitle
+
+%% =====================================================================
+\section{Core Question}
+%% =====================================================================
+
+Given an $N\times N$ random matrix $X$ with independent, identically distributed (i.i.d.)\ entries, do its eigenvalues exhibit \emph{hyperuniformity}---i.e., does the variance of the number of eigenvalues in a nice subdomain $\Omega$ of the spectrum grow \emph{strictly slower} than the expected count $\mathbb{E}[N_\Omega]\sim N$?
+
+%% =====================================================================
+\section{Main Statement}
+%% =====================================================================
+
+\begin{definition}[I.I.D.\ matrix ensemble]
+An $N\times N$ matrix $X$ belongs to the \emph{i.i.d.\ ensemble} if its entries $x_{ab}=N^{-1/2}\chi$ are i.i.d.\ copies of a centered random variable $\chi$ with $\mathbb{E}|\chi|^2=1$ (and $\mathbb{E}\chi^2=0$ in the complex case), satisfying moment bounds $\mathbb{E}|\chi|^p\le C_p$ for all $p$.
+\end{definition}
+
+\begin{definition}[Hyperuniformity (Torquato)]
+A point process in $\mathbb{R}^d$ is \emph{hyperuniform} if the variance of the number of points in a ball of radius $R$ grows strictly slower than its volume $R^d$ as $R\to\infty$.
+\end{definition}
+
+\begin{theorem}[Complex case, Theorem 2.4 in the paper]
+Let $X$ be a complex i.i.d.\ matrix satisfying the assumptions above. Fix $\alpha\in[0,1/2)$ and let $\Omega_N\subset\mathbb{D}$ (the open unit disk) be a ``nice'' domain of diameter $\sim N^{-\alpha}$ with $C^2$ boundary, contained well inside $\mathbb{D}$. Define
+\[
+  N_\Omega \;:=\; \#\{\sigma_i \in \Omega_N\},
+\]
+where $\sigma_1,\dots,\sigma_N$ are the eigenvalues of $X$. Then for any $\xi>0$,
+\[
+  \operatorname{Var}(N_\Omega) \;\le\; N^{1-2\alpha - q_0(1/2-\alpha)+\xi},
+  \qquad q_0 = \tfrac{1}{20}.
+\]
+In particular, for macroscopic domains ($\alpha=0$) one obtains $\operatorname{Var}(N_\Omega)\le N^{1-1/40+\xi}$, which is $\ll N \sim \mathbb{E}[N_\Omega]$.
+\end{theorem}
+
+\begin{theorem}[Real case, Theorem 2.6]
+Under the same setup but with real entries (and a transversality condition on $\partial\Omega_N$ at the real axis),
+\[
+  \operatorname{Var}(N_\Omega) \;\le\; N^{1-2\alpha-q_0(1/2-\alpha)+\xi} + N^{1-2\alpha-q_1+\xi},
+  \qquad q_0=\tfrac{1}{20},\; q_1=\tfrac{1}{106}.
+\]
+\end{theorem}
+
+%% =====================================================================
+\section{Concrete Example}
+%% =====================================================================
+
+Take $X$ to be the \emph{complex Ginibre ensemble}: $X_{ij}=N^{-1/2}g_{ij}$ with $g_{ij}\sim\mathcal{N}_{\mathbb{C}}(0,1)$ i.i.d. The eigenvalues are known to form a determinantal point process on $\mathbb{D}$, and for that ensemble the exact number variance is $\operatorname{Var}(N_\Omega)\sim\sqrt{N}$ (``class I hyperuniform'').
+
+For a \emph{general} i.i.d.\ matrix---say with Bernoulli $\pm1$ entries---no determinantal structure is available. The paper proves, for the first time, that the eigenvalue process is still hyperuniform: $\operatorname{Var}(N_\Omega)\le N^{1-1/40+\xi}$, a power-law improvement over the trivial Poisson bound $\sim N$.
+
+%% =====================================================================
+\section{Intuition and Setup}
+%% =====================================================================
+
+\paragraph{Circular law.}
+By the circular law, the empirical spectral measure of $X$ converges to the uniform measure on $\mathbb{D}$, so $N_\Omega\approx N|\Omega|/\pi$. Fluctuations around this are the object of study.
+
+\paragraph{Linear statistics and Girko's formula.}
+Write $N_\Omega - \mathbb{E}N_\Omega = L_N(\mathbf{1}_\Omega)$ as a \emph{linear statistic}. For smooth test functions $f$, the variance of $L_N(f)$ is $O(1)$ (proven in prior work). But $\mathbf{1}_\Omega$ is not smooth, and approximating it by smooth functions $f^\pm$ on a sub-microscopic scale $N^{-a}$ ($a>1/2$) introduces large Laplacian norms $\|\Delta f\|_\infty\sim N^{2a}$.
+
+\paragraph{Girko's formula} converts eigenvalue statistics to resolvents of the \emph{Hermitization}:
+\[
+  H_z := \begin{pmatrix} 0 & X-z \\ (X-z)^* & 0 \end{pmatrix}, \qquad G_z(w):=(H_z-w)^{-1}.
+\]
+Then $\sum_i f(\sigma_i) = \frac{i}{4\pi}\int_{\mathbb{C}}\Delta f(z)\int_0^\infty \operatorname{Tr} G_z(i\eta)\,d\eta\,d^2z$. The variance of $L_N(f)$ thus reduces to bounding $\operatorname{Cov}(\langle G_{z_1}(i\eta_1)\rangle, \langle G_{z_2}(i\eta_2)\rangle)$.
+
+\paragraph{Why existing bounds are insufficient.}
+Prior work (Cipolloni--Erd\H{o}s--Schr\"oder, 2022) gave
+\[
+  \operatorname{Cov}(\langle G_1\rangle,\langle G_2\rangle) = \frac{\text{Main Term}}{N^2} + O\!\Bigl(\frac{1}{\sqrt{N}\eta_*(N\eta_1\eta_2)^2}\Bigr),
+\]
+but the error lacks decay in $|z_1-z_2|$, which is essential for the double integral over $(z_1,z_2)$.
+
+%% =====================================================================
+\section{Main Results (Bulleted)}
+%% =====================================================================
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Hyperuniformity for complex i.i.d.\ matrices:} $\operatorname{Var}(N_\Omega)\le N^{1-1/40+\xi}$ (macroscopic $\Omega$).
+\item \textbf{Hyperuniformity for real i.i.d.\ matrices:} $\operatorname{Var}(N_\Omega)\le N^{1-1/106+\xi}$, even when $\Omega$ intersects the real axis (new even for real Ginibre).
+\item \textbf{Mesoscopic domains:} Result extends to $N$-dependent domains $\Omega_N$ of diameter $N^{-\alpha}$, $0\le\alpha<1/2$.
+\item \textbf{New two-resolvent local law:} For two distinct spectral parameters $z_1,z_2$ and deterministic matrices $B_1,B_2$,
+\[
+  \langle G_{z_1} B_1 G_{z_2} B_2\rangle \;=\; \text{deterministic approximation} + O_\prec\!\Bigl(\frac{1}{N(|z_1-z_2|^2+\eta_1+\eta_2)}\Bigr).
+\]
+\item \textbf{Improved resolvent covariance (Ginibre-type bound):}
+\[
+  \operatorname{Cov}(\langle G_1\rangle,\langle G_2\rangle) = \frac{\text{Main}}{N^2} + O\!\Bigl(\frac{1}{N(|z_1-z_2|^2+\eta_1+\eta_2)(N\eta_1\eta_2)^2}\Bigr).
+\]
+\item \textbf{Singular vector overlaps:} For $|z_1|,|z_2|\le 1-\delta$,
+\[
+  |\langle u_i^{z_1}, u_j^{z_2}\rangle|^2 + |\langle v_i^{z_1}, v_j^{z_2}\rangle|^2 \;\prec\; \frac{1}{N(|z_1-z_2|^2+N^{-1}|i-j|)},
+\]
+identifying decorrelation in the singular-vector index $|i-j|$ for the first time.
+\end{itemize}
+
+%% =====================================================================
+\section{Proof Sketch}
+%% =====================================================================
+
+\begin{enumerate}[label=\textbf{Step \arabic*.}, leftmargin=*]
+
+\item \textbf{Portmanteau smoothing.}
+Approximate $\mathbf{1}_\Omega$ from above/below by smooth functions $f^\pm_{a,N}:=\varphi_N^\pm * \omega_{a,N}$, where $\omega_{a,N}(z)=N^{2a}\omega(N^a z)$ is a bump function at scale $N^{-a}$, $a>1/2$, and $\varphi_N^\pm$ are indicators of $\Omega_N$ enlarged/shrunk by $N^{-a}$. By the Portmanteau lemma:
+\[
+  \operatorname{Var}(N_\Omega) \;\le\; 2\bigl[\operatorname{Var}(L_N(f^+)) + \operatorname{Var}(L_N(f^-))\bigr] + \bigl(\mathbb{E}L_N(f^+-f^-)\bigr)^2.
+\]
+
+\item \textbf{Expectation computation (Proposition 3.1).}
+Using Girko's formula and existing local laws, show
+\[
+  \mathbb{E}L_N(f_{a,N}) = \frac{N|\Omega_N|}{\pi}(1+O(N^{-c})),
+\]
+for $a\in[1/2,\,1/2+1/14)$. This controls the ``discrepancy'' term $(\mathbb{E}L_N(f^+-f^-))^2\lesssim N^{2(1-a-\alpha)}$.
+
+\item \textbf{Variance bound via Girko (Proposition 3.2).}
+By Girko's formula, $\operatorname{Var}(L_N(f))$ is expressed as a double integral of $\operatorname{Cov}(\langle G_{z_1}\rangle,\langle G_{z_2}\rangle)$ weighted by $\Delta f(z_1)\Delta f(z_2)$. Split the $\eta$-integrals into three regimes:
+\begin{itemize}
+  \item \textit{Sub-microscopic} ($\eta\ll 1/N$): controlled by lower-tail bounds on the smallest singular value of $X-z$.
+  \item \textit{Microscopic} ($\eta\sim 1/N$): handled via Dyson Brownian motion (DBM) comparison with the Ginibre ensemble.
+  \item \textit{Macro-mesoscopic} ($\eta\gg 1/N$): requires the new resolvent covariance estimate---the main novelty.
+\end{itemize}
+
+\item \textbf{Chaos expansion for the covariance (Section 7).}
+To prove the improved covariance bound with $|z_1-z_2|^2$ decay:
+\begin{itemize}
+  \item Start from the trivial bound $\operatorname{Cov}(\langle G_1\rangle,\langle G_2\rangle)\prec (N\eta_1\eta_2)^{-1}$ (from single-resolvent local law).
+  \item Perform iterative cumulant expansions: each step gains a factor $(N\eta_*)^{-1}$ (small in the mesoscopic regime $\eta_*\ge N^{-1+\epsilon}$), but also generates higher-order covariances $\operatorname{Cov}(\langle(G_1-M_1)\cdots\rangle, \langle G_2\rangle)$.
+  \item These form a \emph{hierarchy}; after $\sim 1/\epsilon$ iterations, truncate using multi-resolvent local laws.
+  \item The accumulated $(N\eta_*)^{-1/\epsilon}$ factors compensate the truncation error, yielding the $|z_1-z_2|^2+\eta_1+\eta_2$ decay.
+\end{itemize}
+
+\item \textbf{Two-resolvent local law (Section 4 \& Supplementary S2).}
+Prove a new \emph{averaged} local law for products $\langle G_{z_1}B_1 G_{z_2}B_2\rangle$ with $z_1\ne z_2$. The key difficulty: unlike Wigner resolvents, there is no resolvent identity linking $G_{z_1}$ and $G_{z_2}$ when $z_1\ne z_2$, so the decorrelation factor does not appear automatically. Instead, it emerges from a \emph{two-body stability analysis} of the matrix Dyson equation (Appendix A).
+
+\item \textbf{DBM interpolation for the microscopic regime.}
+Interpolate between the general i.i.d.\ matrix $X$ and a Ginibre matrix $X_{\text{Gin}}$ via Ornstein--Uhlenbeck flow $X_t = e^{-t}X + \sqrt{1-e^{-2t}}X_{\text{Gin}}$. Use the new two-resolvent local law to show that the resolvent covariance of $X_t$ at time $t\sim N^{-1+\epsilon}$ is close to that of $X$, while at the Ginibre end exact formulas give sharp bounds.
+
+\item \textbf{Optimization.}
+The parameter $a$ (smoothing scale) is optimized: the variance terms scale as $N^{2(a-\alpha)-2q_0(1/2-\alpha)}$ while the expectation discrepancy scales as $N^{2(1-a-\alpha)}$. Balancing gives the final exponent $q=q_0(1/2-\alpha)$ in the complex case.
+
+\item \textbf{Real case (Supplementary S3).}
+Additional complications from eigenvalues on/near the real axis. Use a refined analysis near $\Im z=0$, where the density of real eigenvalues is $\sim\sqrt{N}$. An extra error term with exponent $q_1=1/106$ appears.
+\end{enumerate}
+
+%% =====================================================================
+\section*{References}
+%% =====================================================================
+
+\noindent
+G.~Cipolloni, L.~Erd\H{o}s, O.~Kolupaiev,
+\emph{The eigenvalues of i.i.d.\ matrices are hyperuniform},
+arXiv:2602.17628, February 2026.\\
+\url{https://arxiv.org/abs/2602.17628}
+
+\end{document}
