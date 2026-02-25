@@ -1,0 +1,148 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\title{Reading Report: Phase Transitions in Quasi-Hermitian Quantum Models\\at Exceptional Points of Order Four\\[6pt]
+\large arXiv:2602.17491 --- M.\ Znojil (2026)}
+\author{Auto-generated report for arXiv daily digest}
+\date{February 25, 2026}
+
+\begin{document}
+\maketitle
+
+%-------------------------------------------------------------
+\section{Core Question}
+%-------------------------------------------------------------
+Can one reach a fourth-order exceptional point (EP4) of a non-Hermitian but quasi-Hermitian Hamiltonian via a \emph{unitary} evolution, and can the physical domain of parameters near this singularity be determined analytically (i.e., without numerics)?
+
+%-------------------------------------------------------------
+\section{Main Result (Informal Statement)}
+%-------------------------------------------------------------
+For any $4\times 4$ quasi-Hermitian Hamiltonian $H^{(4)}(g)$ exhibiting an EP4 degeneracy at $g=g^{(\mathrm{EP4})}$, the author constructs a six-parameter canonical form
+\[
+P^{(4)}_{(a,b,c,x,y,z)}(\lambda)
+=\begin{pmatrix}
+0 & 1 & 0 & 0\\
+\lambda^{2}z & 0 & 1 & 0\\
+\lambda^{3}x & \lambda^{2}y & 0 & 1\\
+\lambda^{4}a & \lambda^{3}b & \lambda^{2}c & 0
+\end{pmatrix},
+\]
+and shows that after a convenient reparametrisation $(\alpha,\beta,\gamma)$ the secular equation reduces to the \emph{$\lambda$-independent} quartic
+\[
+E^{4}-\gamma\,E^{2}-\beta\,E-\alpha=0.
+\]
+All four roots are real (hence the evolution is unitary) if and only if $(\alpha,\beta,\gamma)\in\mathcal{D}_{\mathrm{physical}}$, whose boundaries are given \textbf{in closed form}:
+\begin{align}
+\gamma_{\mathrm{phys}} &= 6\kappa^{2},\quad \kappa>0,\label{eq:gamma}\\
+|\beta_{\mathrm{phys}}| &< 8\kappa^{3},\label{eq:beta}\\
+\alpha_{\mathrm{phys}} &\in \bigl(\alpha_{\min}(\beta,\kappa),\;\alpha_{\max}(\beta,\kappa)\bigr),\label{eq:alpha}
+\end{align}
+where the bounds on $\alpha$ are obtained from the Cardano formulae for the cubic $S'(E)=4E^{3}-2\gamma E-\beta=0$ and the sign conditions $S(E^{[3]}_{\pm})<0$, $S(E^{[3]}_{0})>0$ at its roots.  In particular, at $\beta=0$:
+\[
+-9\kappa^{4}<\alpha^{(\mathrm{sample})}_{\mathrm{phys}}<0.
+\]
+This proves the domain $\mathcal{D}_{\mathrm{physical}}$ is \emph{non-empty}: there exist unitary corridors to the EP4 singularity.
+
+%-------------------------------------------------------------
+\section{A Concrete Example}
+%-------------------------------------------------------------
+Take $(\alpha,\beta,\gamma)=(-24,-10,15)$.  Then the secular polynomial is
+\[
+S(E)=E^{4}-15E^{2}+10E+24,
+\]
+whose derivative is $S'(E)=4E^{3}-30E+10$.  Both polynomials have all real roots; one can verify numerically that $S$ has four distinct real zeros and $S'$ has three real critical points satisfying $S(E^{[3]}_{\pm})<0$ and $S(E^{[3]}_{0})>0$.  Hence this parameter triple lies inside $\mathcal{D}_{\mathrm{physical}}$ and the corresponding EP4-unfolding yields four real (physical) energy levels $\eta_{n}(\lambda)=\lambda E_{n}$ that merge linearly as $\lambda\to 0$.
+
+%-------------------------------------------------------------
+\section{Setup and Intuition}
+%-------------------------------------------------------------
+
+\begin{definition}[Quasi-Hermitian operator]
+An operator $H$ acting on a Hilbert space $\mathcal{H}_{\mathrm{math}}$ is called \emph{$\Theta$-quasi-Hermitian} if there exists a bounded, positive-definite, invertible operator $\Theta$ (the \emph{metric}) such that
+\[
+H^{\dagger}\Theta = \Theta\, H.
+\]
+This generalises self-adjointness: $H$ is self-adjoint in the ``physical'' inner product $\langle\psi_{1}|\Theta|\psi_{2}\rangle$.
+\end{definition}
+
+\begin{definition}[Exceptional point of order $N$ (EPN)]
+A parameter value $g=g^{(\mathrm{EPN})}$ at which an $N$-tuple of eigenvalues \emph{and} eigenvectors of $H(g)$ coalesce, so $H$ restricted to the relevant $N$-dimensional subspace becomes a Jordan block $J^{(N)}(E^{(\mathrm{EPN})})$.
+\end{definition}
+
+\paragraph{Why EP4 is special.}
+\begin{itemize}[nosep]
+\item At EP2 and EP3 the secular equations (degree 2, 3) are solvable by elementary/Cardano formulae --- fully analytic.
+\item At $N\geq 5$ the secular equation has degree $\geq 5$ and is generically solvable only numerically (Abel--Ruffini).
+\item $N=4$ is the \textbf{last} case admitting closed-form root formulae (Ferrari's method), making an exact, non-numerical characterisation of the physical domain still possible --- though the formulae are unwieldy.
+\end{itemize}
+
+\paragraph{Dyson map.}
+The connection to standard quantum mechanics is via the \emph{Dyson map} $\Omega$: one writes $h=\Omega\,H\,\Omega^{-1}$ with $h=h^{\dagger}$ in a textbook Hilbert space $\mathcal{L}$; the metric is $\Theta=\Omega^{\dagger}\Omega$.  At an EPN, $\Theta$ diverges (``fragile quasi-Hermiticity''), and one must study the approach $g\to g^{(\mathrm{EPN})}$ perturbatively.
+
+\paragraph{Canonical form via transition matrix.}
+At $g=g^{(\mathrm{EPN})}$ one solves the Jordan equation $H^{(N)}(g^{(\mathrm{EPN})})\,U = U\,J^{(N)}$ for the transition matrix $U$.  The isospectral avatar $P(\lambda)=U^{-1}H(g^{(\mathrm{EPN})}+\lambda)\,U$ is dominated by the Jordan block plus a structured perturbation whose entries are weighted by powers of $\lambda$ according to their distance from the main diagonal.
+
+%-------------------------------------------------------------
+\section{Main Results (Bulleted)}
+%-------------------------------------------------------------
+\begin{enumerate}[label=\textbf{R\arabic*.},leftmargin=2em]
+\item \textbf{Canonical six-parameter Hamiltonian.}  Any $4\times 4$ quasi-Hermitian system near its EP4 is isospectral to the canonical matrix $P^{(4)}_{(a,b,c,x,y,z)}(\lambda)$ above; only the three sub-diagonal parameters $(\alpha,\beta,\gamma)$ control spectral reality.
+
+\item \textbf{$\lambda$-independence of rescaled spectrum.}  The rescaled energies $E=\eta/\lambda$ satisfy a quartic $E^{4}-\gamma E^{2}-\beta E-\alpha=0$ that is independent of $\lambda$, so the physical energies unfold \emph{linearly}: $\eta_{n}(\lambda)=\lambda\,E_{n}$.
+
+\item \textbf{Closed-form physical domain.}  The unitarity-compatible domain $\mathcal{D}_{\mathrm{physical}}$ in $(\alpha,\beta,\gamma)$-space is characterised by the explicit inequalities \eqref{eq:gamma}--\eqref{eq:alpha}; no numerical root-finding is needed.
+
+\item \textbf{Non-emptiness.}  At $\beta=0$ the domain reduces to $\gamma=6\kappa^{2}$, $-9\kappa^{4}<\alpha<0$, which is manifestly non-empty for every $\kappa>0$.
+
+\item \textbf{Perturbative stability.}  As $\beta$ grows from $0$ toward $\pm 8\kappa^{3}$, the interval of admissible $\alpha$ shrinks and shifts rightward; at $\beta=8\kappa^{3}$ it collapses to the single point $\alpha=3\kappa^{4}$, recovering an EP2-type sub-degeneracy.
+
+\item \textbf{Universality.}  The analysis applies to \emph{any} quasi-Hermitian $4\times 4$ system near EP4 --- the model-specific information is absorbed into the (possibly numerical) transition matrix $U$.
+\end{enumerate}
+
+%-------------------------------------------------------------
+\section{Proof Sketch}
+%-------------------------------------------------------------
+
+\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=3em]
+\item \textbf{Jordan normal form at EP4.}
+At $g=g^{(\mathrm{EP4})}$ the Hamiltonian restricted to the relevant 4-dimensional subspace is similar to the $4\times 4$ Jordan block $J^{(4)}(E^{(\mathrm{EP4})})$.  Solve the matrix equation $H^{(4)}U=U\,J^{(4)}$ for the transition matrix $U$.
+
+\item \textbf{Canonical perturbation.}
+Define $\lambda=g-g^{(\mathrm{EP4})}$ (suitably rescaled) and conjugate: $P^{(4)}(\lambda)=U^{-1}H^{(4)}(g^{(\mathrm{EP4})}+\lambda)\,U$.  The general theory (Ref.\ [25] in the paper) shows that only entries \emph{below} the main diagonal affect spectral reality; those on or above are inessential.  Weighting by powers of $\lambda$ according to diagonal distance yields the six-parameter canonical form.
+
+\item \textbf{Reparametrisation.}
+Set $c=\gamma-y-z$, $b=\beta-x$, $a=\alpha-z(y-\gamma)-z^{2}$.  The secular determinant $\det(P^{(4)}-\lambda E\,I)=0$ simplifies, after dividing out $\lambda^{4}$, to
+\[
+E^{4}-\gamma E^{2}-\beta E -\alpha=0.
+\]
+
+\item \textbf{Reality conditions via Sturm-type argument.}
+All four roots of $S(E)=E^{4}-\gamma E^{2}-\beta E-\alpha$ are real iff:
+\begin{itemize}[nosep]
+\item $S$ has two local minima at $E^{[3]}_{\pm}$ and one local maximum at $E^{[3]}_{0}$ (roots of $S'(E)=4E^{3}-2\gamma E-\beta$),
+\item $S(E^{[3]}_{\pm})<0$ and $S(E^{[3]}_{0})>0$.
+\end{itemize}
+The three extrema exist and are real iff the two roots of $S''(E)=12E^{2}-2\gamma$ are real, giving $\gamma=6\kappa^{2}>0$.
+
+\item \textbf{Bound on $\beta$.}
+The monotonicity conditions $S'(-\kappa)>0$ and $S'(\kappa)<0$ translate to $|\beta|<8\kappa^{3}$.
+
+\item \textbf{Bound on $\alpha$ (Cardano).}
+With $\gamma$ and $\beta$ fixed, the sign conditions $S(E^{[3]}_{\pm})<0$, $S(E^{[3]}_{0})>0$ become explicit inequalities in $\alpha$ once the roots of $S'$ are expressed via Cardano's formula.  At $\beta=0$ the roots are $E^{[3]}_{\pm}=\pm\sqrt{3}\,\kappa$, $E^{[3]}_{0}=0$, giving $-9\kappa^{4}<\alpha<0$.
+
+\item \textbf{Non-emptiness and continuity.}
+The domain is open and non-empty at $\beta=0$; by continuity it remains non-empty for small $|\beta|$.  Perturbative estimates for the boundary shift as $\beta$ increases confirm the domain shrinks smoothly to a point at $|\beta|=8\kappa^{3}$.
+\end{enumerate}
+
+%-------------------------------------------------------------
+\section*{Reference}
+%-------------------------------------------------------------
+M.\ Znojil, ``Phase transitions in quasi-Hermitian quantum models at exceptional points of order four,'' arXiv:2602.17491 [quant-ph], February 2026.\\
+\url{https://arxiv.org/abs/2602.17491}
+
+\end{document}
