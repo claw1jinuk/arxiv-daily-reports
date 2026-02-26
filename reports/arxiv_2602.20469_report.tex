@@ -1,0 +1,191 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+
+\title{Reading Report: Numerical Ranges of Non-Normal Random Matrices\\[4pt]
+\large Elliptic Ginibre and Non-Hermitian Wishart Ensembles\\[4pt]
+\normalsize S.-S.\ Byun and J.~Y.\ Park \quad \texttt{arXiv:2602.20469}}
+\author{Daily arXiv Theory Report}
+\date{February 26, 2026}
+
+\begin{document}
+\maketitle
+
+%---------------------------------------------------------------------
+\section{Core Question}
+%---------------------------------------------------------------------
+
+For a non-normal matrix $A\in\mathbb{C}^{N\times N}$, the \emph{numerical range} (or field of values)
+\[
+  W(A) := \bigl\{\langle Ay,y\rangle : \|y\|_2=1 \bigr\}
+\]
+is a convex compact subset of $\mathbb{C}$ that always contains the spectrum but, unlike the spectrum, also encodes non-normal effects such as pseudospectral behaviour and sensitivity to perturbations.
+
+\textbf{Question.} What is the limiting shape of $W(A)$ as $N\to\infty$ for three fundamental families of non-Hermitian random matrices that interpolate between the Hermitian and fully non-Hermitian regimes---namely the \emph{elliptic Ginibre}, \emph{chiral elliptic Ginibre}, and \emph{non-Hermitian Wishart} ensembles?
+
+%---------------------------------------------------------------------
+\section{Main Statements at a Glance}
+%---------------------------------------------------------------------
+
+Write $\mathcal{E}_{a,b}$ for the filled ellipse $\{(x,y): (x/a)^2+(y/b)^2\le 1\}$, and $d_H$ for Hausdorff distance.
+
+\begin{theorem}[Elliptic Ginibre, Theorem 1.1(i)]
+Let $X_e$ be the $N\times N$ elliptic Ginibre matrix with non-Hermiticity parameter $\tau\in[0,1]$:
+\[
+  X_e = \frac{\sqrt{1+\tau}}{2}(G+G^*) + \frac{\sqrt{1-\tau}}{2}(G-G^*),
+\]
+where $G$ is the standard complex Ginibre matrix (i.i.d.\ $\mathcal{N}_{\mathbb{C}}(0,1/N)$ entries). Then, almost surely,
+\[
+  \lim_{N\to\infty} d_H\bigl(W(X_e),\;\mathcal{E}_{a,b}\bigr)=0,
+  \qquad
+  a=\sqrt{2(1+\tau)},\quad b=\sqrt{2(1-\tau)}.
+\]
+\end{theorem}
+
+\begin{theorem}[Chiral Elliptic Ginibre, Theorem 1.1(ii)]
+Let $X_{ce}$ be the $(2N+\nu)\times(2N+\nu)$ chiral elliptic Ginibre matrix with parameters $\tau\in[0,1]$ and $\alpha=\lim \nu/N\ge 0$. Then, almost surely,
+\[
+  \lim_{N\to\infty} d_H\bigl(W(X_{ce}),\;\mathcal{E}_{a,b}\bigr)=0,
+  \qquad
+  a = \frac{\sqrt{1+\tau}\,(\sqrt{1+\alpha}+1)}{\sqrt{2}},\quad
+  b = \frac{\sqrt{1-\tau}\,(\sqrt{1+\alpha}+1)}{\sqrt{2}}.
+\]
+\end{theorem}
+
+\begin{theorem}[Non-Hermitian Wishart, Theorem 1.2]
+Let $X_w = X_1 X_2^*$ be the $N\times N$ non-Hermitian Wishart matrix with parameters $\tau\in[0,1]$ and $\alpha=\lim\nu/N\ge 0$. Then, almost surely,
+\[
+  \lim_{N\to\infty} d_H\bigl(W(X_w),\;\widetilde{\mathcal{E}}(\tau,\alpha)\bigr)=0,
+\]
+where $\widetilde{\mathcal{E}}(\tau,\alpha)=\bigcap_{0\le\theta\le 2\pi} H_\theta$ and each half-plane $H_\theta = e^{-i\theta}\{z:\operatorname{Re} z\le \lambda(\theta)\}$ is determined by the largest real root $\lambda(\theta)$ of an explicit quartic polynomial $D_\theta(x)$ (see below). In particular, $\widetilde{\mathcal{E}}$ is \textbf{not} an ellipse for $\alpha>0$.
+\end{theorem}
+
+%---------------------------------------------------------------------
+\section{A Concrete Example}
+%---------------------------------------------------------------------
+
+\textbf{Standard Ginibre matrix} ($\tau=0$). Then $X_e=G$ and the theorem gives
+\[
+  W(G) \xrightarrow{d_H} \mathcal{E}_{\sqrt{2},\sqrt{2}} = D(\sqrt{2}),
+\]
+the centred disc of radius $\sqrt{2}$. This recovers the classical result of Collins--Gawron--Litvak--{\.Z}yczkowski (2014). Note that the \emph{spectrum} converges to the unit disc (circular law), so the numerical range is strictly larger by a factor of $\sqrt{2}$.
+
+\textbf{Product of two Ginibre matrices} ($\tau=0,\,\alpha=0$ Wishart). The quartic simplifies to $16x^4+(a^2-8a-11)x^2-(2a+1)^3\big|_{a=0}=16x^4-11x^2-1$; the numerical range converges to a disc of radius
+\[
+  B = \sqrt{\frac{-(-11)+5\sqrt{5}}{8}} = \sqrt{\frac{11+5\sqrt{5}}{8}} \approx 1.665.
+\]
+Compare with $(\sqrt{2})^2=2$; the submultiplicativity bound $r(X^2)\le r(X)^2$ is not tight.
+
+%---------------------------------------------------------------------
+\section{Setup and Key Definitions}
+%---------------------------------------------------------------------
+
+\paragraph{Elliptic Ginibre matrix.}
+Let $G=(g_{ij})_{N\times N}$ with $g_{ij}\sim\mathcal{N}_{\mathbb{C}}(0,1/N)$ i.i.d. The elliptic Ginibre matrix with correlation parameter $\tau\in[0,1]$ is
+\[
+  X_e = \frac{\sqrt{1+\tau}}{2}(G+G^*)+\frac{\sqrt{1-\tau}}{2}(G-G^*).
+\]
+At $\tau=0$ this is the (full) Ginibre matrix; at $\tau=1$ the GUE. The eigenvalue distribution converges to the uniform measure on the ellipse $\{(x/({1+\tau}))^2+(y/({1-\tau}))^2\le 1\}$ (the \emph{elliptic law}).
+
+\paragraph{Chiral elliptic Ginibre matrix.}
+From two independent $N\times(N+\nu)$ Gaussian matrices $P,Q$ (entries $\sim\mathcal{N}_{\mathbb{C}}(0,1/(2N))$), form
+\[
+  X_1=\sqrt{1+\tau}\,P+\sqrt{1-\tau}\,Q,\qquad X_2=\sqrt{1+\tau}\,P-\sqrt{1-\tau}\,Q,
+\]
+and define the $(2N+\nu)\times(2N+\nu)$ block matrix $X_{ce}=\bigl(\begin{smallmatrix}0&X_1\\X_2^*&0\end{smallmatrix}\bigr)$. The parameter $\alpha=\lim\nu/N$ controls a Hermitian--non-Hermitian transition and a connected/disconnected phase transition for the eigenvalue droplet.
+
+\paragraph{Non-Hermitian Wishart matrix.}
+$X_w = X_1 X_2^*$ with $X_1,X_2$ as above. At $\tau=1$ this is the classical Laguerre (Wishart) ensemble; at $\tau=0$ the product of two independent rectangular Ginibre matrices.
+
+\paragraph{Numerical range via half-plane intersection (Toeplitz--Hausdorff).}
+For any $A\in\mathbb{C}^{N\times N}$,
+\[
+  W(A) = \bigcap_{0\le\theta\le 2\pi} H_{\theta,N},
+  \qquad
+  H_{\theta,N} = e^{-i\theta}\bigl\{z\in\mathbb{C}:\operatorname{Re} z\le \lambda_{\max}(\theta,N)\bigr\},
+\]
+where $\lambda_{\max}(\theta,N)$ is the largest eigenvalue of the Hermitian matrix $\operatorname{Re}(e^{i\theta}A)$. Thus the problem of determining the numerical range reduces to understanding $\lambda_{\max}(\theta,N)$ for each angle $\theta$.
+
+\paragraph{The quartic $D_\theta(x)$ for the Wishart case.}
+Set $c=\cos\theta$ and define
+\begin{align*}
+  D_\theta(x) &= a_4 x^4 + a_3 x^3 + a_2 x^2 + a_1 x + a_0, \\[4pt]
+  a_4 &= 16(1-\tau^2+c^2\tau^2),\quad a_3 = -32c\tau(\alpha+2)/(1-\tau^2+c^2\tau^2)\cdot a_4/a_4,\\
+\end{align*}
+(the full coefficients are given in equations (1.16)--(1.17) of the paper). This quartic always has exactly two real roots (Lemma~3.1), and $\lambda(\theta)$ is the larger root.
+
+%---------------------------------------------------------------------
+\section{Main Results (Bulleted)}
+%---------------------------------------------------------------------
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Elliptic Ginibre:} The numerical range converges a.s.\ to the ellipse $\mathcal{E}_{\sqrt{2(1+\tau)},\,\sqrt{2(1-\tau)}}$. The semi-axes $a(\tau),b(\tau)$ interpolate between $a=b=\sqrt{2}$ (disc, $\tau=0$) and $a=2,\,b=0$ (interval $[-2,2]$, $\tau=1$, GUE).
+
+  \item \textbf{Chiral elliptic Ginibre:} The numerical range converges a.s.\ to an ellipse with semi-axes scaled by $(\sqrt{1+\alpha}+1)/\sqrt{2}$. When $\alpha>0$, the eigenvalue droplet may split into two components, but the numerical range (being convex) is always a single ellipse that is the convex hull of the droplet in the Hermitian limit.
+
+  \item \textbf{Non-Hermitian Wishart:} The numerical range converges a.s.\ to a convex domain $\widetilde{\mathcal{E}}(\tau,\alpha)$ described as the intersection of half-planes parametrised by $\theta$, with boundary determined by the quartic $D_\theta$. This domain is \emph{not} an ellipse (proved analytically via a resultant/discriminant argument).
+
+  \item \textbf{Special case (product of Ginibre matrices):} The numerical range of $G_1 G_2$ (two independent Ginibre) coincides asymptotically with that of $G^2$ (power of a single Ginibre). This extends to products/powers with the same total number of factors.
+
+  \item \textbf{Universality:} For the elliptic Ginibre case, the result extends beyond Gaussian entries to general Wigner-type entries (via universality of the largest eigenvalue of Hermitian parts). The Wishart case relies more essentially on Gaussianity (rotational invariance argument).
+\end{itemize}
+
+%---------------------------------------------------------------------
+\section{Proof Sketch}
+%---------------------------------------------------------------------
+
+The strategy is uniform across all three models: reduce the numerical range problem to understanding the largest eigenvalue of a $\theta$-rotated Hermitian part.
+
+\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=*]
+
+\item \textbf{Half-plane representation.}
+By the Toeplitz--Hausdorff characterisation, $W(A)=\bigcap_\theta H_{\theta,N}$ where $H_{\theta,N}$ is determined by $\lambda_{\max}(\theta,N)=\|{\operatorname{Re}(e^{i\theta}A)}\|$. Hence, if $\lambda_{\max}(\theta,N)\to\lambda(\theta)$ pointwise a.s., one can upgrade to uniform convergence (Lipschitz argument in Lemma~2.2) and conclude $W(A)\to\bigcap_\theta H_\theta$ in Hausdorff distance.
+
+\item \textbf{Elliptic Ginibre: rotation yields rescaled GUE.}
+Compute $\operatorname{Re}(e^{i\theta}X_e)$; it is a Wigner matrix with variance $(1+\tau)\cos^2\theta+(1-\tau)\sin^2\theta$ per off-diagonal entry divided by $2N$. By the classical a.s.\ convergence of the largest eigenvalue ($\to 2\sigma$), one gets
+\[
+  \lambda_{\max}(\theta,N)\xrightarrow{\text{a.s.}} \sqrt{2(1+\tau)\cos^2\theta+2(1-\tau)\sin^2\theta} = \sqrt{a^2\cos^2\theta+b^2\sin^2\theta},
+\]
+which is exactly the support function of the ellipse $\mathcal{E}_{a,b}$. Apply Proposition~2.1 (the ``elliptic numerical range'' lemma).
+
+\item \textbf{Chiral elliptic Ginibre: Gaussian invariance reduces to Wishart edge.}
+The key identity is
+\[
+  \sqrt{1+\tau}\cos\theta\,P + i\sqrt{1-\tau}\sin\theta\,Q \;\overset{d}{=}\; \sqrt{(1+\tau)\cos^2\theta+(1-\tau)\sin^2\theta}\;P,
+\]
+using the rotational invariance of complex Gaussian vectors. Therefore $\operatorname{Re}(e^{i\theta}X_{ce})$ has the same spectrum (up to scaling) as $\bigl(\begin{smallmatrix}0&P\\P^*&0\end{smallmatrix}\bigr)$, whose norm is $\sqrt{\lambda_+^{\mathrm{MP}}}=\sqrt{1+\alpha}+1)/\sqrt{2}$ (right edge of Marchenko--Pastur). The rest follows from Proposition~2.1.
+
+\item \textbf{Non-Hermitian Wishart: spectral decomposition + free probability.}
+\begin{enumerate}[label=(\alph*)]
+  \item Compute $\operatorname{Re}(e^{i\theta}X_w) = R\,S(\theta)\,R^*$ where $R=(P\;\;Q)$ and $S(\theta)=T(\theta)\otimes I_M$ is a deterministic Hermitian matrix with eigenvalues $\lambda_\pm(\theta)=\tau\cos\theta\pm\sqrt{1-\tau^2\sin^2\theta}$.
+  \item By Gaussian unitary invariance, $R\,U(\theta)^* \overset{d}{=} R$, so
+  \[
+    \operatorname{Re}(e^{i\theta}X_w) \overset{d}{=} \lambda_+(\theta)\,PP^* + \lambda_-(\theta)\,QQ^*.
+  \]
+  This is a sum of two \emph{independent} (rescaled) Wishart matrices.
+  \item By asymptotic freeness + strong convergence of extremal eigenvalues, the largest eigenvalue of this sum is determined by the free additive convolution $\mu_\theta\boxplus\nu_\theta$ of two rescaled Marchenko--Pastur laws.
+  \item Using the $R$-transform additivity ($R_{\mu\boxplus\nu}=R_\mu+R_\nu$) and the known $R$-transform of Marchenko--Pastur, derive a cubic equation for the Cauchy transform. The discriminant of this cubic, as a function of $z$, is exactly the quartic $D_\theta(z)$.
+  \item The edge of the support (= largest eigenvalue limit) is the largest real root $\lambda(\theta)$ of $D_\theta$.
+  \item Apply Lemma~2.2.
+\end{enumerate}
+
+\item \textbf{Non-ellipticity of the Wishart numerical range.}
+Suppose for contradiction that $\widetilde{\mathcal{E}}$ were an ellipse. Then $D_\theta$ would factor into two quadratics with coefficients matching the ellipse's support function. Comparing coefficients forces algebraic relations between $\alpha$ and $\tau$ that cannot hold for all parameter values---contradiction.
+
+\item \textbf{Exactness of the quartic (Lemma 3.1).}
+To show $D_\theta$ has exactly two real roots: compute the resultant $\operatorname{Res}(D_\theta,D_\theta')$. It factors as a product involving a polynomial $F(\alpha,\tau,\sin^2\theta)$ that is shown to be strictly positive (its $u$-derivative is a quadratic with negative discriminant, forcing monotonicity, and $F|_{u=1}>0$). Hence $D_\theta$ can never have a double root, so exactly two real roots.
+
+\end{enumerate}
+
+%---------------------------------------------------------------------
+\section*{References}
+%---------------------------------------------------------------------
+S.-S.\ Byun and J.~Y.\ Park, \emph{Numerical ranges of non-normal random matrices: elliptic Ginibre and non-Hermitian Wishart ensembles}, arXiv:2602.20469 (2025).
+
+\end{document}
