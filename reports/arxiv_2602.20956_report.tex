@@ -1,0 +1,150 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\title{Daily arXiv Report:\\[4pt]
+\large Extreme Eigenvalues and Eigenvectors for Finite Rank Additive Deformations of Non-Hermitian Sparse Random Matrices}
+\author{Report on arXiv:2602.20956 by W.\ Hachem, M.\ Louvaris, J.\ Najim}
+\date{February 27, 2026}
+
+\begin{document}
+\maketitle
+
+%% ----------------------------------------------------------------
+\section{Core Question}
+Given a sparse non-Hermitian random matrix $X_n$ perturbed by a deterministic finite-rank matrix $E_n$, do the outlier eigenvalues of $Y_n = X_n + E_n$ still match those of $E_n$, and---in the rank-one case---does the associated eigenvector align with the ``true'' direction as in the classical Hermitian BBP transition?
+
+%% ----------------------------------------------------------------
+\section{Setup and Key Definitions}
+
+\begin{definition}[Sparse non-Hermitian random matrix]
+Let $\chi$ be a complex random variable with $\mathbb{E}\chi=0$, $\mathbb{E}|\chi|^2=1$.
+Let $A_n=(A_{ij})$ be $n\times n$ with i.i.d.\ entries distributed as $\chi$.
+Let $B_n=(B_{ij})$ be an independent $n\times n$ matrix with i.i.d.\ $\mathrm{Bernoulli}(K_n/n)$ entries, where $K_n \le n$ and $K_n \to \infty$.
+Define the \emph{sparse random matrix}
+\[
+  X_n = \bigl(X_{ij}^{(n)}\bigr), \qquad X_{ij}^{(n)} = \frac{1}{\sqrt{K_n}}\, B_{ij}\, A_{ij}.
+\]
+Note $\mathbb{E}X_{11}=0$ and $\mathbb{E}|X_{11}|^2 = 1/n$.
+The parameter $K_n$ controls sparsity: when $K_n = n$ we recover the dense i.i.d.\ model.
+\end{definition}
+
+\begin{definition}[Finite-rank deformation]
+Fix $r\ge 1$ and deterministic vectors $u_{t,n}, v_{t,n}\in\mathbb{C}^n$ ($t=1,\dots,r$) with
+\[
+  \sum_{t=1}^{r}\bigl(\|u_{t,n}\|+\|v_{t,n}\|\bigr) \le C
+\]
+for some absolute constant $C>0$ (bounded operator-norm condition). Set
+\[
+  E_n = \sum_{t=1}^r u_{t,n}\, v_{t,n}^*,\qquad Y_n = X_n + E_n.
+\]
+\end{definition}
+
+\begin{definition}[Reverse characteristic polynomial]
+\[
+  q_n(z) = \det(I_n - z\, Y_n), \qquad z\in\mathbb{D}=\{z\in\mathbb{C}:|z|<1\}.
+\]
+The zeros of $q_n$ in $\mathbb{D}$ are exactly $1/\lambda$ for eigenvalues $\lambda$ of $Y_n$ with $|\lambda|>1$, i.e.\ the \emph{outliers}.
+\end{definition}
+
+%% ----------------------------------------------------------------
+\section{Concrete Example}
+
+Take the simplest case: $r=1$, $u_n = v_n$ a unit vector, and $E_n = \alpha\, u_n u_n^*$ with $\alpha > 1$. Then $E_n$ has a single nonzero eigenvalue $\alpha$ (an outlier outside the unit disk).
+
+\medskip\noindent
+\textbf{Theorem (informal):} The matrix $Y_n = X_n + \alpha\, u_n u_n^*$ has, with high probability, exactly one eigenvalue $\lambda_{\max}(Y_n)$ near $\alpha$, and the squared projection of the corresponding eigenvector $\tilde u_n$ onto $u_n$ satisfies
+\[
+  |\langle \tilde u_n, u_n\rangle|^2 \;\xrightarrow{\;P\;}\; 1 - \frac{1}{\alpha^2}.
+\]
+This is the \emph{same formula} as in the Hermitian BBP transition for spiked Wigner matrices.
+
+%% ----------------------------------------------------------------
+\section{Main Results (Bulleted)}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Asymptotic equivalence of the characteristic polynomial (Theorem 1.1).}
+Define
+\[
+  b_n(z) = \det(I - z E_n),\quad \kappa(z) = \sqrt{1 - z^2\,\mathbb{E}A_{11}^2},\quad
+  F(z) = \sum_{k=1}^{\infty} \frac{z^k Z_k}{\sqrt{k}},
+\]
+where $(Z_k)$ are independent complex Gaussians with $\mathbb{E}Z_k=0$, $\mathbb{E}|Z_k|^2=1$, $\mathbb{E}Z_k^2 = (\mathbb{E}A_{11}^2)^k$.
+Then as $\mathcal{H}$-valued (holomorphic functions on $\mathbb{D}$) random variables:
+\[
+  q_n \;\sim\; b_n\,\kappa\,\exp(-F), \qquad n\to\infty.
+\]
+
+\item \textbf{Outlier eigenvalue matching (Theorem 1.2).}
+Under the \emph{gap condition} (no eigenvalue of $E_n$ in the annulus $1 < |z| < 1+\varepsilon$), the number of eigenvalues of $Y_n$ outside the disk of radius $1+\varepsilon$ equals the number of eigenvalues of $E_n$ outside the unit disk, w.h.p., and the Hausdorff distance between the two sets converges to zero.
+
+\item \textbf{Spectral radius convergence (Theorem 1.4).}
+$\rho(X_n) \xrightarrow{P} 1$, generalising the dense result of Bordenave et al.\ (2022) to all sparsity regimes $K_n\to\infty$.
+
+\item \textbf{Eigenvector projection for rank-one deformation (Theorem 1.6).}
+If additionally the entries are sub-Gaussian and $K_n \gg \log^9 n$, then for the unit eigenvector $\tilde u_n$ of $Y_n$ at $\lambda_{\max}$:
+\[
+  \Bigl|\bigl\langle \tilde u_n,\, u_n/\|u_n\|\bigr\rangle\Bigr|^2 - \Bigl(1 - \frac{1}{|\langle u_n, v_n\rangle|^2}\Bigr) \;\xrightarrow{\;P\;}\; 0.
+\]
+\end{itemize}
+
+%% ----------------------------------------------------------------
+\section{Intuition}
+
+The reverse characteristic polynomial $q_n(z)$ encodes the outlier eigenvalues of $Y_n$ as its zeros in $\mathbb{D}$.
+The key insight (following Bordenave--Chafaï--García-Zelada, 2022) is:
+\begin{enumerate}
+\item $q_n$ factorises asymptotically as $b_n(z)$ (the deterministic part from $E_n$) times a \emph{universal random analytic function} $\kappa(z)\exp(-F(z))$ that depends only on the entry distribution, not on $E_n$.
+\item Since $\kappa\,\exp(-F)$ has \emph{no zeros} in $\mathbb{D}$, the zeros of $q_n$ are governed entirely by $b_n$, hence by $E_n$.
+\item The eigenvector result requires a \emph{universality comparison}: one replaces $X_n$ by a Gaussian analogue (via the Brailovskaya--van Handel 2024 singular-value comparison), reducing the problem to known Gaussian computations.
+\end{enumerate}
+
+%% ----------------------------------------------------------------
+\section{Proof Sketch}
+
+\subsection*{Step 1: Tightness of $(q_n)$ in $\mathcal{H}$}
+Using the multilinearity of the determinant and the singular-value decomposition $I - zE_n = U\Sigma V^*$, one shows
+$\mathbb{E}|q_n(z)|^2 \le C/(1-|z|^2)$, which gives tightness in $\mathcal{H}$ (the space of holomorphic functions on $\mathbb{D}$ with the topology of uniform convergence on compacta).
+
+\subsection*{Step 2: Truncation}
+One may assume the entries $A_{ij}$ are bounded a.s.\ (truncation at level $D$) with negligible error as $D\to\infty$, uniformly in $n$.
+
+\subsection*{Step 3: Asymptotic equivalence $q_n \sim G_n = b_n \det(I - zX_n)$}
+Using the matrix determinant lemma (since $E_n$ has rank $r$):
+\[
+  q_n(z) = \det(I - zX_n)\,\det\!\bigl(I - z(I-zX_n)^{-1}E_n\bigr).
+\]
+The second factor is an $r\times r$ determinant involving the resolvent $(I - zX_n)^{-1}$. Via a careful analysis of the resolvent's bilinear forms $v_t^*(I-zX_n)^{-1}u_s$, one shows the second factor converges to $b_n(z)/\!\det(I-zE_n)$... more precisely, $q_n \sim b_n\det(I - zX_n)$.
+
+\subsection*{Step 4: Asymptotic equivalence $\det(I - zX_n) \sim \kappa\,\exp(-F)$}
+This is the core random-analytic-function step. One shows the power-series coefficients of $\log\det(I - zX_n)$ converge jointly to those of $\log\kappa - F$ by computing moments of traces $\mathrm{tr}(X_n^k)$ and showing they match the Gaussian limit.
+
+\subsection*{Step 5: Outlier location via Rouch\'e's theorem}
+With the asymptotic equivalence $q_n \sim b_n\,\kappa\,\exp(-F)$ in hand, and since $\kappa\,\exp(-F)$ is a.s.\ zero-free in $\mathbb{D}$, Rouch\'e's theorem (via Skorokhod coupling) shows that for large $n$, the zeros of $q_n$ in $\{|z|\le 1/(1+\varepsilon)\}$ are close to those of $b_n$, yielding Theorem~1.2.
+
+\subsection*{Step 6: Eigenvector projection (rank-one case)}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Gaussian comparison.} Under sub-Gaussianity and $K_n \gg \log^9 n$, the Brailovskaya--van Handel (2024) result implies that the singular-value distribution of $zX_n + M$ is close to that of the Gaussian analogue $zG_n + M$ for any deterministic $M$. This transfers eigenvector statistics.
+\item \textbf{Reduction to resolvent.} The projection $|\langle \tilde u_n, u_n/\|u_n\|\rangle|^2$ is expressed via the adjugate of $(I - \lambda_{\max}^{-1} X_n)$ and the rank-one structure of $E_n$.
+\item \textbf{Gaussian computation.} For the Gaussian analogue, one exploits rotational invariance and known formulas for the resolvent, yielding the limit $1 - 1/|\langle u_n,v_n\rangle|^2$.
+\end{enumerate}
+
+%% ----------------------------------------------------------------
+\section*{References}
+\begin{itemize}[leftmargin=*,label={},itemsep=2pt]
+\item Hachem, Louvaris, Najim. \emph{Extreme eigenvalues and eigenvectors for finite rank additive deformations of non-Hermitian sparse random matrices.} arXiv:2602.20956, 2026.
+\item Bordenave, Chafa\"i, Garc\'ia-Zelada. \emph{Convergence of the spectral radius of a random matrix through its characteristic polynomial.} Probab.\ Theory Related Fields, 2022.
+\item Brailovskaya, van Handel. \emph{Universality and sharp matrix concentration inequalities.} Geom.\ Funct.\ Anal., 2024.
+\item Tao. \emph{Outliers in the spectrum of iid matrices with bounded rank perturbations.} Probab.\ Theory Related Fields, 2013.
+\item Baik, Ben Arous, P\'ech\'e. \emph{Phase transition of the largest eigenvalue for nonnull complex sample covariance matrices.} Ann.\ Probab., 2005.
+\end{itemize}
+
+\end{document}
