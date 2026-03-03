@@ -1,0 +1,156 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+
+\title{Reading Report: Continuous-Time Quantum Walk on Locally Infinite Graph\\[6pt]
+\large arXiv:2602.23970 --- Ce Wang (2026)}
+\author{Auto-generated daily report}
+\date{March 3, 2026}
+
+\begin{document}
+\maketitle
+
+%----------------------------------------------------------------------
+\section{Core Question}
+%----------------------------------------------------------------------
+
+Can the time-reversal symmetry of a continuous-time quantum walk be described by a \emph{unitary} operator (rather than the anti-unitary operator mandated by the classical Wigner theorem), and what spectral consequences does the underlying locally infinite graph structure impose?
+
+%----------------------------------------------------------------------
+\section{Main Statement (Quick Version)}
+%----------------------------------------------------------------------
+
+Let $w\colon\mathbb{N}\to(0,\infty)$ be a \emph{weight}, i.e.\ $|w|:=\sum_{k=0}^{\infty}w(k)<\infty$. Define the $w$-adjacency operator on the Hilbert space $\mathfrak{h}$ of square-integrable Bernoulli functionals by
+\[
+  A_w = \sum_{k=0}^{\infty} w(k)\,\Xi_k,
+\]
+where $\Xi_k=\partial_k^*+\partial_k$ are self-adjoint unitaries built from the quantum Bernoulli noise (QBN) creation/annihilation operators satisfying the CAR.
+
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Spectral result.} $\|A_w\|=|w|$ and
+\[
+  \bigl\{2\mu_w(\sigma)-|w| \mid \sigma\in 2^{\mathbb{N}}\bigr\}
+  \;\subseteq\; \operatorname{spec}(A_w)
+  \;\subseteq\; [-|w|,\,|w|],
+\]
+where $\mu_w(\sigma)=\sum_{k\in\sigma}w(k)$. If $w$ is \emph{ideal} (the set $\{\mu_w(\sigma)\}$ is dense in $[0,|w|]$), then $\operatorname{spec}(A_w)=[-|w|,|w|]$, and neither endpoint is an eigenvalue.
+\item \textbf{Unitary time-reversal.} There exists a self-adjoint unitary $T$ on $\mathfrak{h}$ with $TZ_\sigma=(-1)^{\#(\sigma)}Z_\sigma$ such that
+\[
+  T\,e^{-itA_w} = e^{itA_w}\,T, \qquad \forall\, t\in\mathbb{R}.
+\]
+\item \textbf{Probability symmetry.} If the initial state $\xi_0$ lies in $\mathfrak{h}^{(+)}$ or $\mathfrak{h}^{(-)}$ (the $\pm1$ eigenspaces of $T$), then
+$P_t(\sigma\mid\xi_0) = P_{-t}(\sigma\mid\xi_0)$ for all $\sigma\in\Gamma$, $t\in\mathbb{R}$.
+\end{enumerate}
+
+%----------------------------------------------------------------------
+\section{A Concrete Example}
+%----------------------------------------------------------------------
+
+Take the weight $w_0(k)=2^{-(k+1)}$, $k\in\mathbb{N}$. Then $|w_0|=1$ and $w_0$ is ideal (the subsums $\mu_{w_0}(\sigma)$ form all dyadic rationals in $[0,1]$, hence are dense). Therefore:
+\[
+  \operatorname{spec}(A_{w_0}) = [-1,\,1],
+\]
+the spectrum is purely continuous (no eigenvalues at $\pm 1$), and the unitary $T$ reverses time for the quantum walk $e^{-itA_{w_0}}$.
+
+%----------------------------------------------------------------------
+\section{Setup and Intuition}
+%----------------------------------------------------------------------
+
+\paragraph{Bernoulli functionals and QBN.}
+Let $\mathfrak{h}$ be the Hilbert space of square-integrable functionals of a sequence of i.i.d.\ Bernoulli($\tfrac12$) random variables. It has a canonical orthonormal basis $\{Z_\sigma\}_{\sigma\in\Gamma}$ indexed by the finite power set
+\[
+  \Gamma = \{\sigma\subset\mathbb{N} : \#(\sigma)<\infty\}.
+\]
+The \emph{quantum Bernoulli noises} $\{\partial_k,\partial_k^*\}_{k\in\mathbb{N}}$ are annihilation and creation operators acting by
+\[
+  \partial_k Z_\sigma = \mathbf{1}_\sigma(k)\,Z_{\sigma\setminus k}, \qquad
+  \partial_k^* Z_\sigma = (1-\mathbf{1}_\sigma(k))\,Z_{\sigma\cup k},
+\]
+and satisfy the CAR in equal time: $\partial_k\partial_k^*+\partial_k^*\partial_k = I$.
+
+\paragraph{The graph $(\Gamma,\sim)$.}
+Declare $\sigma\sim\tau$ iff $\#(\sigma\triangle\tau)=1$. Each finite subgraph $(\Gamma_n,\sim)$ on $\Gamma_n=\{\sigma\subset\{0,\dots,n\}\}$ is isomorphic to the $(n{+}1)$-dimensional hypercube $\{0,1\}^{n+1}$, and $\Gamma=\bigcup_n\Gamma_n$. Hence $(\Gamma,\sim)$ is a \emph{locally infinite} graph (every vertex has countably many neighbors $\{\sigma\triangle k : k\in\mathbb{N}\}$).
+
+\paragraph{Why ``unitary'' time-reversal is surprising.}
+Wigner's classical theorem says time-reversal in quantum mechanics must be \emph{anti}-unitary (conjugate-linear). The walkAw lives on a real Hilbert space structure where the grading operator $T$ (parity of $\#(\sigma)$) anti-commutes with every $\Xi_k$ and hence with $A_w$, giving $TA_w=-A_wT$. Exponentiating yields $Te^{-itA_w}=e^{itA_w}T$—the defining relation of time-reversal—yet $T$ is linear and unitary. This is possible because the Hamiltonian $A_w$ has a very special algebraic structure (built from commuting self-adjoint unitaries).
+
+%----------------------------------------------------------------------
+\section{Main Results (Bulleted)}
+%----------------------------------------------------------------------
+
+\begin{itemize}
+\item \textbf{Norm.} $A_w$ is self-adjoint and $\|A_w\|=|w|$ (Theorem~2.1).
+\item \textbf{Graph interpretation.} Via the unitary $F\colon\ell^2(\Gamma)\to\mathfrak{h}$, $A_w$ acts as a weighted adjacency operator: $(F^{-1}A_wFf)(\sigma)=\sum_k w(k)f(\sigma\triangle k)$ (Theorem~2.5).
+\item \textbf{Approximate eigenvectors.} For each $\sigma\in\Gamma$, there exist unit vectors $u_n$ such that $\|\Xi_k u_n - E_\sigma(k)u_n\|\to 0$ for all $k$, where $E_\sigma(k)=2\cdot\mathbf{1}_\sigma(k)-1\in\{-1,+1\}$ (Proposition~3.1).
+\item \textbf{Spectral inclusion.} $\{2\mu_w(\sigma)-|w|:\sigma\in 2^{\mathbb{N}}\}\subseteq\operatorname{spec}(A_w)\subseteq[-|w|,|w|]$ (Theorem~3.4). Equality when $w$ is ideal.
+\item \textbf{No eigenvalues at endpoints.} $\pm|w|\in\operatorname{spec}(A_w)$ but are \emph{not} eigenvalues (Theorem~3.5).
+\item \textbf{Unitary time-reversal operator $T$.} $T$ is self-adjoint, unitary, $T^2=I$, and $Te^{-itA_w}=e^{itA_w}T$ (Theorems~4.1, 4.4).
+\item \textbf{Probability time-symmetry.} For initial states in $\mathfrak{h}^{(\pm)}=\ker(I\mp T)$, the walk's probability distribution satisfies $P_t=P_{-t}$ (Theorem~4.6).
+\end{itemize}
+
+%----------------------------------------------------------------------
+\section{Proof Sketch}
+%----------------------------------------------------------------------
+
+\paragraph{Step 1: Norm of $A_w$ (Theorem~2.1).}
+The upper bound $\|A_w\|\le|w|$ is immediate from the triangle inequality and $\|\Xi_k\|=1$. For the lower bound, construct explicit test vectors
+\[
+  \xi_n = \sum_{\tau\in\Gamma_n} Z_\tau.
+\]
+Because $\tau\mapsto\tau\triangle k$ is a bijection on $\Gamma_n$ for $k\le n$, one gets $\Xi_k\xi_n=\xi_n$, whence $A_w\xi_n\approx |w|\xi_n$ up to a tail error that vanishes as $n\to\infty$.
+
+\paragraph{Step 2: Approximate eigenvalues (Proposition~3.1).}
+For $\sigma\in\Gamma$ and $E_\sigma(k)=2\cdot\mathbf{1}_\sigma(k)-1$, define
+\[
+  u_n = \frac{1}{\sqrt{2^{n+1}}}\prod_{j=0}^{n}(I+E_\sigma(j)\Xi_j)\,Z_\varnothing.
+\]
+Since $\Xi_k(I+E_\sigma(k)\Xi_k)=E_\sigma(k)(I+E_\sigma(k)\Xi_k)$, one obtains $\Xi_k u_n = E_\sigma(k)u_n$ for $k\le n$. The remaining directions $k>n$ contribute an error bounded by $\|I+E_\sigma(k)\Xi_k\|\le 2$, which is summable.
+
+\paragraph{Step 3: Spectral inclusion via Weyl's criterion (Theorem~3.2).}
+Set $B_w=\tfrac12(|w|I+A_w)=\tfrac12\sum_k w(k)(I+\Xi_k)\ge 0$. The approximate eigenvectors $u_n$ satisfy
+\[
+  \|B_w u_n - \mu_w(\sigma)u_n\| \le 2\sum_{k>n}w(k)\to 0.
+\]
+By Weyl's criterion, $\mu_w(\sigma)\in\operatorname{spec}(B_w)$. The spectral mapping theorem applied to $A_w=2B_w-|w|I$ gives the spectral inclusion for $A_w$. When $w$ is ideal, $\{\mu_w(\sigma)\}$ is dense in $[0,|w|]$, so $\operatorname{spec}(B_w)=[0,|w|]$ and $\operatorname{spec}(A_w)=[-|w|,|w|]$.
+
+\paragraph{Step 4: No eigenvalue at $|w|$ (Theorem~3.5).}
+Suppose $A_w\xi=|w|\xi$. Then
+\[
+  \sum_k w(k)\|(I-\Xi_k)\xi\|^2 = 2\langle\xi,(|w|I-A_w)\xi\rangle = 0.
+\]
+Since $w(k)>0$, we get $\Xi_k\xi=\xi$ for all $k$. By Parseval:
+$\|\xi\|^2=\sum_\sigma|\langle Z_\sigma,\xi\rangle|^2 = \sum_\sigma|\langle Z_\varnothing,\xi\rangle|^2$,
+which forces $\xi=0$ (the sum over the infinite set $\Gamma$ of the constant $|\langle Z_\varnothing,\xi\rangle|^2$ can only converge if that constant is zero).
+
+\paragraph{Step 5: Constructing $T$ and time-reversal (Theorems~4.1, 4.4).}
+Define $T$ on the ONB by $TZ_\sigma=(-1)^{\#(\sigma)}Z_\sigma$. Then $T$ is self-adjoint, $T^2=I$ (hence unitary), and a direct check gives $T\Xi_k=-\Xi_kT$ for each $k$ (because $\#(\sigma\triangle k)$ and $\#(\sigma)$ differ by $\pm1$, flipping the sign). Therefore $TA_w=-A_wT$, and exponentiating:
+\[
+  Te^{-itA_w} = \sum_{n\ge 0}\frac{(-it)^n}{n!}TA_w^n
+  = \sum_{n\ge 0}\frac{(-it)^n}{n!}(-1)^nA_w^nT = e^{itA_w}T.
+\]
+
+\paragraph{Step 6: Probability symmetry (Theorem~4.6).}
+For $\xi_0\in\mathfrak{h}^{(+)}=\ker(I-T)$, i.e.\ $T\xi_0=\xi_0$:
+\[
+  P_t(\sigma\mid\xi_0) = |\langle Z_\sigma,e^{-itA_w}\xi_0\rangle|^2
+  = |\langle Z_\sigma,e^{-itA_w}T\xi_0\rangle|^2
+  = |\langle TZ_\sigma,e^{itA_w}\xi_0\rangle|^2
+  = |\langle Z_\sigma,e^{itA_w}\xi_0\rangle|^2 = P_{-t}(\sigma\mid\xi_0),
+\]
+using $Te^{-itA_w}=e^{itA_w}T$, self-adjointness of $T$, and $|(-1)^{\#(\sigma)}|=1$.
+
+\vspace{1em}
+\noindent\hrulefill
+
+\small
+\paragraph{Reference.} Ce Wang, \emph{Continuous-Time Quantum Walk on Locally Infinite Graph}, arXiv:2602.23970 (2026).
+
+\end{document}
