@@ -1,0 +1,183 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Daily arXiv Report:\\Convergence Rate of the Diagonal-Valued Cauchy Transform\\for Permutation Invariant Random Matrices}
+\author{Auto-generated report -- arXiv:2603.02068\\by Alexis Imbert}
+\date{March 5, 2026}
+
+\begin{document}
+\maketitle
+
+%% ----------------------------------------------------------------
+\section{Core Question}
+
+Given two large $N\times N$ random Hermitian matrices $A$ and $B$, one of which is \emph{permutation invariant} (i.e.\ its law is unchanged under conjugation by permutation matrices), how fast does the \emph{diagonal-valued Cauchy transform} of $A+B$ converge to that of the operator-valued free sum $a \boxplus_\Delta b$, as $N\to\infty$?
+
+In the classical (unitarily invariant) setting the convergence rate of the \emph{scalar} Cauchy transform is $N^{-1}$. This paper establishes the first \emph{quantitative} bounds in the more general permutation-invariant regime, where the relevant algebraic structure is freeness with amalgamation over the diagonal algebra.
+
+%% ----------------------------------------------------------------
+\section{Main Results}
+
+\subsection*{Setup and notation}
+
+\begin{itemize}[leftmargin=*]
+\item \textbf{Permutation invariance.} A random matrix $M\in M_N(\mathbb{C})$ is \emph{permutation invariant} if for every $\sigma\in S_N$, the matrix $V_\sigma M V_\sigma^{-1}$ has the same law as $M$, where $V_\sigma$ is the permutation matrix of $\sigma$.
+
+\item \textbf{Diagonal algebra.} $\mathcal{D}_N(\mathbb{C})$ denotes the algebra of $N\times N$ diagonal matrices. The \emph{diagonal projection} is $\Delta(M) = (M_{i,j}\,\delta_{i,j})_{1\le i,j\le N}$.
+
+\item \textbf{Diagonal-valued Cauchy transform.} For a self-adjoint $X$ and a diagonal matrix $D$ with $\mathrm{Im}(D_{ii})>0$,
+\[
+  G_X(D) := \Delta\!\bigl((D - X)^{-1}\bigr).
+\]
+When $D = zI$ for $z\in\mathbb{C}\setminus\mathbb{R}$ we write $G_X(z)$.
+
+\item \textbf{Operator-valued free sum $a\boxplus_\Delta b$.} The authors construct $a+b$ as the adjacency operator of an infinite locally-finite weighted graph (see Section~\ref{sec:construction} below), such that $a$ and $b$ are \emph{free over $\mathcal{D}_N$} in the $C^*$-operator-valued probability space $(A,\mathcal{D},\Delta)$.
+
+\item \textbf{Frobenius norm.} $\|M\|_F = \sqrt{\mathrm{Tr}(MM^*)}$.
+\end{itemize}
+
+\subsection*{Theorem 1 (General permutation invariant case)}
+
+\begin{theorem}[Theorem 2.6 in the paper]
+Let $A,B$ be random Hermitian matrices satisfying:
+\begin{enumerate}
+\item \textbf{Assumption 4.5} (traffic moment control) at speed $M$ with constants $h_1, h_2$;
+\item \textbf{Assumption 4.6} (Frobenius/Schatten-$M$ norm control) at speed $M$ with constant $C$;
+\item One of them is permutation invariant.
+\end{enumerate}
+Let $0\le c \le \frac{1}{h_1+h_2+6}$ and $|z|^2 > r_0^2 := \max\{4C, 2c^2\}$. Then
+\[
+  \mathbb{E}\left[\frac{1}{N}\,\bigl\|G_{A+B}(z) - G_{a+b}(z)\bigr\|_F^2\right]
+  \;\le\; \frac{4}{|z|^2}\left(\frac{r_0}{|z|}\right)^{2cM}.
+\]
+Since $M \le \frac{\log N}{\log\log N}$, the best achievable rate is $N^{-\beta/\log\log N}$ for an explicit $\beta>0$.
+\end{theorem}
+
+\subsection*{Theorem 2 (Sparse \& bounded case)}
+
+\begin{theorem}[Theorem 2.7 in the paper]
+Additionally assume that $A,B$ are:
+\begin{enumerate}
+\item Uniformly bounded in operator norm: $\|A\|_{\mathrm{op}}, \|B\|_{\mathrm{op}} \le C$;
+\item Uniformly sparse: $\sum_{j=1}^N (\mathbf{1}_{A_{ij}\neq 0} + \mathbf{1}_{B_{ij}\neq 0}) \le C$ for all $i$.
+\end{enumerate}
+Let $\eta_0 > \|A\|_{\mathrm{op}} + \|B\|_{\mathrm{op}}$ and $D\in\mathcal{D}_N(\mathbb{C})$ with $\min_i \mathrm{Im}(D_{ii}) > \eta_0$, $d:=\min_i |D_{ii}|$. Then
+\[
+  \mathbb{E}\left[\frac{1}{N}\,\bigl\|G_{A+B}(D) - G_{a+b}(D)\bigr\|_F^2\right]
+  \;\le\; \frac{6}{d^2}\,N^{-\frac{2\log 2C/d}{1+2\log C}}.
+\]
+This gives a \emph{polynomial} rate $N^{-\gamma}$ and controls the Cauchy transform at any diagonal argument $D$, not just scalar multiples of the identity.
+\end{theorem}
+
+%% ----------------------------------------------------------------
+\section{Concrete Example}
+
+Consider two independent adjacency matrices of uniformly random $d$-regular graphs on $N$ vertices (with $d$ fixed). Each is permutation invariant, bounded in operator norm by $d$, and $d$-sparse. Theorem~2 applies and gives:
+\[
+  \mathbb{E}\left[\frac{1}{N}\|G_{A+B}(D) - G_{a+b}(D)\|_F^2\right] = O\!\left(N^{-\gamma}\right),
+\]
+for an explicit $\gamma = \gamma(d,\eta_0)>0$. This extends prior single-matrix results of Bordenave--Collins [4] to the \emph{sum} of two independent random regular graphs.
+
+%% ----------------------------------------------------------------
+\section{Intuition and Setup}
+
+The classical Voiculescu theory says: if $A$ is \emph{unitarily} invariant, then $A$ and any independent $B$ are asymptotically \emph{free}, and the limiting spectral measure of $A+B$ is the free convolution $\mu_A\boxplus\mu_B$. The Cauchy transform converges at rate $N^{-1}$.
+
+When $A$ is only \emph{permutation} invariant (e.g.\ adjacency matrices of random graphs), ordinary freeness fails. Instead, $A$ and $B$ are asymptotically \emph{free over the diagonal} $\mathcal{D}_N(\mathbb{C})$. The limiting object is the \emph{operator-valued} free convolution $\boxplus_{\mathcal{D}_N}$, which retains more information (the full diagonal of the resolvent, not just its trace). The key question becomes: at what rate does this convergence happen?
+
+The answer depends on two assumptions that quantify how ``nice'' the matrices are:
+\begin{itemize}
+\item \textbf{Assumption 4.5 (traffic moments):} For graph monomials of size $\le M$, the number of injective embeddings into the adjacency structure of $A$ (or $B$) grows in a controlled way. Satisfied by Wigner matrices, Erd\H{o}s--R\'enyi graphs, sparse bounded matrices, and products thereof.
+\item \textbf{Assumption 4.6 (Frobenius norm):} $\mathbb{E}[\|A^M\|_F^2/N]$ stays bounded. This is more restrictive: it fails for heavy-tailed Wigner matrices but holds for Erd\H{o}s--R\'enyi with $d\to\infty$ and for bounded sparse models.
+\end{itemize}
+
+%% ----------------------------------------------------------------
+\section{Explicit Construction of $a\boxplus_\Delta b$}
+\label{sec:construction}
+
+The free sum $a+b$ is built as the adjacency operator of an infinite locally-finite graph:
+
+\begin{enumerate}
+\item Start with vertex $x\in [N]$.
+\item Attach a copy of the graph of $A$ at $x$ (edges colored blue/``$a$'').
+\item To each new vertex $j\neq x$ created, attach a copy of the graph of $B$ at $j$ (edges colored red/``$b$'').
+\item Continue alternating: at each vertex reached for the first time, attach the other graph.
+\end{enumerate}
+
+This yields a tree-like structure when viewed at the level of colored components. The resulting Hilbert space is $\mathcal{H}_N^x = \ell^2(V_N^x)$ where $V_N^x$ consists of tuples $(j_1,\ldots,j_n,\varepsilon)$ with $\varepsilon\in\{a,b\}$ and $j_k\neq j_{k+1}$.
+
+The operators $a,b\in B(\mathcal{H}_N^x)$ act within their respective colored components:
+\[
+  \langle a\,\delta_{v_1},\delta_{v_2}\rangle = A_{j(v_2),j(v_1)}, \qquad v_1,v_2 \in R_a(v),
+\]
+where $R_a(v)$ is the ``$a$-component'' containing $v$ and $j(\cdot)$ extracts the last index. By the tree structure, $a$ and $b$ are provably $\Delta$-free (Proposition 3.1).
+
+%% ----------------------------------------------------------------
+\section{Proof Sketch}
+
+Both theorems are proved via a \textbf{moment method}: expand the resolvent as a power series and compare term by term.
+
+\subsection*{Step 1: Series expansion of the resolvent}
+
+For $|z|$ large enough, expand
+\[
+  (zI - X)^{-1} = \sum_{k=0}^\infty \frac{X^k}{z^{k+1}}.
+\]
+The diagonal-valued Cauchy transform becomes $G_X(z) = \sum_{k\ge 0} z^{-(k+1)}\,\Delta(X^k)$.
+
+\subsection*{Step 2: Moment matching up to order $M$}
+
+The key technical work shows that for $k\le M$,
+\[
+  \mathbb{E}\bigl[\Delta\bigl((A+B)^k\bigr)\bigr] \approx \Delta\bigl((a+b)^k\bigr),
+\]
+using the traffic distribution framework. For the sum $(A+B)^k$, the diagonal entry $[(A+B)^k]_{ii}$ counts weighted walks of length $k$ from $i$ to $i$ on $[N]$, alternating between edges of $A$ and $B$. The analogous count on the infinite tree graph of $a+b$ agrees up to corrections controlled by Assumption~4.5 (non-injective embeddings contribute lower-order terms by permutation invariance).
+
+\subsection*{Step 3: Remainder control (Theorem 1)}
+
+For $k > M$, Assumption 4.6 (Frobenius norm of $A^M$) gives
+\[
+  \frac{1}{N}\mathbb{E}\bigl[\|\Delta(X^k)\|_F^2\bigr] \le C^{k},
+\]
+which makes the tail of the series geometrically small for $|z|>r_0$. The factor $(r_0/|z|)^{2cM}$ arises from summing the tail starting at order $M$.
+
+\subsection*{Step 4: Remainder control (Theorem 2)}
+
+When $\|A\|_{\mathrm{op}},\|B\|_{\mathrm{op}}\le C$ and both are $C$-sparse, the operator norm directly controls the series remainder without needing Assumption~4.6. The sparsity allows a refined counting of non-backtracking walks on the tree, improving the rate to $N^{-\gamma}$. The argument proceeds by:
+\begin{enumerate}
+\item Truncating the Neumann series at order $M_0 = c_0 \log N$;
+\item Using $\|X\|_{\mathrm{op}}\le C$ to bound $\|X^k\|_{\mathrm{op}} \le C^k$;
+\item Using sparsity to show that the number of \emph{injective} closed walks of length $k$ from vertex $i$ is at most $C^k$, so the diagonal entry $[(A+B)^k]_{ii}$ is well controlled;
+\item Combining to get the polynomial-in-$N$ convergence rate.
+\end{enumerate}
+
+\subsection*{Step 5: From moments to Cauchy transform}
+
+The moment-level bounds are assembled into the $L^2$-Frobenius bound on $G_{A+B}(z) - G_{a+b}(z)$ via the Parseval-type identity
+\[
+  \frac{1}{N}\|G_{A+B}(z) - G_{a+b}(z)\|_F^2
+  = \frac{1}{N}\sum_{i=1}^N \left|\sum_{k\ge 0} \frac{[\Delta((A+B)^k) - \Delta((a+b)^k)]_{ii}}{z^{k+1}}\right|^2.
+\]
+
+%% ----------------------------------------------------------------
+\section{Summary}
+
+This paper provides the first quantitative convergence rates for the \emph{diagonal-valued} Cauchy transform of sums of permutation invariant random matrices toward their operator-valued free convolution. The two main results trade off generality against rate:
+\begin{itemize}
+\item General traffic/Frobenius assumptions $\Rightarrow$ sub-polynomial rate $N^{-\beta/\log\log N}$.
+\item Bounded operator norm + sparsity $\Rightarrow$ polynomial rate $N^{-\gamma}$.
+\end{itemize}
+The construction of the free sum as an adjacency operator of an explicit infinite graph is of independent interest.
+
+\bigskip
+\noindent\textbf{Reference:} A.~Imbert, \emph{Convergence rate of the diagonal-valued Cauchy-transform for permutation invariant random matrices}, arXiv:2603.02068, March 2026.
+
+\end{document}
