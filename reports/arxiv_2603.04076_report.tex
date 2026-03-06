@@ -1,0 +1,170 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Daily arXiv Report:\\
+\textbf{Limiting Empirical Spectral Measure of the Normalized Laplacian\\
+in Preferential Attachment Graphs}\\[6pt]
+\normalsize arXiv:2603.04076 --- Malika Kharouf (2026)}
+\author{Auto-generated report for internal use}
+\date{March 6, 2026}
+
+\begin{document}
+\maketitle
+
+%--------------------------------------------------------------
+\section{Core Question}
+%--------------------------------------------------------------
+
+Does the empirical spectral distribution (ESD) of the \emph{normalized Laplacian} of a Barab\'asi--Albert preferential attachment (PA) graph converge to a deterministic limit as the number of vertices $n\to\infty$, and if so, what characterises that limit?
+
+%--------------------------------------------------------------
+\section{Main Result (Exact Statement)}
+%--------------------------------------------------------------
+
+\begin{theorem}[Theorem 2.4 of the paper]
+Fix an integer $m\ge 2$. Let $(G_n)_{n\ge 2}$ be the Barab\'asi--Albert PA multigraph in which each new vertex attaches $m$ edges with endpoints sampled proportionally to degree (with replacement). Write
+\[
+  L_n := I - D_n^{-1/2}\,A_n\,D_n^{-1/2}
+\]
+for the normalized Laplacian and $\mu_n := \frac{1}{n}\sum_{i=1}^{n}\delta_{\lambda_i(L_n)}$ for its ESD.
+
+\begin{enumerate}[label=(\arabic*)]
+\item For every $z\in\mathbb{C}^{+}$, the Stieltjes transform
+\[
+  m_n(z) := \frac{1}{n}\operatorname{Tr}(L_n - zI)^{-1}
+  \xrightarrow{\;P\;} m(z) := \mathbb{E}\!\bigl[\langle \delta_o,(L_\infty - zI)^{-1}\delta_o\rangle\bigr],
+\]
+where $(G_\infty,o)$ is the P\'olya--point graph (the local weak limit of the PA sequence identified by Berger--Borgs--Chayes--Saberi~[9]) and $L_\infty = I - D_\infty^{-1/2}A_\infty D_\infty^{-1/2}$.
+
+\item There exists a deterministic probability measure $\mu$ supported on $[0,2]$ such that $\mu_n \Rightarrow \mu$ weakly in probability, and $m$ is the Stieltjes transform of $\mu$.
+\end{enumerate}
+\end{theorem}
+
+%--------------------------------------------------------------
+\section{A Concrete Example to Build Intuition}
+%--------------------------------------------------------------
+
+Consider the simplest case $m=2$: start with two vertices joined by 2 parallel edges; at each step a new vertex $n$ arrives and creates 2 edges, each endpoint chosen independently with probability proportional to current degree. The resulting multigraph $G_n$ has $2(n-1)$ edges and its degree sequence follows a power law with exponent $3$.
+
+The \textbf{normalized Laplacian} $L_n = I - D_n^{-1/2}A_n D_n^{-1/2}$ always has spectrum in $[0,2]$. If you histogram the eigenvalues $\lambda_1,\dots,\lambda_n$ for a single large realisation ($n=10^5$, say), the histogram stabilises and converges to a fixed shape --- the measure $\mu$. The paper proves this convergence rigorously and identifies $\mu$ through the diagonal Green function of $L_\infty$ on the infinite P\'olya--point graph.
+
+%--------------------------------------------------------------
+\section{Key Definitions and Setup}
+%--------------------------------------------------------------
+
+\begin{definition}[Barab\'asi--Albert PA multigraph]
+Fix $m\ge 2$. Start with $G_2 = \{1,2\}$ joined by $m$ parallel edges. Given $G_{n-1}$, form $G_n$ by adding vertex $n$ with $m$ edges whose endpoints $W_{n,1},\dots,W_{n,m}\in\{1,\dots,n-1\}$ are sampled \emph{independently} with
+\[
+  \mathbb{P}(W_{n,i}=v\mid G_{n-1}) = \frac{d_{n-1}(v)}{2m(n-2)},
+\]
+where $d_{n-1}(v)$ is the (multi-)degree of $v$ in $G_{n-1}$. Self-loops are excluded; parallel edges are allowed (sampling with replacement).
+\end{definition}
+
+\begin{definition}[Normalized Laplacian and related operators]
+Let $A_n$ be the adjacency matrix (with multiplicities) and $D_n = \operatorname{diag}(d_n(1),\dots,d_n(n))$. Define:
+\begin{itemize}
+  \item Random-walk kernel: $P_n := D_n^{-1}A_n$ (row-stochastic).
+  \item Normalized adjacency: $W_n := D_n^{-1/2}A_n D_n^{-1/2}$ (symmetric, $\|W_n\|\le 1$).
+  \item Normalized Laplacian: $L_n := I - W_n$; $\operatorname{Spec}(L_n)\subset[0,2]$.
+\end{itemize}
+Key identity: $W_n = D_n^{1/2}P_n D_n^{-1/2}$, so for every $k\ge 1$,
+\[
+  (W_n^k)_{uu} = (P_n^k)_{uu} = \text{$k$-step return probability of simple random walk at $u$}.
+\]
+\end{definition}
+
+\begin{definition}[Stieltjes transform and ESD]
+For $z\in\mathbb{C}^+ := \{z\in\mathbb{C}:\operatorname{Im} z>0\}$,
+\[
+  m_n(z) := \int_{\mathbb{R}}\frac{1}{x-z}\,\mu_n(dx) = \frac{1}{n}\operatorname{Tr}(L_n-zI)^{-1}.
+\]
+The resolvent satisfies $\|G_n(z)\|\le (\operatorname{Im} z)^{-1}$.
+\end{definition}
+
+\begin{definition}[P\'olya--point graph $(G_\infty,o)$]
+The local weak limit of $(G_n, U_n)$ (where $U_n$ is a uniform vertex) identified in Berger--Borgs--Chayes--Saberi (2014). It is a random infinite locally-finite rooted graph that encodes the ``typical neighbourhood'' structure of the PA model. The normalized Laplacian $L_\infty = I - W_\infty$ acts as a bounded self-adjoint operator on $\ell^2(V(G_\infty))$ with $\|W_\infty\|\le 1$ a.s.
+\end{definition}
+
+%--------------------------------------------------------------
+\section{Main Results (Bulleted)}
+%--------------------------------------------------------------
+
+\begin{itemize}
+  \item \textbf{Deterministic limiting spectral measure.} There exists a deterministic probability measure $\mu$ on $[0,2]$ such that $\mu_n\Rightarrow\mu$ weakly in probability.
+  \item \textbf{Stieltjes transform identification.} The Stieltjes transform of $\mu$ equals $m(z) = \mathbb{E}[\langle\delta_o,(L_\infty-zI)^{-1}\delta_o\rangle]$, i.e.\ the expected diagonal Green function at the root of the P\'olya--point graph.
+  \item \textbf{Convergence of normalised traces of powers.} For each fixed $k\ge 1$,
+  \[
+    \frac{1}{n}\operatorname{Tr}(W_n^k) \xrightarrow{P} \mathbb{E}[(P_\infty^k)_{oo}],
+  \]
+  i.e.\ the average $k$-step return probability converges to the expected return probability on the infinite limit.
+  \item \textbf{Self-averaging (concentration).} Empirical averages of bounded local functionals of the decorated rooted ball concentrate around their means via a Doob martingale--Azuma--Hoeffding argument along the PA filtration.
+\end{itemize}
+
+%--------------------------------------------------------------
+\section{Proof Sketch}
+%--------------------------------------------------------------
+
+The proof follows a five-step strategy:
+
+\medskip
+\noindent\textbf{Step 1: Neumann expansion on $\mathcal{D}=\{z\in\mathbb{C}^+:|1-z|>1\}$.}
+
+Write $L_n - zI = (1-z)(I - W_n/(1-z))$. Since $\|W_n\|\le 1$, for $|1-z|>1$ we have $\|W_n/(1-z)\|<1$ and the Neumann series converges:
+\[
+  G_n(z) = \frac{1}{1-z}\sum_{k=0}^{\infty}\Bigl(\frac{W_n}{1-z}\Bigr)^{\!k}.
+\]
+Truncating at order $K$ gives a uniform tail bound $|1-z|^{-K}/(|1-z|-1)$, reducing $m_n(z)$ to finitely many normalised traces $\frac{1}{n}\operatorname{Tr}(W_n^k)$.
+
+\medskip
+\noindent\textbf{Step 2: Diagonal powers as return probabilities.}
+
+The similarity $W_n = D_n^{1/2}P_n D_n^{-1/2}$ implies $(W_n^k)_{uu} = (P_n^k)_{uu}$, the $k$-step return probability of the simple random walk started at $u$ on $G_n$.
+
+\medskip
+\noindent\textbf{Step 3: Locality.}
+
+Expanding the matrix product shows $(P_n^k)_{uu}$ depends only on the \emph{decorated rooted $k$-ball} $\widehat{B}_k(G_n,u)$ --- the induced subgraph within distance $k$ of $u$ together with the full-graph degrees of its vertices (needed for the random-walk transition denominators). Thus $u\mapsto (W_n^k)_{uu}$ is a bounded measurable functional of the local neighbourhood.
+
+\medskip
+\noindent\textbf{Step 4: Local weak convergence + concentration.}
+
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{One-root local weak convergence (Theorem 5.2).} The decorated ball $\widehat{B}_r(G_n,U_n)$ converges in distribution to $\widehat{B}_r(G_\infty,o)$, using the result of Berger--Borgs--Chayes--Saberi and a continuous-mapping argument (decorated balls are deterministic functions of one-layer-larger ordinary balls).
+  \item \emph{Self-averaging (Proposition 5.3).} For a bounded local functional $f$ on decorated $r$-balls, define $S_n(f) = \frac{1}{n}\sum_u f(\widehat{B}_r(G_n,u))$. Concentration is proved via:
+  \begin{itemize}
+    \item \textbf{Truncation}: restrict to vertices whose $r$-ball has max degree $\le K$, making the functional insensitive to hub-region changes.
+    \item \textbf{Doob martingale}: condition on the PA filtration $(\mathcal{F}_t)$; adding vertex $t$ only affects $\le (m+1)\cdot N_{r+1}(K)$ roots (those within distance $r+1$ of the $m+1$ modified vertices, in the degree-$\le K$ region). This gives bounded increments.
+    \item \textbf{Azuma--Hoeffding}: yields $\mathbb{P}(|S_n^{(K)} - \mathbb{E}[S_n^{(K)}]|>\varepsilon) \le 2\exp(-\varepsilon^2 n / C_{r,m,K})$.
+    \item \textbf{Remove truncation}: local weak convergence implies the probability that the max degree in a typical $r$-ball exceeds $K$ vanishes as $K\to\infty$; choose $K(n)=\lfloor\log n\rfloor$.
+  \end{itemize}
+  Combining gives $\frac{1}{n}\operatorname{Tr}(W_n^k) \xrightarrow{P} \mathbb{E}[(W_\infty^k)_{oo}]$ for each fixed $k$.
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Step 5: Extension from $\mathcal{D}$ to all of $\mathbb{C}^+$.}
+
+\begin{enumerate}[label=(\alph*)]
+  \item On $\mathcal{D}$: combine the Neumann truncation (Step 1) with the trace limits (Step 4) to get $m_n(z)\xrightarrow{P} m(z)$ for $z\in\mathcal{D}$.
+  \item \emph{Normal family}: $|m_n(z)|\le (\operatorname{Im} z)^{-1}$ uniformly in $n$, so $(m_n)$ is a normal family on $\mathbb{C}^+$ by Montel's theorem.
+  \item \emph{Vitali argument}: extract subsequences converging a.s.\ on a countable dense subset of $\mathcal{D}$; by Vitali's theorem the limit extends to all of $\mathbb{C}^+$ and equals $m(z)$.
+  \item \emph{Stieltjes continuity theorem}: pointwise convergence $m_n(z)\to m(z)$ on $\mathbb{C}^+$ implies $\mu_n\Rightarrow\mu$ weakly in probability, where $\mu$ is the unique measure with Stieltjes transform $m$.
+\end{enumerate}
+
+%--------------------------------------------------------------
+\section*{References}
+%--------------------------------------------------------------
+\begin{itemize}[leftmargin=*,label={},itemsep=2pt]
+  \item Kharouf, M. (2026). \emph{Limiting empirical spectral measure of the normalized Laplacian in preferential attachment graphs}. arXiv:2603.04076.
+  \item Berger, N., Borgs, C., Chayes, J.\,T., Saberi, A. (2014). \emph{Asymptotic behavior and distributional limits of preferential attachment graphs}. Ann.\ Probab.\ \textbf{42}(1), 1--40.
+  \item Chung, F.\,R.\,K. (1997). \emph{Spectral Graph Theory}. CBMS Reg.\ Conf.\ Ser.\ Math.\ 92, AMS.
+\end{itemize}
+
+\end{document}
