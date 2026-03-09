@@ -1,0 +1,162 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}{Assumption}
+
+\title{Reading Report: Outlier Eigenvectors for Sparse Non-Hermitian Perturbations\\[6pt]
+\large Based on arXiv:2603.03972 by M.\ Galanis and M.\ Louvaris}
+\author{Auto-generated report}
+\date{March 9, 2026}
+
+\begin{document}
+\maketitle
+
+%% ----------------------------------------------------------------
+\section{Core Question}
+%% ----------------------------------------------------------------
+
+Given a sparse non-Hermitian random matrix $X_n$ (with sparsity parameter $K_n$) and a deterministic finite-rank perturbation $E_n$, how does the outlier eigenvector of $Y_n = X_n + E_n$ align with the spike eigenspace of $E_n$?  Specifically, the paper extends the rank-one eigenvector overlap result of Hachem--Louvaris--Najim (2026) to arbitrary finite rank, proving that for a spike $\mu$ with $|\mu|>1$, the squared projection of the outlier eigenvector onto the spike eigenspace converges in probability to $1 - |\mu|^{-2}$.
+
+%% ----------------------------------------------------------------
+\section{Exact Main Statement}
+%% ----------------------------------------------------------------
+
+\begin{theorem}[Theorem 2.6, simplified]
+Let $X_n \in \mathbb{C}^{n \times n}$ be a sparse i.i.d.\ non-Hermitian random matrix with sparsity parameter $K_n$ satisfying $\log^9 n / K_n \to 0$, and entries drawn from a sub-Gaussian law $\chi$ with $\mathbb{E}\chi=0$, $\mathbb{E}|\chi|^2=1$.  Let $E_n$ be a deterministic rank-$r$ perturbation admitting a biorthogonal decomposition (Assumption~3 below).  Fix an outlier spike $\mu$ with $|\mu|>1$ and let $\tilde{u}_{\ell,n}$ be a unit right eigenvector of $Y_n = X_n + E_n$ associated with the eigenvalue $\lambda_{\ell,n} \xrightarrow{P} \mu$.  Let $F_n = \ker(\mu_n I - E_n)$ be the spike eigenspace.  Then:
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Overlap with the correct spike:}
+\[
+\langle \tilde{u}_{\ell,n},\, F_n \rangle^2 \;:=\; \|Q_{\ell,n}^* \tilde{u}_{\ell,n}\|^2 \;\xrightarrow{\;P\;}\; 1 - \frac{1}{|\mu|^2}.
+\]
+\item \textbf{Orthogonality to other spikes:} If $\mu' \neq \mu$ is another spike with associated eigenspace $F_{\ell',n} \perp F_n$, then
+\[
+\langle \tilde{u}_{\ell,n},\, F_{\ell',n} \rangle^2 \;\xrightarrow{\;P\;}\; 0.
+\]
+\end{enumerate}
+\end{theorem}
+
+Here $Q_{\ell,n} \in \mathbb{C}^{n \times k_\ell}$ has orthonormal columns spanning $F_n$, and $\langle x, F \rangle := \|\mathrm{Proj}_F\, x\|$ is the norm of the orthogonal projection of $x$ onto $F$.
+
+%% ----------------------------------------------------------------
+\section{A Concrete Example}
+%% ----------------------------------------------------------------
+
+\textbf{Rank-one case ($r=1$).}  Take $E_n = \mu\, u_n v_n^*$ where $u_n, v_n \in \mathbb{C}^n$ are unit vectors with $\langle v_n, u_n\rangle \to \mu$ (so $E_n$ has a single eigenvalue $\mu$ with $|\mu|>1$).  Theorem~2.6 recovers the earlier rank-one result (Theorem~1.6 of \cite{HLN26}):
+\[
+\left|\left\langle \tilde{u}_n,\, \frac{u_n}{\|u_n\|}\right\rangle\right|^2 \;\xrightarrow{\;P\;}\; 1 - \frac{1}{|\mu|^2}.
+\]
+In words: once $|\mu|>1$, most of the outlier eigenvector ``lives'' in the spike direction; only a fraction $|\mu|^{-2}$ leaks into the bulk.
+
+\textbf{Rank-two illustration.}  Let $E_n$ have eigenvalues $\mu_1, \mu_2$ with $|\mu_1|, |\mu_2| > 1$ and orthogonal eigenspaces $F_1, F_2$.  Then the outlier eigenvector near $\mu_j$ satisfies $\langle \tilde{u}_j, F_j \rangle^2 \to 1-|\mu_j|^{-2}$ and $\langle \tilde{u}_j, F_k \rangle^2 \to 0$ for $k\neq j$.
+
+%% ----------------------------------------------------------------
+\section{Intuition and Setup}
+%% ----------------------------------------------------------------
+
+\subsection{The random matrix model}
+Define the sparse i.i.d.\ matrix $X_n = (X_{ij}) \in \mathbb{C}^{n\times n}$ via
+\[
+X_{ij} = \frac{1}{\sqrt{K_n}}\, B_{ij}\, A_{ij},
+\]
+where $A_{ij} \overset{\text{i.i.d.}}{\sim} \chi$ (zero-mean, unit-variance, sub-Gaussian) and $B_{ij} \overset{\text{i.i.d.}}{\sim} \mathrm{Bernoulli}(K_n/n)$, independent of $A$.  The parameter $K_n$ controls sparsity: when $K_n = n$ one recovers the standard i.i.d.\ model; when $K_n \ll n$ the matrix is sparse.
+
+The perturbation has the biorthogonal form
+\[
+E_n = P_n \Lambda_n W_n^*, \qquad W_n^* P_n = I_r,
+\]
+with $\Lambda_n = \mathrm{diag}(\mu_{(1,n)}, \ldots, \mu_{(r,n)})$.
+
+\subsection{Why the extension is non-trivial}
+In the non-Hermitian setting, multiplicities and interactions between distinct spike blocks create structural difficulties absent in rank one.  One must:
+\begin{itemize}
+\item Control the kernel of a finite-dimensional matrix-valued function derived from the resolvent.
+\item Localise the kernel vector onto the correct spike block.
+\item Handle the fact that left and right eigenvectors need not coincide (non-normality).
+\end{itemize}
+
+\subsection{Resolvent philosophy}
+The entire argument is resolvent-based: express the outlier eigenvector via $(X_n - \lambda I)^{-1}$, reduce the problem to a finite-dimensional kernel, then use probabilistic estimates on bilinear forms of the resolvent.
+
+%% ----------------------------------------------------------------
+\section{Main Results (Bulleted)}
+%% ----------------------------------------------------------------
+
+\begin{itemize}
+\item \textbf{Finite-rank kernel--eigenspace bijection (Lemma~3.1):} For $\lambda \notin \sigma(X_n)$, the map $\Phi(a) = (X_n - \lambda I)^{-1} U_n a$ is a linear bijection from $\ker(I_r + M_n(\lambda))$ to $\ker(Y_n - \lambda I)$, where $M_n(\lambda) = V_n^* (X_n - \lambda I)^{-1} U_n \in \mathbb{C}^{r\times r}$.
+
+\item \textbf{Kernel localisation (Lemma~3.3):} If $\|I_r + M_n(\lambda) - (I_r - \mu^{-1}\Lambda_n)\| \le \varepsilon_n$ and $a_n \in \ker(I_r + M_n(\lambda))$, decompose $a_n = (a_\mu, a_{\neq})$; then $\|a_{\neq}\| \le C\varepsilon_n \|a_\mu\|$.
+
+\item \textbf{Resolvent bilinear form asymptotics (Lemma~4.1):} For bounded deterministic vectors $u_n, v_n$ and $|z|>1$: $\langle R_n(z) u_n, v_n \rangle + z^{-1}\langle u_n, v_n\rangle \xrightarrow{P} 0$.
+
+\item \textbf{Resolvent norm asymptotics (Lemma~4.4):} $\|R_n(z) w_n\|^2 - \|w_n\|^2/(|z|^2-1) \xrightarrow{P} 0$ for $|z|>1$.
+
+\item \textbf{Main overlap formula (Theorem~2.6(a)):} $\langle \tilde{u}_{\ell,n}, F_n \rangle^2 \xrightarrow{P} 1 - |\mu|^{-2}$.
+
+\item \textbf{Cross-spike orthogonality (Theorem~2.6(b)):} $\langle \tilde{u}_{\ell,n}, F_{\ell',n} \rangle^2 \xrightarrow{P} 0$ for distinct spikes (assuming orthogonal eigenspaces).
+\end{itemize}
+
+%% ----------------------------------------------------------------
+\section{Proof Sketch}
+%% ----------------------------------------------------------------
+
+\begin{enumerate}[label=\textbf{Step \arabic*:}, leftmargin=2.5em]
+
+\item \textbf{Finite-rank reduction.}  By Corollary~3.2, any unit outlier eigenvector $\tilde{u}_{\ell,n}$ of $Y_n$ can be written as
+\[
+\tilde{u}_{\ell,n} = \frac{R_n(\lambda_{\ell,n})\, U_n\, a_n}{\|R_n(\lambda_{\ell,n})\, U_n\, a_n\|},
+\]
+where $R_n(z) = (X_n - zI)^{-1}$ and $a_n \in \ker(I_r + M_n(\lambda_{\ell,n})) \setminus \{0\}$.  This reduces the $n$-dimensional eigenvector problem to understanding the $r$-dimensional kernel vector $a_n$.
+
+\item \textbf{Kernel localisation.}  Using Corollary~4.2 (bilinear form convergence) and Lemma~4.3 (resolvent continuity), one shows
+\[
+\left\| M_n(\lambda_{\ell,n}) + \frac{1}{\mu}\Lambda_n \right\| \xrightarrow{P} 0.
+\]
+By Lemma~3.3, this forces $a_n$ to concentrate on the $\mu$-block: writing $a_n = (a_{\mu,n},\, a_{\neq,n})$, one gets $\|a_{\neq,n}\| = o_P(1) \|a_{\mu,n}\|$.  Define $\tilde{a}_{\mu,n} = (a_{\mu,n}, 0)$; then $U_n \tilde{a}_{\mu,n} \in F_n$ (the spike eigenspace).
+
+\item \textbf{Numerator: spike-block projection.}  Set $\hat{w}_n = U_n \tilde{a}_{\mu,n}$ and $c_n = Q_{\ell,n}^* \hat{w}_n$ with $\|c_n\| = \|\hat{w}_n\|$.  By the resolvent bilinear form estimate (Corollary~4.2),
+\[
+Q_{\ell,n}^* R_n(\mu)\, Q_{\ell,n}\, c_n \;\approx\; -\frac{1}{\mu}\, c_n,
+\]
+so $\|Q_{\ell,n}^* R_n(\mu)\, \hat{w}_n\|^2 \approx |\mu|^{-2} \|c_n\|^2$.
+
+\item \textbf{Denominator: resolvent norm.}  By Corollary~4.5 (quadratic form estimate derived from Lemma~4.4),
+\[
+\|R_n(\lambda_{\ell,n})\, U_n a_n\|^2 \;\approx\; \frac{\|U_n a_n\|^2}{|\mu|^2 - 1}.
+\]
+
+\item \textbf{Combining.}  From Steps~1--4,
+\[
+\langle \tilde{u}_{\ell,n}, F_n \rangle^2 = \frac{\|Q_{\ell,n}^* R_n(\lambda_{\ell,n}) U_n a_n\|^2}{\|R_n(\lambda_{\ell,n}) U_n a_n\|^2} \;\xrightarrow{P}\; \frac{|\mu|^{-2}}{(|\mu|^2-1)^{-1}} = 1 - \frac{1}{|\mu|^2}.
+\]
+
+\item \textbf{Cross-spike orthogonality (part (b)).}  The same decomposition gives $\langle \tilde{u}_{\ell,n}, F_{\ell',n}\rangle^2 \approx (|\mu|^2-1)\, |\mu|^{-2}\, \|Q_{\ell',n}^* Q_{\ell,n} c_n\|^2 / \|c_n\|^2$.  Since $F_n \perp F_{\ell',n}$, we have $Q_{\ell',n}^* Q_{\ell,n} = 0$, giving the limit $0$.
+\end{enumerate}
+
+%% ----------------------------------------------------------------
+\section*{Key Assumptions Recap}
+%% ----------------------------------------------------------------
+
+\begin{enumerate}
+\item \textbf{Sub-Gaussian entries:} $\mathbb{P}(|A_{11}| \ge t) \le 2\exp(-Ct^2)$.
+\item \textbf{Sparsity regime:} $K_n \to \infty$ and $\log^9 n / K_n \to 0$ (needed for resolvent norm bounds via universality results of Brailovskaya--van Handel).
+\item \textbf{Biorthogonal decomposition:} $E_n = P_n \Lambda_n W_n^*$ with $W_n^* P_n = I_r$ and eigenvalues converging to fixed limits outside the unit disk.
+\end{enumerate}
+
+\begin{thebibliography}{10}
+\bibitem{HLN26} W.~Hachem, M.~Louvaris, J.~Najim, \emph{Extreme eigenvalues and eigenvectors for finite rank additive deformations of non-Hermitian sparse random matrices}, arXiv:2602.20956, 2026.
+\bibitem{BvH24} T.~Brailovskaya, R.~van Handel, \emph{Universality and sharp matrix concentration inequalities}, Geom.\ Funct.\ Anal.\ 34(6):1734--1838, 2024.
+\bibitem{BGN11} F.~Benaych-Georges, R.~R.~Nadakuditi, \emph{The eigenvalues and eigenvectors of finite, low rank perturbations of large random matrices}, Adv.\ Math.\ 227(1):494--521, 2011.
+\bibitem{Tao13} T.~Tao, \emph{Outliers in the spectrum of i.i.d.\ matrices with bounded rank perturbations}, Probab.\ Theory Relat.\ Fields 155(1):231--263, 2013.
+\bibitem{BC16} C.~Bordenave, M.~Capitaine, \emph{Outlier eigenvalues for deformed i.i.d.\ random matrices}, Comm.\ Pure Appl.\ Math.\ 69(11):2131--2194, 2016.
+\end{thebibliography}
+
+\end{document}
