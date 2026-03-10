@@ -1,0 +1,182 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+
+\title{Daily arXiv Report:\\[4pt]
+\large Limit Theorems for Anisotropic Functionals of Stationary Gaussian Fields\\
+with Gneiting Covariance Function}
+\author{Report on arXiv:2603.07188 by\\
+N.\ Leonenko, L.\ Maini, I.\ Nourdin, F.\ Pistolato}
+\date{March 10, 2026}
+
+\begin{document}
+\maketitle
+
+%----------------------------------------------------------------------
+\section{Core Question}
+%----------------------------------------------------------------------
+
+Given a stationary Gaussian field $B = (B_x)_{x \in \mathbb{R}^d}$ with a \emph{non-separable} covariance of Gneiting type, what is the limiting distribution of the normalised nonlinear additive functional
+\[
+\widetilde{Y}(t) = \frac{Y(t) - \mathbb{E}[Y(t)]}{\sqrt{\operatorname{Var}(Y(t))}}, \qquad
+Y(t) = \int_{t_1(t)D_1 \times t_2(t)D_2} \varphi(B_x)\,dx,
+\]
+as the two windows $t_1(t)D_1$ and $t_2(t)D_2$ grow at \emph{different} (anisotropic) rates?
+
+%----------------------------------------------------------------------
+\section{Setup and Key Definitions}
+%----------------------------------------------------------------------
+
+\paragraph{Gaussian field and Hermite expansion.}
+Let $B = (B_x)_{x \in \mathbb{R}^d}$ ($d = d_1 + d_2$, $d_i \ge 1$) be a continuous, centred, unit-variance, stationary Gaussian field with covariance $C(x) = \operatorname{Cov}(B_x, B_0)$.
+A square-integrable function $\varphi : \mathbb{R} \to \mathbb{R}$ admits the \textbf{Hermite expansion}
+\[
+\varphi \stackrel{L^2}{=} \sum_{q \ge 0} a_q\, H_q, \qquad
+a_q = \frac{1}{q!}\,\mathbb{E}[H_q(N)\,\varphi(N)], \quad N \sim \mathcal{N}(0,1),
+\]
+where $H_q$ is the $q$-th Hermite polynomial (e.g.\ $H_0 = 1$, $H_1(x) = x$, $H_2(x) = x^2 - 1$).
+The \textbf{Hermite rank} $R$ of $\varphi$ is the smallest $q \ge 1$ with $a_q \ne 0$.
+
+\paragraph{Gneiting covariance (Assumption 1.1).}
+$C$ belongs to the \textbf{Gneiting class} if
+\[
+C(x_1, x_2) = C_2(x_2)\,C_1\!\Bigl(\frac{x_1}{C_2(x_2)^{1/d_1}}\Bigr),
+\qquad x = (x_1, x_2) \in \mathbb{R}^{d_1} \times \mathbb{R}^{d_2},
+\]
+where $C_1, C_2$ are radial, $c_1$ (the radial part of $C_1$) is completely monotone, $C_2 > 0$, and $1/c_2$ has a completely monotone derivative.
+This is one of the few constructive recipes for valid \emph{non-separable} space--time covariances on $\mathbb{R}^{d_1} \times \mathbb{R}^{d_2}$.
+
+\paragraph{Anisotropic growth (Assumption 1.2).}
+Let $D_i \subset \mathbb{R}^{d_i}$ be convex bodies and set
+$Y(t) = \int_{t_1 D_1 \times t_2 D_2} \varphi(B_x)\,dx$
+with $t_1, t_2 \to \infty$ at possibly different rates.
+Assumption~1.2 requires $t_1\,c_2(t_2)^{1/d_1} \to \infty$, ensuring the effective spatial rescaling diverges.
+
+\paragraph{Regular variation.}
+A function $G : \mathbb{R}^d \to \mathbb{R}$ is \textbf{regularly varying} at $\infty$ with index $-\rho < 0$ if $G(|x|) \sim |x|^{-\rho} L(|x|)$ as $|x| \to \infty$, where $L$ is slowly varying ($L(\alpha x)/L(x) \to 1$).
+
+%----------------------------------------------------------------------
+\section{Concrete Example}
+%----------------------------------------------------------------------
+
+Consider a centred Gaussian field on $\mathbb{R}^{d+1}$ (space $\mathbb{R}^d$, time $\mathbb{R}$) with Gneiting covariance, $C_1$ and $C_2$ asymptotically power-law with exponents $-\rho_1$ and $-\rho_2$.
+The \textbf{excursion volume} above level $u > 0$,
+\[
+M_T = \int_0^T \int_{T^\gamma K} \mathbf{1}(|B_x| \ge u)\,dx,
+\]
+where $K \subset \mathbb{R}^d$ is a convex body and $\gamma \in (0, 1/\rho_2)$, has Hermite rank $R = 2$ (for $u > 0$).
+Depending on $(\rho_1, \rho_2)$:
+\begin{itemize}[nosep]
+  \item If $C \in L^2$: $\operatorname{Var}(M_T) \asymp T^{\gamma d + 1}$, CLT holds.
+  \item If $C_1 \in L^2$, $C_2 \notin L^1$, $\rho_2 < 1$: $\operatorname{Var}(M_T) \asymp T^{\gamma d + 2 - \rho_2}$, CLT holds.
+  \item If $C_1 \notin L^2$, $\rho_1 < d/2$, $C_2 \in L^{2(1-\rho_1/d)}$: $\operatorname{Var}(M_T) \asymp T^{2\gamma(d-\rho_1)+1}$, CLT holds.
+  \item If both exhibit sufficient long-range dependence ($2\rho_1 < d$, $\rho_2 < \tfrac{d}{2(d-\rho_1)}$): \textbf{non-Gaussian} limit---a 2-domain Rosenblatt random variable.
+\end{itemize}
+
+%----------------------------------------------------------------------
+\section{Main Results}
+%----------------------------------------------------------------------
+
+Throughout: $C$ is Gneiting, Assumptions 1.1--1.2 hold, $R \ge 2$ is the Hermite rank of $\varphi$.
+
+\begin{itemize}[leftmargin=*]
+
+\item \textbf{Theorem 1.1 (CLT, short-range in $C_1$).}
+If $C \in L^R(\mathbb{R}^d)$, or if $C_1 \in L^R(\mathbb{R}^{d_1})$ with $C_2$ regularly varying (even if $C_2 \notin L^{R-1}$), then
+\[
+\widetilde{Y}(t) \xrightarrow{d} \mathcal{N}(0,1).
+\]
+Variance: $\operatorname{Var}(Y(t)) \sim \ell\, t_1^{d_1} t_2^{d_2}$ (first case) or grows super-linearly in the volume (second case).
+
+\item \textbf{Theorem 1.2 (CLT, long-range in $C_1$, short-range in $C_2$).}
+If $C_1 \notin L^R(\mathbb{R}^{d_1})$ with power-law exponent $-\rho_1$, $R\rho_1 < d_1$, and $C_2 \in L^{R(1-\rho_1/d_1)}(\mathbb{R}^{d_2})$, then
+\[
+\widetilde{Y}(t) \xrightarrow{d} \mathcal{N}(0,1).
+\]
+
+\item \textbf{Theorem 1.3 (Non-CLT, $R=2$, both long-range).}
+If $R=2$, $C_1 \notin L^2(\mathbb{R}^{d_1})$ and $C_2 \notin L^1(\mathbb{R}^{d_2})$, both power-law with exponents $-\rho_1$, $-\rho_2$ satisfying $2\rho_1 < d_1$ and $\rho_2 < \frac{d_1 d_2}{2(d_1 - \rho_1)}$, then
+\[
+\widetilde{Y}(t) \xrightarrow{d} \operatorname{sgn}(a_2)\,\mathcal{H}_{\rho_1,\rho_2(1-\rho_1/d_1)}^{2, D_1 \times D_2},
+\]
+a \textbf{2-domain Rosenblatt} random variable (second Wiener chaos, non-Gaussian).
+Variance: $\operatorname{Var}(Y(t)) \sim \ell_3\, t_1^{2d_1 - 2\rho_1}\, t_2^{2d_2 - 2\rho_2(1-\rho_1/d_1)}$.
+
+\item \textbf{Theorem 1.5 (Asymptotic separability transfer).}
+If $C$ is asymptotically separable (Definition~1.13), then the second-chaos functional $\widetilde{Y}(t)$ has the \emph{same} distributional limit as the analogous functional built from a truly separable covariance $C^{\mathrm{sep}} = C_1 \otimes C_2^*$.
+
+\end{itemize}
+
+%----------------------------------------------------------------------
+\section{The 2-Domain Rosenblatt Distribution}
+%----------------------------------------------------------------------
+
+For $\alpha_i \in (0,1)$ and convex bodies $D_i \subset \mathbb{R}^{d_i}$, the \textbf{2-domain Rosenblatt random variable} $\mathcal{H}_{\rho_1,\rho_2}^{\alpha, D_1 \times D_2}$ is defined as a double Wiener--It\^o integral:
+\[
+\mathcal{H} = I_2(f), \qquad
+f(y_1, y_2) = c \int_{D_1 \times D_2} \prod_{i=1}^{2} \|x_i - y_i\|^{-\alpha_i d_i}\,dx,
+\]
+living in the second Wiener chaos of a white-noise field.
+Its cumulants are given by traces of powers of the associated Hilbert--Schmidt operator, and its characteristic function involves Fredholm determinants.
+It is the natural non-Gaussian limit for rank-2 functionals under anisotropic long-range dependence.
+
+%----------------------------------------------------------------------
+\section{Proof Sketch}
+%----------------------------------------------------------------------
+
+\begin{enumerate}[label=\textbf{Step \arabic*.}, leftmargin=*]
+
+\item \textbf{Chaotic projection.}
+Since $\varphi$ has Hermite rank $R$, write
+$Y(t) = \sum_{q \ge R} a_q \int_{t_1 D_1 \times t_2 D_2} H_q(B_x)\,dx$.
+Each integral lives in the $q$-th Wiener chaos.
+
+\item \textbf{Cumulant characterisation.}
+For the dominant $q = R$ component (a second-chaos r.v.\ when $R=2$), cumulants are
+\[
+\kappa_k(\widetilde{Y}) = 2^{k-1}(k-1)!\,c_k(t),
+\]
+where
+$c_k(t) = \frac{\int_{(t_1 D_1 \times t_2 D_2)^k} C(x^{(1)}-x^{(2)})\cdots C(x^{(k)}-x^{(1)})\,dx}{\bigl(\int_{(t_1 D_1 \times t_2 D_2)^2} C^2(x^{(1)}-x^{(2)})\,dx\bigr)^{k/2}}$.
+
+\item \textbf{Fourth Moment Theorem (CLT cases).}
+By the Nualart--Peccati theorem, for a sequence in a fixed Wiener chaos, $\widetilde{Y}(t) \xrightarrow{d} \mathcal{N}(0,1)$ iff $\kappa_4(\widetilde{Y}(t)) \to 0$, i.e.\ $c_4(t) \to 0$.
+In Theorems~1.1 and 1.2, the authors show $c_4(t) \to 0$ by splitting the cyclic integral over $\mathbb{R}^{d_1}$ and $\mathbb{R}^{d_2}$ blocks and using integrability of $C_1$ (or $C_2$) to kill one factor.
+
+\item \textbf{Asymptotic separability of Gneiting covariances.}
+Key structural lemma: the Gneiting coupling $x_1 / C_2(x_2)^{1/d_1}$ becomes negligible at large scales.
+Formally, for each $k \ge 2$,
+\[
+c_k(t_1 D_1 \times t_2 D_2;\, C) \;\longrightarrow\; c_k(D_1;\, C_1)\cdot c_k(D_2;\, C_2^*),
+\]
+so the non-separable problem reduces to a separable one.
+The proof uses Potter bounds for regularly varying functions: for any $\varepsilon > 0$ and large $|x|$,
+$(1-\varepsilon)|x|^{-\rho-\varepsilon} \le G(|x|)/L(|x|)|x|^{-\rho} \le (1+\varepsilon)|x|^{-\rho+\varepsilon}$.
+
+\item \textbf{Cumulant convergence (non-CLT case).}
+When both $C_1 \notin L^2$ and $C_2 \notin L^1$, the coefficients $c_k(t)$ converge to the cumulants of a 2-domain Rosenblatt distribution.
+This is computed explicitly by substituting the power-law tails and evaluating the resulting ``covariogram'' integrals on growing domains using asymptotic formulae for regularly varying functions (Appendix~A).
+
+\item \textbf{Moment determinacy.}
+Random variables in the second Wiener chaos are \emph{moment-determined} (their distributions are characterised by their cumulant sequences).
+Therefore, cumulant convergence $\Rightarrow$ convergence in distribution, completing the proof.
+
+\item \textbf{Variance asymptotics.}
+The variance $\operatorname{Var}(Y(t)) = \kappa_2(Y(t))$ is computed by evaluating $\int C^2$ over the growing product domain, splitting via Gneiting structure, and applying regularly varying integral asymptotics to each block.
+\end{enumerate}
+
+%----------------------------------------------------------------------
+\section*{Summary}
+%----------------------------------------------------------------------
+
+This paper establishes the first complete CLT/non-CLT phase diagram for nonlinear functionals of Gaussian fields with \emph{genuinely non-separable} (Gneiting-type) covariance, under anisotropic domain growth.
+The key insight is that Gneiting covariances are \textbf{asymptotically separable}: at large scales the non-separable coupling washes out, and the limiting distribution is governed by the same phase diagram as a separable model.
+Depending on the long-range dependence parameters $(\rho_1, \rho_2)$, the limit is either Gaussian (CLT) or a 2-domain Rosenblatt distribution (non-Gaussian, second Wiener chaos).
+
+\end{document}
