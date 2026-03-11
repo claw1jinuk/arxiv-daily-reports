@@ -1,0 +1,169 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\title{Reading Report: Quadratic Forms of Heavy-Tailed Self-Normalized\\
+Random Vectors and the $\alpha$-Heavy Mar\v{c}enko--Pastur Law}
+\author{arXiv:2603.07132 \quad---\quad Z.~Dong, J.~Heiny, J.~Yao}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+%% ----------------------------------------------------------------
+\section{Core Question}
+When the entries of a data matrix have \emph{infinite variance} (regularly varying tails with index $\alpha\in(0,2)$), the sample correlation matrix has a limiting spectral distribution called the $\alpha$-heavy Mar\v{c}enko--Pastur (MP) law $H_{\alpha,\gamma}$. This paper asks: \textbf{what are the analytic properties of $H_{\alpha,\gamma}$}---in particular, does it have atoms (point masses), what is its density, and how can it be represented via the resolvent?
+
+%% ----------------------------------------------------------------
+\section{Setup and Key Definitions}
+
+\paragraph{Self-normalized random vectors.}
+Let $\xi$ be a symmetric random variable that is \emph{regularly varying} with index $\alpha\in(0,2)$: that is,
+\[
+  P(|\xi|>x) = x^{-\alpha} L(x),\qquad x>0,
+\]
+where $L$ is slowly varying at $\infty$.  In particular, $E[\xi^2]=\infty$.
+
+Let $\mathbf{x}=(X_1,\dots,X_n)^\top$ consist of i.i.d.\ copies of $\xi$, and define the \emph{self-normalized} vector
+\[
+  \mathbf{y} = \frac{\mathbf{x}}{\|\mathbf{x}\|_2} \in S^{n-1}.
+\]
+
+\paragraph{Random quadratic forms.}
+Given an $n\times n$ Hermitian matrix $A_n=(a_{ij}^{(n)})$ independent of $\mathbf{y}$, the object of study is the quadratic form
+\[
+  Q_n = \mathbf{y}^\top A_n\,\mathbf{y}.
+\]
+Decompose $Q_n = Q_{n,1}+Q_{n,2}$, where $Q_{n,1}=\mathbf{y}^\top\operatorname{diag}(A_n)\mathbf{y}$ (diagonal part) and $Q_{n,2}$ (off-diagonal part).  The authors show (Proposition~2.3) that $Q_{n,2}\xrightarrow{P}0$ whenever $n^{-2}E[\|A_n-\operatorname{diag}(A_n)\|_F^2]\to 0$, so the \emph{diagonal entries alone} govern the limit.
+
+\paragraph{Stieltjes transform.}
+A probability measure $\mu$ on $\mathbb{R}$ is characterized by its \emph{Stieltjes transform}
+\[
+  s_\mu(z)=\int_{\mathbb{R}}\frac{1}{x-z}\,\mu(dx),\qquad z\in\mathbb{C}\setminus\mathrm{supp}(\mu).
+\]
+
+\paragraph{Sample correlation matrix.}
+From an $p\times n$ data matrix $X=(X_{ij})$ with i.i.d.\ entries distributed as $\xi$, define $S_n = n^{-1}XX^\top$ (sample covariance) and
+\[
+  R_n = \{\operatorname{diag}(S_n)\}^{-1/2}\,S_n\,\{\operatorname{diag}(S_n)\}^{-1/2}
+\]
+the \emph{sample correlation matrix}.  In the proportional regime $p/n\to\gamma\in(0,\infty)$, the empirical spectral distribution of $R_n$ converges to the $\alpha$-heavy MP law $H_{\alpha,\gamma}$ (Heiny--Yao, 2022).
+
+%% ----------------------------------------------------------------
+\section{Concrete Example}
+
+\begin{example}
+Let $\nu=\tfrac12\delta_0+\tfrac12\delta_1$ (the simplest non-degenerate case).  Then the limiting measure $\mu_{\nu,\alpha}$ of $Q_{n,1}$ is supported on $[0,1]$ with explicit density
+\[
+  f_{\nu,\alpha}(x) = \frac{\sin\!\frac{\alpha\pi}{2}}{\pi}\,
+    \frac{(1-x)^{\alpha/2-1}\,x^{\alpha/2-1}}
+    {x^\alpha+(1-x)^\alpha+2\cos\!\frac{\alpha\pi}{2}\,x^{\alpha/2}(1-x)^{\alpha/2}}\,
+    \mathbf{1}_{(0,1)}(x).
+\]
+At $\alpha=1$ this becomes
+$f_{\nu,1}(x) = \frac{1}{\pi\sqrt{x(1-x)}}$,
+the arcsine law---a distribution familiar from random walks and beta ensembles.  As $\alpha\uparrow 2$, the density concentrates at the mean $x=1/2$; as $\alpha\downarrow 0$, it converges to $\nu$ itself (two atoms).
+\end{example}
+
+%% ----------------------------------------------------------------
+\section{Intuition: Why Diagonals Dominate}
+
+In the \emph{light-tailed} regime ($E[\xi^2]<\infty$), mixed moments satisfy $\beta_{2k_1,\dots,2k_r}=O(n^{-(k_1+\cdots+k_r)})$, which is tiny.  The quadratic form $Q_n$ then concentrates around its mean (Hanson--Wright inequality).
+
+In the \emph{heavy-tailed} regime ($\alpha<2$), Lemma~2.1 shows
+\[
+  n^r\,\beta_{2k_1,\dots,2k_r}\;\longrightarrow\;
+  \frac{(\alpha/2)^{r-1}\,\Gamma(r)\prod_{j=1}^r\Gamma(k_j-\alpha/2)}
+  {\Gamma(1-\alpha/2)^r\,\Gamma(k_1+\cdots+k_r)},
+\]
+so mixed moments are $O(n^{-r})$ regardless of the $k_j$'s.  This means only the \emph{number of distinct indices} $r$ matters, not the powers $k_j$.  Consequently, the off-diagonal contribution vanishes in probability while the diagonal part retains a \emph{non-degenerate} random limit---a striking departure from the classical setting.
+
+%% ----------------------------------------------------------------
+\section{Main Results}
+
+\begin{itemize}[leftmargin=*]
+
+\item \textbf{Theorem 2.4 (Limiting law, bounded case).}
+If $\max_i|a_{ii}^{(n)}|\le M<\infty$ a.s.\ and $n^{-1}\sum_i\delta_{a_{ii}^{(n)}}\xrightarrow{w}\nu$ a.s.\ (deterministic), then $Q_{n,1}\xrightarrow{d}\mu_{\nu,\alpha}$ whose Stieltjes transform is
+\[
+  \boxed{\;s_{\mu_{\nu,\alpha}}(z) = -\frac{\displaystyle\int_{\mathbb{R}}(z-x)^{\alpha/2-1}\,\nu(dx)}{\displaystyle\int_{\mathbb{R}}(z-x)^{\alpha/2}\,\nu(dx)},\qquad z\in\mathbb{C}\setminus\mathrm{supp}(\nu).\;}
+\]
+
+\item \textbf{Theorem 2.10 (Density and no atoms).}
+If $\nu$ is non-degenerate, $\mu_{\nu,\alpha}$ is \emph{absolutely continuous} with an explicit density $f_{\nu,\alpha}$ (formula~(2.7)), strictly positive on $(\inf\mathrm{supp}(\nu),\sup\mathrm{supp}(\nu))$ and zero outside.
+
+\item \textbf{Theorem 2.12 (Unbounded diagonal extension).}
+Theorem~2.4 extends to unbounded diagonals under the uniform integrability condition
+$\lim_{T\to\infty}\limsup_n n^{-1}\sum_i |a_{ii}^{(n)}|\mathbf{1}(|a_{ii}^{(n)}|>T)=0$ a.s.
+
+\item \textbf{Theorem 3.3 (Stieltjes transform of $H_{\alpha,\gamma}$).}
+There exists a random holomorphic function $\psi:\mathbb{C}\setminus[0,\infty)\to\mathbb{C}$ (a subsequential limit of the resolvent diagonal $B_n(z)_{11}$) such that
+\[
+  \boxed{\;s_{H_{\alpha,\gamma}}(z)
+    = -\frac{E\!\big[(1+\psi(z))^{\alpha/2-1}\big]}{z\,E\!\big[(1+\psi(z))^{\alpha/2}\big]},\qquad z\in\mathbb{C}\setminus[0,+\infty).\;}
+\]
+
+\item \textbf{Proposition 3.5 (No atoms for $H_{\alpha,\gamma}$).}
+$H_{\alpha,\gamma}(\{u\})=0$ for every $u>0$.  Combined with earlier work showing $H_{\alpha,\gamma}$ may have mass at $0$ when $\gamma>1$, this settles the atom question: the only possible atom is at the origin.
+
+\item \textbf{Boundary behavior (Proposition~2.7).}
+$\mu_{\nu,\alpha}\xrightarrow{w}\delta_{\int x\,\nu(dx)}$ as $\alpha\uparrow 2$ (classical concentration) and $\mu_{\nu,\alpha}\xrightarrow{w}\nu$ as $\alpha\downarrow 0$ (atoms emerge).
+
+\item \textbf{Tail behavior (Example~2.13).}
+When $\nu$ has exponential tails, $\mu_{\nu,\alpha}$ has Gamma-type tails $f_{\nu,\alpha}(x)\sim x^{-\alpha/2}e^{-x}$.
+When $\nu$ has polynomial tails of index $s$, $\mu_{\nu,\alpha}$ has the \emph{same} polynomial index $s$, independent of $\alpha$.
+
+\item \textbf{Hanson--Wright for self-normalized vectors (Theorem~A.1).}
+When $\xi$ is sub-Gaussian, a Hanson--Wright-type inequality is established for $Q_n=\mathbf{y}^\top A_n\mathbf{y}$, providing exponential concentration in the light-tailed benchmark.
+
+\end{itemize}
+
+%% ----------------------------------------------------------------
+\section{Proof Sketch}
+
+\begin{enumerate}[leftmargin=*,label=\textbf{Step \arabic*.}]
+
+\item \textbf{Off-diagonal vanishes.}
+Using $E[|Q_{n,2}|^2]\le 2E[\|A_n-\operatorname{diag}(A_n)\|_F^2]\,\beta_{2,2}$ and $n^2\beta_{2,2}\le 1$, Markov's inequality gives $Q_{n,2}\xrightarrow{P}0$.
+
+\item \textbf{Moment computation for $Q_{n,1}$.}
+Expand $E[Q_{n,1}^\ell]$ via the multinomial theorem.  The key input is Lemma~2.1 on the asymptotics of the mixed moments $\beta_{2k_1,\dots,2k_r}$.  Combined with $n^{-1}\sum_i\delta_{a_{ii}}\xrightarrow{w}\nu$ and boundedness, each moment $m_\ell$ is computed explicitly.
+
+\item \textbf{Carleman's condition and moment determinacy.}
+Since $|m_\ell|\le M^\ell$, Carleman's condition $\sum_\ell m_{2\ell}^{-1/(2\ell)}=\infty$ holds, proving that $\{m_\ell\}$ uniquely determines $\mu_{\nu,\alpha}$ and $Q_{n,1}\xrightarrow{d}\mu_{\nu,\alpha}$.
+
+\item \textbf{Generating-function identification of the Stieltjes transform.}
+Define $K_x(z)=\sum_{j\ge 1}\frac{\Gamma(j-\alpha/2)}{\Gamma(1-\alpha/2)\,j!}\int x^j\nu(dx)\,z^j$ and recognize that $\sum m_\ell z^\ell/\ell = -\frac{2}{\alpha}\log\!\int(1-xz)^{\alpha/2}\nu(dx)$.  Differentiating and rearranging yields the Stieltjes transform formula.
+
+\item \textbf{No-atom proof for $\mu_{\nu,\alpha}$.}
+At a candidate atom $a$, the non-tangential limit $\lim_{\angle z\to a}(a-z)s_{\mu_{\nu,\alpha}}(z)$ involves $(z-a)^{\alpha/2}\to 0$ in the numerator, while the denominator stays away from zero because $\nu$ is non-degenerate.  Hence $\mu_{\nu,\alpha}(\{a\})=0$.
+
+\item \textbf{Density via boundary values of Stieltjes transform.}
+Apply $f_{\nu,\alpha}(x)=\frac{1}{\pi}\lim_{v\downarrow 0}\operatorname{Im}s_{\mu_{\nu,\alpha}}(x+iv)$ and compute the boundary values of $(z-y)^{\alpha/2}$ and $(z-y)^{\alpha/2-1}$ using the principal branch.  Verify integrability via the argument-of-$F$ representation $f_{\nu,\alpha}(x)=-\frac{1}{\theta}\frac{d}{dx}\arg F(x)$.
+
+\item \textbf{Random resolvent and $H_{\alpha,\gamma}$.}
+From the recursive identity (3.2) relating $s_{R_n}(z)$ to $\mathbf{y}_1^\top B_{n,1}(z)\mathbf{y}_1$, extract a subsequential limit $\psi(z)$ of the resolvent diagonal via Prokhorov + diagonal-concentration (Proposition~3.1, martingale bounded-differences).  Apply Theorem~2.4 to the quadratic form with $A_n=\operatorname{diag}(B_{n,1}(z))$, yielding the implicit formula (3.1).
+
+\item \textbf{No atoms for $H_{\alpha,\gamma}$ on $(0,\infty)$.}
+Assume $H_{\alpha,\gamma}(\{u\})>0$ for some $u>0$. At $z=u+iv$, the identity (3.1) forces $E[(1+\psi(z))^{\alpha/2}]\to 0$ as $v\downarrow 0$.  But a lower bound on $\operatorname{Im}\psi(z)$ (from $\operatorname{Im}s_{\widetilde{H}_{\alpha,\gamma}}(z)\sim w/v$) shows $P(\operatorname{Im}\psi(z)\ge w/(4v))\ge p_0>0$, giving $E[\operatorname{Im}(1+\psi(z))^{\alpha/2}]\ge C v^{-\alpha/2}\to\infty$---a contradiction.
+
+\end{enumerate}
+
+%% ----------------------------------------------------------------
+\section*{References}
+\begin{itemize}[leftmargin=*,label={},itemsep=0pt]
+\item Z.~Dong, J.~Heiny, J.~Yao, \emph{Quadratic form of heavy-tailed self-normalized random vector with applications in $\alpha$-heavy Mar\v{c}enko--Pastur law}, arXiv:2603.07132 (2026).
+\item J.~Heiny, J.~Yao, \emph{Limiting distributions for eigenvalues of sample correlation matrices from heavy-tailed populations}, Ann.\ Statist.\ 50 (2022), 3249--3280.
+\item V.~A.~Mar\v{c}enko, L.~A.~Pastur, \emph{Distribution of eigenvalues of some sets of random matrices}, Mat.\ Sb.\ 72 (1967), 507--536.
+\end{itemize}
+
+\end{document}
