@@ -1,0 +1,184 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Reading Report:\\[4pt] Uniform Concentration for $\alpha$-Subexponential Random Operators}
+\author{Auto-generated report for arXiv:2603.09487\\[2pt]
+\textit{T.\ Diao, X.\ Hu, V.V.\ Ulyanov, H.\ Wang}}
+\date{March 12, 2026}
+
+\begin{document}
+\maketitle
+
+%% ============================================================
+\section{Core Question}
+%% ============================================================
+
+When a random matrix $A\in\mathbb{R}^{m\times n}$ acts on a bounded set $T\subset\mathbb{R}^n$, classical results show that $A$ is a near-isometry on $T$ provided its entries (or rows/columns) are \emph{subgaussian}.
+This paper asks: \textbf{to what extent do near-isometric properties persist when the subgaussian assumption is relaxed to $\alpha$-subexponential tails ($\alpha\in(0,2]$)?}
+
+%% ============================================================
+\section{Key Definitions and Setup}
+%% ============================================================
+
+\begin{definition}[$\alpha$-subexponential random variable]
+A random variable $\xi$ is called \emph{$\alpha$-subexponential} (with $\alpha>0$) if
+\[
+  \|\xi\|_{\psi_\alpha} \;:=\; \inf\!\Bigl\{t>0 : \mathbb{E}\exp\Bigl(\frac{|\xi|}{t}\Bigr)^{\!\alpha}\le 2\Bigr\} \;<\;\infty.
+\]
+When $\alpha=2$ this recovers the subgaussian class; $\alpha=1$ gives the classical subexponential class. Smaller $\alpha$ allows heavier (but still exponential-type) tails.
+\end{definition}
+
+\begin{definition}[Isotropic random vector]
+A random vector $X\in\mathbb{R}^n$ is \emph{isotropic} if $\mathbb{E}[XX^\top]=I_n$.
+\end{definition}
+
+\begin{definition}[Talagrand's $\gamma_\alpha$-functional]
+Let $(T,d)$ be a metric space. An \emph{admissible sequence} of partitions of $T$ is an increasing sequence $(\mathcal{A}_k)_{k\ge 0}$ with $|\mathcal{A}_0|=1$ and $|\mathcal{A}_k|\le 2^{2^k}$ for $k\ge 1$. For $\alpha>0$,
+\[
+  \gamma_\alpha(T,d) \;:=\; \inf_{(\mathcal{A}_k)} \sup_{t\in T}\sum_{k\ge 0} 2^{k/\alpha}\,\Delta_d\!\bigl(\mathcal{A}_k(t)\bigr),
+\]
+where $\mathcal{A}_k(t)$ is the element of $\mathcal{A}_k$ containing $t$ and $\Delta_d(A)=\sup_{s,t\in A}d(s,t)$ is the diameter of $A$. When $d$ is the Euclidean metric we write $\gamma_\alpha(T)$. The quantity $\operatorname{rad}(T):=\sup_{t\in T}\|t\|_2$.
+\end{definition}
+
+%% ============================================================
+\section{A Concrete Example}
+%% ============================================================
+
+\textbf{Johnson--Lindenstrauss with heavy tails.}
+Consider $N$ points $x_1,\dots,x_N\in\mathbb{R}^n$ and let $A$ be an $m\times n$ random matrix whose rows are i.i.d., isotropic, $\alpha$-subexponential with $\psi_\alpha$-norm $\le K$.
+Apply the row-wise theorem (Corollary~\ref{cor:row}) with $T=\{x_i-x_j\}$:
+for
+\[
+  m \;\gtrsim\; K^{8/\alpha}\,\frac{(\log N)^{2/\alpha}}{\varepsilon^2},
+\]
+the rescaled map $\frac{1}{\sqrt{m}}A$ satisfies $(1-\varepsilon)\|x_i-x_j\|_2\le \bigl\|\tfrac{1}{\sqrt{m}}A(x_i-x_j)\bigr\|_2\le (1+\varepsilon)\|x_i-x_j\|_2$ for all pairs simultaneously, with high probability.
+When $\alpha=2$ (subgaussian) this recovers the classical JL bound $m\gtrsim \varepsilon^{-2}\log N$.
+
+%% ============================================================
+\section{Main Results}
+%% ============================================================
+
+\begin{theorem}[Row-wise model --- Theorem 1.1 of the paper]\label{thm:row}
+Let $B\in\mathbb{R}^{\ell\times m}$ be fixed and $A\in\mathbb{R}^{m\times n}$ have independent, isotropic rows with $\psi_\alpha$-norm $\le K$, $\alpha\in(0,2]$. For any bounded $T\subset\mathbb{R}^n$,
+\[
+  \mathbb{E}\sup_{x\in T}\bigl|\|BAx\|_2 - \|B\|_{\mathrm{HS}}\|x\|_2\bigr|
+  \;\le\; C(\alpha)\,K^{4/\alpha}\,\|B\|_{\mathrm{op}}\bigl(\gamma_\alpha(T)+\operatorname{rad}(T)\bigr).
+\]
+Moreover, for every $u\ge 0$, with probability $\ge 1-C\,e^{-u^\alpha}$,
+\[
+  \sup_{x\in T}\bigl|\|BAx\|_2 - \|B\|_{\mathrm{HS}}\|x\|_2\bigr|
+  \;\le\; C(\alpha)\,K^{4/\alpha}\,\|B\|_{\mathrm{op}}\bigl(\gamma_\alpha(T)+u\cdot\operatorname{rad}(T)\bigr).
+\]
+\end{theorem}
+
+\begin{corollary}[Identity pre-factor]\label{cor:row}
+Setting $B=I_m$ in Theorem~\ref{thm:row}:
+\[
+  \sup_{x\in T}\bigl|\|Ax\|_2-\sqrt{m}\,\|x\|_2\bigr|
+  \;\le\; C(\alpha)\,K^{4/\alpha}\bigl(\gamma_\alpha(T)+u\cdot\operatorname{rad}(T)\bigr)
+\]
+with probability $\ge 1-Ce^{-u^\alpha}$.
+\end{corollary}
+
+\begin{theorem}[Column-wise model --- Theorem 1.2 of the paper]\label{thm:col}
+Let $A\in\mathbb{R}^{m\times n}$ have independent, mean-zero columns $A_i\in\mathbb{R}^m$ with $\|A_i\|_2=1$ a.s.\ and $\psi_\alpha$-norm $\le K$, $\alpha\in(0,2]$. Then for bounded $T\subset\mathbb{R}^n$,
+\[
+  \mathbb{E}\sup_{x\in T}\bigl|\|Ax\|_2-\|x\|_2\bigr|
+  \;\le\; C(\alpha)\,K\,\bigl(\gamma_\alpha(T)+\operatorname{rad}(T)\bigr),
+\]
+and with probability $\ge 1-Ce^{-u^\alpha}$,
+\[
+  \sup_{x\in T}\bigl|\|Ax\|_2-\|x\|_2\bigr|
+  \;\le\; C(\alpha)\,K\,\bigl(\gamma_\alpha(T)+u\cdot\operatorname{rad}(T)\bigr).
+\]
+\end{theorem}
+
+\begin{remark}[Column normalization is necessary]
+The column-wise result \emph{requires} $\|A_i\|_2=\lambda$ a.s. A Bernoulli-scaled counterexample shows that isotropy alone is insufficient: if $b\sim\mathrm{Bernoulli}(1/2)$ and $X\sim\mathrm{Unif}(\sqrt{m}\,S^{m-1})$, then $bX$ is isotropic and subgaussian, yet $\|A e_1\|_2$ deviates from any target by $\ge \sqrt{m}/2$ with probability $1/2$.
+\end{remark}
+
+\noindent\textbf{Summary of main results:}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Row-wise model:} Near-isometry controlled by $\gamma_\alpha(T)$ with factor $K^{4/\alpha}$; recovers optimal subgaussian bounds at $\alpha=2$.
+  \item \textbf{Column-wise model:} Near-isometry controlled by $\gamma_\alpha(T)$ with linear factor $K$; requires column normalization.
+  \item \textbf{Applications:} JL embeddings for $\alpha$-subexponential matrices (target dimension $\sim K^{8/\alpha}(\log N)^{2/\alpha}/\varepsilon^2$); restricted isometry property for compressed sensing; column-normalized structured matrices.
+  \item \textbf{Methodological novelty:} A direct decomposition approach that avoids subgaussian-specific tools, yielding a more transparent proof even at $\alpha=2$.
+\end{itemize}
+
+%% ============================================================
+\section{Proof Sketch}
+%% ============================================================
+
+The proofs of Theorems~\ref{thm:row} and \ref{thm:col} share a common strategy but differ in the technical ingredients at the single-vector level.
+
+\subsection*{Step 1: Reduce to a chaining problem}
+
+Define the random process $Z_x := \|BAx\|_2 - \|B\|_{\mathrm{HS}}\|x\|_2$ (row-wise) or $Z_x := \|Ax\|_2-\|x\|_2$ (column-wise). The goal is to bound
+\[
+  \sup_{x\in T}|Z_x| \quad\text{or equivalently}\quad \sup_{x,y\in T}|Z_x - Z_y|.
+\]
+By Talagrand's generic chaining theorem (Theorem~2.1 in the paper), it suffices to show that the process has \emph{$\alpha$-subexponential increments}:
+\[
+  \|Z_x - Z_y\|_{\psi_\alpha} \;\le\; M\,\|x-y\|_2,
+\]
+since then $\mathbb{E}\sup|Z_x-Z_y|\le C(\alpha)\,M\,\gamma_\alpha(T)$ and the exponential tail follows with an extra $u\cdot\operatorname{rad}(T)$ term.
+
+\subsection*{Step 2 (Row-wise): Establish $\alpha$-subexponential increments via Hanson--Wright}
+
+For the row-wise model (Lemma~3.1 in the paper), the key input is an \emph{$\alpha$-subexponential Hanson--Wright inequality} due to Sambale: for centered $\alpha$-subexponential $X=(X_1,\dots,X_n)$ with $\|X_i\|_{\psi_\alpha}\le K$ and a symmetric matrix $M$,
+\[
+  \mathbb{P}\bigl(|X^\top M X - \mathbb{E}[X^\top M X]|\ge t\bigr)
+  \;\le\; 2\exp\!\Bigl(-C(\alpha)\min\Bigl\{\frac{t^2}{K^4\|M\|_{\mathrm{HS}}^2},\;\Bigl(\frac{t}{K^2\|M\|_{\mathrm{op}}}\Bigr)^{\!\alpha/2}\Bigr\}\Bigr).
+\]
+To bound $|Z_x - Z_y|/\|x-y\|_2$, split into two regimes:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Large deviation ($s\ge 2\|B\|_{\mathrm{HS}}$):} Use the triangle inequality to reduce to a single-vector concentration $\mathbb{P}(\|BAu\|_2\ge s)$, then apply the $\psi_\alpha$ norm bound from Sambale's Theorem~3.2.
+  \item \textbf{Moderate deviation ($1<s<2\|B\|_{\mathrm{HS}}$):} Polarize $\|BAx\|_2^2-\|BAy\|_2^2 = \langle BAu, BAv\rangle$ with $u=(x-y)/\|x-y\|_2$ and $v=x+y$. Expand via $2\langle w_1,w_2\rangle = \|w_1+w_2\|^2-\|w_1\|^2-\|w_2\|^2$ to reduce to three centered quadratic forms $Y_w=\|BX_w\|_2^2-\mathbb{E}\|BX_w\|_2^2$, each controlled by the Hanson--Wright inequality.
+\end{enumerate}
+Combining both regimes gives $\|Z_x-Z_y\|_{\psi_\alpha}\le C(\alpha)\,K^{4/\alpha}\|B\|_{\mathrm{op}}\|x-y\|_2$.
+
+\subsection*{Step 3 (Column-wise): A direct decomposition avoiding subgaussian tools}
+
+For the column-wise model, the proof uses a fundamentally different approach from the original Plan--Vershynin argument (which relies on subgaussian-specific moment bounds).
+
+Write $Ax = \sum_{i=1}^n x_i A_i$ (sum of rescaled columns). Because columns have unit norm, $\|Ax\|_2^2 = \sum_{i,j}x_i x_j\langle A_i, A_j\rangle$, and the diagonal contributes $\|x\|_2^2$ deterministically. The off-diagonal terms $x_i x_j\langle A_i,A_j\rangle$ ($i\ne j$) are mean-zero (by independence and zero-mean columns) and have $\alpha$-subexponential tails.
+
+The increment $Z_x - Z_y$ is then controlled by bounding the $\psi_\alpha$-norm of the off-diagonal bilinear form. Independence of the columns, combined with basic $\psi_\alpha$ algebra (H\"older-type inequalities for Orlicz norms, Proposition~2.1), yields
+\[
+  \|Z_x - Z_y\|_{\psi_\alpha} \;\le\; C(\alpha)\,K\,\|x-y\|_2.
+\]
+The absence of $K^{4/\alpha}$ (compared to the row-wise bound) reflects the column-normalization constraint $\|A_i\|_2=1$, which eliminates the main source of variance inflation.
+
+\subsection*{Step 4: Apply generic chaining (Theorem~2.2)}
+
+With the increment bound $M$ established in Steps~2 or 3, invoke Theorem~2.2:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Expectation bound:} Use $L^{2n}$ moment growth $\|Z_x-Z_y\|_{2n}\le CM\cdot 2^{n/\alpha}\|x-y\|_2$ to translate into the $\gamma_\alpha$-functional via an admissible partition.
+  \item \textbf{Tail bound:} Talagrand's inequality (2.2) adds the $u\cdot\operatorname{rad}(T)$ term; reparametrize $u$ to convert the Gaussian-type $e^{-u^2}$ tail into $e^{-u^\alpha}$.
+\end{itemize}
+
+This completes the proofs of Theorems~\ref{thm:row} and \ref{thm:col}. $\square$
+
+%% ============================================================
+\section*{References}
+%% ============================================================
+
+\begin{enumerate}[label={[\arabic*]},leftmargin=*]
+  \item R.\ Adamczak et al., ``Tail and moment estimates for sums of independent random vectors with logarithmically concave tails,'' \textit{Studia Math.}, 2012.
+  \item T.\ Diao, X.\ Hu, V.V.\ Ulyanov, H.\ Wang, ``Uniform Concentration for $\alpha$-Subexponential Random Operators,'' arXiv:2603.09487, 2026.
+  \item J.\ Jeong et al., ``Sub-Gaussian matrices on sets: optimal tail dependence and applications,'' 2020.
+  \item Y.\ Plan, R.\ Vershynin, ``Dimension reduction by random hyperplane tessellations,'' \textit{Discrete Comput.\ Geom.}, 2014.
+  \item H.\ Sambale, ``Some notes on concentration for $\alpha$-subexponential random variables,'' 2023.
+  \item M.\ Talagrand, \textit{Upper and Lower Bounds for Stochastic Processes}, Springer, 2014.
+\end{enumerate}
+
+\end{document}
