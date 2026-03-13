@@ -1,0 +1,162 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\title{Reading Report: \emph{Lectures on Open Quantum Systems}\\[4pt]
+\large arXiv:2603.11925 --- M.~Merkli and \'A.~Neira}
+\author{Daily arXiv Theory Report}
+\date{March 13, 2026}
+
+\begin{document}
+\maketitle
+
+%% ----------------------------------------------------------------
+\section{Core Question}
+
+How does \emph{irreversible} dynamics emerge from the fundamentally \emph{unitary} (reversible) evolution of a quantum system coupled to a reservoir, and what is the precise mathematical structure of the generators that govern such dissipative dynamics?
+
+%% ----------------------------------------------------------------
+\section{Main Statement}
+
+\begin{theorem}[GKSL Theorem {\cite[Thm.~3]{paper}}]
+Let $\mathcal{H}=\mathbb{C}^d$.  A linear superoperator $\mathcal{L}$ on $\mathcal{B}(\mathcal{H})$ generates a completely positive, trace-preserving (CPTP) semigroup $\Phi_t = e^{t\mathcal{L}}$ if and only if there exist
+\begin{itemize}[nosep]
+  \item a self-adjoint operator $H = H^\dagger \in \mathcal{B}(\mathcal{H})$,
+  \item operators $V_l \in \mathcal{B}(\mathcal{H})$, $l=1,\dots,d^2-1$,
+  \item non-negative numbers $\gamma_l \ge 0$,
+\end{itemize}
+such that for every $X \in \mathcal{B}(\mathcal{H})$,
+\[
+  \mathcal{L}X \;=\; -i[H,X]
+    \;+\;\sum_{l=1}^{d^2-1} \gamma_l
+      \Bigl(V_l\, X\, V_l^\dagger
+        - \tfrac{1}{2}\{V_l^\dagger V_l,\, X\}\Bigr).
+\]
+\end{theorem}
+
+%% ----------------------------------------------------------------
+\section{A Concrete Example: The Dissipative Jaynes--Cummings Model}
+
+Consider a two-level atom ($\mathcal{H}_S = \mathbb{C}^2$, ground/excited states $|0\rangle,|1\rangle$) coupled to a bosonic reservoir of harmonic oscillators (the cavity field $\mathcal{H}_R$).  Define the raising/lowering operators $\sigma_\pm = |1\rangle\langle 0|, |0\rangle\langle 1|$ and bosonic operators $b_k, b_k^\dagger$ satisfying $[b_k, b_l^\dagger] = \delta_{kl}$.  The total Hamiltonian is
+\[
+  H = \underbrace{\omega_0\,\sigma_+\sigma_-}_{H_S}
+    + \underbrace{\sum_k \omega_k\, b_k^\dagger b_k}_{H_R}
+    + \underbrace{\sigma_+ \otimes B + \sigma_- \otimes B^\dagger}_{H_I},
+  \qquad B = \sum_k g_k\, b_k.
+\]
+The total excitation number $N = |1\rangle\langle 1| + \sum_k b_k^\dagger b_k$ commutes with $H$, making the model exactly solvable in the single-excitation sector.
+
+In the \textbf{continuous-mode limit} with a Lorentzian spectral density
+\[
+  J(\omega) = \frac{g}{\pi}\,\frac{\Gamma}{(\omega - \omega_c)^2 + \Gamma^2},
+\]
+the excited-state amplitude evolves as
+\[
+  c_1(t) = c_1(0)\,e^{-(\Gamma - i\Delta)t/2}
+    \Bigl[\cosh\!\bigl(\tfrac{R\,t}{2}\bigr)
+      + \frac{\Gamma - i\Delta}{R}\,\sinh\!\bigl(\tfrac{R\,t}{2}\bigr)\Bigr],
+  \quad R = \sqrt{(\Gamma - i\Delta)^2 - \frac{4g}{\sqrt{2\pi}}},
+\]
+where $\Delta = \omega_0 - \omega_c$ is the detuning.  For large times $c_1(t) \to 0$, so $\rho_S(t) \to |0\rangle\langle 0|$: the atom irreversibly relaxes to its ground state, and the exact master equation takes Lindblad form with a time-dependent decay rate $\gamma(t)$.
+
+%% ----------------------------------------------------------------
+\section{Intuition and Setup}
+
+The paper is a self-contained set of lecture notes structured around a single guiding idea:
+
+\begin{quote}
+\emph{Start from a concrete, exactly solvable model (the Jaynes--Cummings model), observe the structures that appear (Lindblad generators, Kraus operators, CPTP maps), then develop the general theory.}
+\end{quote}
+
+\textbf{Key definitions and objects:}
+
+\begin{definition}[Density matrix]
+A \emph{density matrix} on a Hilbert space $\mathcal{H}$ is an operator $\rho \ge 0$ with $\operatorname{tr}\rho = 1$.  If $\rho = |\psi\rangle\langle\psi|$ it is a \emph{pure state}; otherwise it is \emph{mixed}.
+\end{definition}
+
+\begin{definition}[CPTP map]
+A linear map $\Phi: \mathcal{B}(\mathcal{H}) \to \mathcal{B}(\mathcal{H})$ is \emph{completely positive trace-preserving} (CPTP) if it preserves trace and $\Phi \otimes \mathrm{id}_{n\times n}$ is positivity-preserving for every $n \ge 1$.
+\end{definition}
+
+\begin{definition}[Quantum dynamical semigroup]
+A family $\{\Phi_t\}_{t\ge 0}$ of CPTP maps with $\Phi_0 = \mathrm{id}$, $\Phi_{t+s} = \Phi_t \circ \Phi_s$, and $t \mapsto \Phi_t$ continuous, is a \emph{quantum dynamical (Markovian) semigroup}.
+\end{definition}
+
+\begin{definition}[Reduced dynamics]
+For a bipartite system $\mathcal{H}_{SR} = \mathcal{H}_S \otimes \mathcal{H}_R$ evolving under $U = e^{-itH}$, the \emph{reduced system state} is
+$\rho_S(t) = \operatorname{tr}_R\bigl(U\,(\rho_S(0)\otimes\rho_R)\,U^\dagger\bigr)$.
+\end{definition}
+
+%% ----------------------------------------------------------------
+\section{Main Results (Bulleted)}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Jaynes--Cummings exact master equation.}  In the single-excitation sector with Lorentzian spectral density, the atom density matrix satisfies
+  \[
+    \partial_t \rho_S(t) = -i[H_{\mathrm{eff}}(t),\,\rho_S(t)]
+      + \gamma(t)\Bigl(\sigma_- \rho_S(t)\,\sigma_+
+        - \tfrac12\{\sigma_+\sigma_-,\,\rho_S(t)\}\Bigr),
+  \]
+  an exact (non-Markovian) equation with time-dependent $\gamma(t)$.
+
+  \item \textbf{Kraus Representation Theorem (Thm.~1).}  $\Phi$ is CPTP on $\mathcal{B}(\mathbb{C}^d)$ if and only if there exist operators $K_\alpha$, $\alpha = 1,\dots,d^2$, with $\sum_\alpha K_\alpha^\dagger K_\alpha = \mathbb{1}$, such that
+  $\Phi(X) = \sum_\alpha K_\alpha\, X\, K_\alpha^\dagger$.
+
+  \item \textbf{Dilation Theorem (Thm.~2).}  $\Phi$ is CPTP if and only if there exist a Hilbert space $\mathcal{H}_R$ ($\dim \le d^2$), a unit vector $\Omega \in \mathcal{H}_R$, and a unitary $U$ on $\mathcal{H}\otimes\mathcal{H}_R$ such that
+  $\Phi(X) = \operatorname{tr}_R\bigl[U(X\otimes|\Omega\rangle\langle\Omega|)U^\dagger\bigr]$.
+  This links abstract CPTP maps to the physics of open systems.
+
+  \item \textbf{GKSL Theorem (Thm.~3).}  The generator $\mathcal{L}$ of a CPTP semigroup must have Lindblad form (see Main Statement above).
+\end{itemize}
+
+%% ----------------------------------------------------------------
+\section{Proof Sketch}
+
+\subsection*{Step 1: Derive irreversibility from the Jaynes--Cummings model}
+\begin{enumerate}[nosep]
+  \item Work in the interaction picture $\varphi(t) = e^{iH_0 t}\psi(t)$.
+  \item Exploit the conservation law $[H,N]=0$ to reduce to the single-excitation sector; the state is parameterized by amplitudes $c_1(t)$ (atom excited, vacuum field) and $d_k(t)$ (atom ground, one photon in mode $k$).
+  \item Eliminate $d_k(t)$ to get an integro-differential equation for $c_1(t)$ involving the vacuum correlation function $f(\tau) = \sum_k |g_k|^2 e^{-i(\omega_k - \omega_0)\tau}$.
+  \item Pass to the \textbf{continuous-mode limit}: replace the discrete sum by an integral against the spectral density $J(\omega) = \sqrt{2\pi}\,\varrho(\omega)|g(\omega)|^2$.
+  \item With a Lorentzian $J(\omega)$, solve explicitly to get $c_1(t)$ in closed form; show $c_1(t) \to 0$ (irreversibility).
+  \item Compute $\rho_S(t) = \operatorname{tr}_R|\varphi(t)\rangle\langle\varphi(t)|$ and derive the exact master equation (Lindblad form with time-dependent $\gamma(t)$).
+\end{enumerate}
+
+\subsection*{Step 2: Kraus Representation (Thm.~1)}
+\begin{enumerate}[nosep]
+  \item Start from the ``open-system'' definition $\Phi(X) = \operatorname{tr}_R[U(X\otimes|\Omega\rangle\langle\Omega|)U^\dagger]$.
+  \item Expand $U$ in a product basis and take the partial trace to extract operators $K_\alpha$ such that $\Phi(X) = \sum_\alpha K_\alpha X K_\alpha^\dagger$.
+  \item For the converse, given a CPTP map $\Phi$, use the anti-linear conjugation $C$ and the maximally entangled vector $v = \sum_j e_j \otimes e_j$ to express $\Phi(|\psi\rangle\langle\psi|)$ as a partial trace of $(\Phi\otimes\mathrm{id})(|v\rangle\langle v|)$ contracted against $|C\psi\rangle\langle C\psi|$.
+  \item Complete positivity guarantees $(\Phi\otimes\mathrm{id})(|v\rangle\langle v|) \ge 0$, so it decomposes as $\sum_\alpha |s_\alpha\rangle\langle s_\alpha|$, yielding operators $K_\alpha$ via the coordinate expansion of each $s_\alpha$.
+  \item Extend from rank-one projections to all $X$ by linearity and Hermitian decomposition.
+\end{enumerate}
+
+\subsection*{Step 3: Dilation Theorem (Thm.~2)}
+\begin{enumerate}[nosep]
+  \item Given Kraus operators $K_\alpha$, $\alpha = 1,\dots,N$ ($N \le d^2$), set $\mathcal{H}_R = \mathbb{C}^N$ with orthonormal basis $\{e_\alpha\}$.
+  \item Define the partial isometry $\bar{U}: \psi\otimes\Omega \mapsto \sum_\alpha K_\alpha\psi \otimes e_\alpha$.
+  \item Verify $\bar{U}$ is isometric (using $\sum_\alpha K_\alpha^\dagger K_\alpha = \mathbb{1}$) and extend to a full unitary $U$ on $\mathcal{H}\otimes\mathcal{H}_R$ by Exercise~5 (extending a partial isometry).
+  \item Check $\operatorname{tr}_R[U(X\otimes|\Omega\rangle\langle\Omega|)U^\dagger] = \Phi(X)$.
+\end{enumerate}
+
+\subsection*{Step 4: GKSL Theorem (Thm.~3)}
+\begin{enumerate}[nosep]
+  \item Fix an orthonormal basis $\{F_j\}_{j=1}^{d^2}$ of $\mathcal{B}(\mathbb{C}^d)$ with $F_{d^2} = \frac{1}{\sqrt{d}}\mathbb{1}$.
+  \item Expand the Kraus representation of $\Phi_t$ in this basis: $\Phi_t(X) = \sum_{i,j} c_{ij}(t)\, F_i X F_j^\dagger$.
+  \item Differentiate at $t=0$ to get $\mathcal{L}X = \lim_{t\to 0^+} \frac{1}{t}(\Phi_t(X) - X)$; the coefficient matrix $(a_{ij})$ has well-defined limits.
+  \item Use trace-preservation ($\operatorname{tr}(\mathcal{L}X)=0$ for all $X$) to express the ``diagonal'' terms in terms of the $a_{ij}$, producing the Hamiltonian part $-i[H,X]$ and the anti-commutator corrections.
+  \item Show the coefficient matrix $A = (a_{ij})_{i,j=1}^{d^2-1}$ is positive semi-definite (inherited from positivity of the $c_{ij}(t)$ matrix).
+  \item Diagonalize $A = U D U^\dagger$ with $D = \operatorname{diag}(\gamma_1,\dots,\gamma_{d^2-1})$, $\gamma_l \ge 0$, and define $V_l = \sum_i U_{il} F_i$ to arrive at Lindblad form.
+\end{enumerate}
+
+%% ----------------------------------------------------------------
+\begin{thebibliography}{9}
+\bibitem{paper} M.~Merkli and \'A.~Neira, \emph{Lectures on Open Quantum Systems}, arXiv:2603.11925, 2026.
+\end{thebibliography}
+
+\end{document}
