@@ -1,0 +1,123 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}[theorem]{Definition}
+
+\title{Daily arXiv Report:\\[4pt]
+\textit{Violating the All-or-Nothing Picture of Local Charges\\
+in Non-Hermitian Bosonic Chains}}
+\author{Paper by Mizuki Yamaguchi and Naoto Shiraishi\\[2pt]
+\small Report prepared for the arXiv daily digest}
+\date{March 16, 2026}
+
+\begin{document}
+\maketitle
+
+\noindent\textbf{arXiv:} \href{https://arxiv.org/abs/2603.10972}{2603.10972} \quad
+\textbf{Categories:} cond-mat.stat-mech, math-ph, nlin.SI, quant-ph
+
+\section{Core Question}
+
+In quantum integrable systems, local commuting charges are empirically observed to satisfy an \emph{all-or-nothing} rule: either a $k$-local charge exists for \emph{every} $k \ge 3$ (integrable), or none exists for any $k$ (non-integrable). \textbf{Does this dichotomy hold universally, or can ``partially integrable'' systems exist that possess local charges only for some values of $k$?}
+
+\section{Main Statement}
+
+\begin{theorem}[Main Theorem, informal]
+Consider the translationally invariant bosonic chain of length $N$ with periodic boundary conditions and Hamiltonian
+\begin{equation}\label{eq:H}
+H = \sum_{i=1}^{N}\bigl(b_i^\dagger b_{i+1} + b_i\, b_{i+1}^\dagger + g_i\bigr),
+\end{equation}
+where $b_i, b_i^\dagger$ are bosonic annihilation/creation operators on site $i$, and $g = \sum_{x,y\ge 0} c_{xy}(b^\dagger)^x b^y$ is an arbitrary (possibly non-Hermitian) on-site term, identical on every site.
+
+Then every Hamiltonian in this class falls into exactly one of four types based on its uniform ($p=0$ momentum sector) local charges:
+\begin{itemize}[nosep]
+  \item \textbf{Type~C} (completely integrable): a $k$-local charge exists for each $3 \le k \le N/2$.
+  \item \textbf{Type~N} (non-integrable): no $k$-local charge exists for any $3 \le k \le N/2$.
+  \item \textbf{Type~N$^+$}: a $3$-local charge exists, but \emph{no} $k$-local charge for $4 \le k \le N/2$.
+  \item \textbf{Type~C$^-$}: a $k$-local charge exists for $k=3$ and for all $5 \le k \le N/2$, but \emph{no} $4$-local charge exists.
+\end{itemize}
+Types $\mathrm{N}^+$ and $\mathrm{C}^-$ are explicit counterexamples to the all-or-nothing picture, and they occur \textbf{only} in the non-Hermitian sector.
+\end{theorem}
+
+\section{A Concrete Example}
+
+\paragraph{Type~N$^+$ (simplest counterexample).}
+Take the on-site term $g = c_{40}(b^\dagger)^4 + c_{11}\,n$, where $n = b^\dagger b$ is the number operator, $c_{40}\neq 0$, and $c_{11}\neq 0$.
+This Hamiltonian admits \emph{exactly one} nontrivial local charge, which is $3$-local:
+\[
+Q_3 = \sum_{i=1}^{N}\Bigl[
+  b_i^\dagger b_{i+2} - b_i\,b_{i+2}^\dagger
+  + 4c_{40}\bigl(b_i^\dagger (b_{i+1}^\dagger)^3 - (b_i^\dagger)^3 b_{i+1}^\dagger\bigr)
+  + 4c_{11}\bigl(b_i^\dagger b_{i+1} - b_i\,b_{i+1}^\dagger\bigr)
+\Bigr].
+\]
+Despite having this $3$-local charge, \emph{no} $k$-local charge exists for any $k \ge 4$. Hence the Grabowski--Mathieu integrability test (which checks only for a $3$-local charge) would incorrectly declare this model integrable.
+
+\section{Intuition and Setup}
+
+\subsection*{Key definitions}
+\begin{definition}[$k$-local charge]
+An operator $Q$ commuting with $H$ is called \emph{$k$-local} if it can be written as a sum of terms each supported on at most $k$ contiguous sites, with at least one term having support on exactly $k$ sites.
+\end{definition}
+
+The analysis splits into momentum sectors: by translational invariance, any local charge decomposes into components of definite quasi-momentum $p$. The authors show that only $p=0$ (uniform) and $p=\pi$ (staggered) sectors can carry nontrivial local charges.
+
+\subsection*{Why non-Hermiticity matters}
+In Hermitian models, the algebraic constraints from $[Q,H]=0$ are strong enough to force the all-or-nothing picture. Non-Hermiticity relaxes these constraints (coefficients $c_{xy}$ can be complex and asymmetric in $x,y$), creating room for partial solutions at some values of $k$ but not others.
+
+\subsection*{Why bosonic (infinite-dimensional local Hilbert space)}
+For spin chains with finite local dimension $d$, exhaustive classifications have confirmed the all-or-nothing rule. Bosonic chains have $d=\infty$, so the expansion of a $k$-local charge involves infinitely many unknowns, making the linear system qualitatively different.
+
+\section{Main Results}
+
+\begin{itemize}
+  \item \textbf{Exhaustive classification.} Every Hamiltonian of the form \eqref{eq:H} is classified into one of four types (C, N, N$^+$, C$^-$) for uniform charges and three types (SC, SN, SN$^+$) for staggered charges. The classification is given explicitly in terms of the coefficients $c_{xy}$.
+
+  \item \textbf{First counterexamples to the all-or-nothing picture.}
+    \begin{itemize}[nosep]
+      \item Type~N$^+$: has a $3$-local charge but nothing higher. Occurs when the on-site term has the form $g = c_{40}(b^\dagger)^4 + c_{30}(b^\dagger)^3 + c_{20}(b^\dagger)^2 + c_{11}n + \frac{c_{30}(2+c_{11})}{4c_{40}}b$ with $c_{40}\neq 0$, $c_{11}\neq 0$.
+      \item Type~C$^-$: has charges for $k=3$ and all $k\ge 5$, but \emph{not} $k=4$. Occurs with on-site term $g = c_{30}(b^\dagger)^3 + c_{20}(b^\dagger)^2 + c_{10}b^\dagger + c_{11}n + c_{01}b$ under certain conditions.
+    \end{itemize}
+
+  \item \textbf{New integrable models.} Several previously unknown Type~C (fully integrable) bosonic chains are discovered, e.g.\ $g = c_{40}(b^\dagger)^4$ and $g = c_{30}(b^\dagger)^3 + c_{11}n$.
+
+  \item \textbf{Even--odd sensitivity.} Some models (e.g.\ $g = c_{50}(b^\dagger)^5$) have staggered charges only when the chain length $N$ is even.
+
+  \item \textbf{Grabowski--Mathieu test invalidated.} The widely used integrability test based on $3$-local charges is shown to be unreliable in this setting.
+
+  \item \textbf{Hermitian subclass is safe.} For Hermitian Hamiltonians in this class, the all-or-nothing picture \emph{does} hold.
+\end{itemize}
+
+\section{Proof Sketch}
+
+The proof proceeds in three stages:
+
+\begin{enumerate}
+  \item \textbf{Operator expansion and linear system (Sec.~III).}
+    Expand a candidate $k$-local charge $Q_k$ in the basis $(b^\dagger)^x b^y$ at each site. The condition $[Q_k, H] = 0$ becomes a (possibly infinite) system of linear equations in the expansion coefficients $\{q_A\}$. Two key model-independent lemmas (Lemmas~1 and~2) reduce the system by exploiting the nearest-neighbor hopping structure: they show that the ``boundary'' coefficients of $Q_k$ are severely constrained, effectively reducing the problem to a finite system at each $k$.
+
+  \item \textbf{3-local charge classification (Sec.~IV, Lemma~3).}
+    For $k=3$, the linear system is small enough to solve completely. The authors determine \emph{all} on-site terms $g$ for which a $3$-local charge exists, splitting the parameter space into two regions: those with a $3$-local charge (candidates for Types C, N$^+$, C$^-$) and those without (necessarily Type~N).
+
+  \item \textbf{Higher charges: case-by-case and general obstruction (Sec.~V).}
+    \begin{itemize}[nosep]
+      \item For models with a $3$-local charge, the authors attempt to extend to $k=4,5,\ldots$ by solving the corresponding linear systems. The solvability conditions at each $k$ impose algebraic constraints on the $c_{xy}$ parameters, yielding the fine distinction between Types C, N$^+$, and C$^-$.
+      \item \textbf{Key step for Type~N$^+$} (Lemma~5): When $c_{40}\neq 0$ and $c_{11}\neq 0$, the $4$-local system is shown to be inconsistent (no solution). A recursive argument then proves that if no $4$-local charge exists in this subfamily, no $k$-local charge exists for any $k\ge 4$.
+      \item \textbf{Key step for Type~C$^-$} (Lemma~6 for $k=4$ obstruction; Lemmas~7--9 for constructing $k\ge 5$ charges): An explicit recursive construction produces charges for all $k\ge 5$, while a direct computation shows the $k=4$ system is inconsistent.
+      \item \textbf{General no-go} (Lemma~11): For models without a $3$-local charge, the authors prove by induction on $k$ that no $k$-local charge exists for any $k\ge 3$, confirming Type~N.
+    \end{itemize}
+
+  \item \textbf{Staggered sector (Appendix~J).}
+    A parallel analysis for the $p=\pi$ sector yields the SC/SN/SN$^+$ classification.
+\end{enumerate}
+
+\section*{Summary}
+
+This paper provides the \emph{first} rigorous examples of quantum many-body systems with ``partial integrability'': local charges exist for some ranges $k$ but not others. The phenomenon is specific to non-Hermitian bosonic chains and does not arise in Hermitian or finite-dimensional (spin) settings. The exhaustive classification also uncovers new integrable models and demonstrates that the standard Grabowski--Mathieu integrability test can fail.
+
+\end{document}
