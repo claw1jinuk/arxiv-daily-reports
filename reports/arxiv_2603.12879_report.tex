@@ -1,0 +1,173 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\title{Daily arXiv Report: Sharp Threshold for Universality of Cokernels of Classical Random Matrix Models over the $p$-adic Integers}
+\author{Report on \texttt{arXiv:2603.12879} by J.~Jung, J.~Lee, and M.~Yu}
+\date{March 17, 2026}
+
+\begin{document}
+\maketitle
+
+%----------------------------------------------------------------------
+\section{Core Question}
+%----------------------------------------------------------------------
+
+Given a random $n\times n$ matrix $A(n)$ over the $p$-adic integers $\mathbb{Z}_p$ whose entries are only mildly random (specifically, $\alpha_n$-balanced with $\alpha_n = c\log n / n$), what is the \emph{sharp threshold} for the parameter $c$ above which the cokernel $\operatorname{cok}(A(n))$ converges in distribution to the universal limit dictated solely by the symmetry type (non-symmetric, symmetric, or alternating)?
+
+%----------------------------------------------------------------------
+\section{Key Definitions and Setup}
+%----------------------------------------------------------------------
+
+\begin{definition}[$p$-adic integers and related objects]
+Fix a prime $p$. Let $\mathbb{Z}_p$ denote the ring of $p$-adic integers, $\mathbb{F}_p = \mathbb{Z}/p\mathbb{Z}$ the finite field with $p$ elements, and $R = \mathbb{Z}/p^d\mathbb{Z}$ for a positive integer $d$.
+\end{definition}
+
+\begin{definition}[$\alpha$-balanced random variable]
+A random element $x \in \mathbb{F}_p$ is \emph{$\alpha$-balanced} (for $\alpha \in (0,1/2]$) if
+\[
+\Pr(x = r) \le 1 - \alpha \quad \text{for every } r \in \mathbb{F}_p.
+\]
+An element $x \in \mathbb{Z}_p$ is $\alpha$-balanced if its reduction modulo $p$ is $\alpha$-balanced. A random matrix in $\mathrm{M}_n(\mathbb{Z}_p)$ (resp.\ $\mathrm{Sym}_n(\mathbb{Z}_p)$, $\mathrm{Alt}_n(\mathbb{Z}_p)$) is $\alpha$-balanced if its entries (resp.\ upper-triangular entries, resp.\ strictly upper-triangular entries) are independent and $\alpha$-balanced.
+\end{definition}
+
+\begin{definition}[Cokernel]
+For a matrix $A \in \mathrm{M}_n(\mathbb{Z}_p)$ (viewed as a linear map $\mathbb{Z}_p^n \to \mathbb{Z}_p^n$), the \emph{cokernel} is
+\[
+\operatorname{cok}(A) := \mathbb{Z}_p^n / A(\mathbb{Z}_p^n),
+\]
+which is a finitely generated $\mathbb{Z}_p$-module (and generically a finite abelian $p$-group).
+\end{definition}
+
+\noindent\textbf{Intuition.}
+The parameter $\alpha$ controls how ``spread out'' each entry's distribution is modulo $p$. When $\alpha$ is a fixed constant, universality of the cokernel distribution was established by Wood and Nguyen--Wood in prior work. The natural question is: how small can $\alpha = \alpha_n$ be (as a function of $n$) while still having universality? The answer turns out to be $\alpha_n = c\log n / n$ with the critical value at $c=1$.
+
+%----------------------------------------------------------------------
+\section{Early Concrete Example}
+%----------------------------------------------------------------------
+
+\begin{example}[Non-symmetric case over $\mathbb{F}_p$]
+Let $A(n)$ be an $\alpha_n$-balanced random matrix in $\mathrm{M}_n(\mathbb{F}_p)$ with $\alpha_n = c\log n/n$ and $c > 1$. Then for every nonnegative integer $k$,
+\[
+\lim_{n\to\infty} \Pr(\operatorname{rank}(A(n)) = n-k) = \frac{p^{-k^2}\prod_{i=1}^\infty (1-p^{-i})}{\prod_{i=1}^k (1-p^{-i})^2}.
+\]
+This is precisely the rank distribution of a \emph{uniformly random} matrix over $\mathbb{F}_p$, even though each entry of $A(n)$ is allowed to be heavily biased (e.g., taking the value $0$ with probability $1 - c\log n/n$). The result fails at $c=1$.
+\end{example}
+
+%----------------------------------------------------------------------
+\section{Main Results}
+%----------------------------------------------------------------------
+
+The main theorem treats all three symmetry types simultaneously:
+
+\begin{theorem}[Main result, Theorem 1.5]
+Let $c > 1$, $\alpha_n = c\log n / n$, and let $H$ be a finite abelian $p$-group. Suppose $A(n)$ is an $\alpha_n$-balanced random matrix in $\mathcal{M}_n(\mathbb{Z}_p)$ where $\mathcal{M}_n$ is one of $\mathrm{M}_n$, $\mathrm{Sym}_n$, or $\mathrm{Alt}_n$.
+\begin{itemize}
+    \item \textbf{Non-symmetric:} If $\mathcal{M}_n = \mathrm{M}_n$, then
+    \[
+    \lim_{n\to\infty} \Pr(\operatorname{cok}(A(n)) \cong H) = \frac{1}{|\mathrm{Aut}(H)|}\prod_{i=1}^\infty (1-p^{-i}).
+    \]
+    \item \textbf{Symmetric:} If $\mathcal{M}_n = \mathrm{Sym}_n$, then
+    \[
+    \lim_{n\to\infty} \Pr(\operatorname{cok}(A(n)) \cong H) = \frac{\#\{\text{symmetric, bilinear, perfect } \varphi\colon H\times H \to \mathbb{C}^*\}}{|H|\,|\mathrm{Aut}(H)|}\prod_{i=1}^\infty (1-p^{1-2i}).
+    \]
+    \item \textbf{Alternating:} If $\mathcal{M}_n = \mathrm{Alt}_n$, then for $H \in \mathcal{S}_p$ (i.e., $H \cong G\times G$ for some finite abelian $p$-group $G$),
+    \[
+    \lim_{n\to\infty} \Pr(\operatorname{cok}(A(2n)) \cong H) = \frac{|H|}{|\mathrm{Sp}(H)|}\prod_{i=1}^\infty (1-p^{1-2i}),
+    \]
+    and $\Pr(\operatorname{cok}(A(2n)) \cong H) \to 0$ if $H \notin \mathcal{S}_p$.
+\end{itemize}
+Moreover, universality \textbf{fails} at the critical scale $c=1$.
+\end{theorem}
+
+\begin{corollary}[Application to sandpile groups]
+Let $\Gamma(n) \in G(n,\beta_n)$ be an Erd\H{o}s--R\'enyi random graph with $\beta_n \in [\alpha_n, 1-\alpha_n]$ and $\alpha_n = c\log n / n$, $c>1$. Then the Sylow $p$-subgroup $S_{\Gamma(n),p}$ of the sandpile group satisfies
+\[
+\lim_{n\to\infty} \Pr(S_{\Gamma(n),p} \cong H) = \frac{\#\{\text{symmetric, bilinear, perfect } \varphi\colon H\times H\to \mathbb{C}^*\}}{|H|\,|\mathrm{Aut}(H)|}\prod_{i=1}^\infty (1-p^{1-2i}).
+\]
+This extends Wood's result (which required constant $\beta_n$) to the sparse regime near the connectivity threshold $\beta_n = \log n / n$.
+\end{corollary}
+
+%----------------------------------------------------------------------
+\section{Proof Sketch}
+%----------------------------------------------------------------------
+
+The proof proceeds through the following steps:
+
+\medskip
+\noindent\textbf{Step 1: Moment method.}
+The authors use the \emph{moment method for random groups}: if two sequences of random finitely generated $\mathbb{Z}_p$-modules $(X_n)$ and $(Y_n)$ have matching surjective moments
+$\lim_{n\to\infty} \mathbb{E}[\#\operatorname{Sur}(X_n, G)] = M_G$
+for all finite abelian $p$-groups $G$, and $M_G$ grows at most polynomially in $|G|$, then $(X_n)$ and $(Y_n)$ have the same limiting distribution. This reduces the problem to computing moments of $\operatorname{cok}(A(n))$.
+
+\medskip
+\noindent\textbf{Step 2: Switch from Sur-moments to Hom-moments.}
+A key methodological innovation: instead of computing $\mathbb{E}[\#\operatorname{Sur}(\operatorname{cok}(A(n)), G)]$ directly (as in all prior works), the authors work with
+\[
+\mathbb{E}[\#\operatorname{Hom}(\operatorname{cok}(A(n)), G)],
+\]
+which is related to Sur-moments by M\"obius inversion on the subgroup lattice. This switch is crucial because Hom-moments admit a Fourier-analytic representation that better captures the interaction between the ``test homomorphism'' $F\colon \mathbb{Z}_p^n \to G$ and the ``character'' $C \in \operatorname{Hom}(\operatorname{Hom}(\mathbb{Z}_p^n, G), R)$.
+
+\medskip
+\noindent\textbf{Step 3: Unified Fourier-analytic framework.}
+Using the discrete Fourier transform, the Hom-moment is expressed as
+\[
+\mathbb{E}[\#\operatorname{Hom}(\operatorname{cok}(A(n)), G)] = \frac{1}{|G|^n} \sum_{\mathbf{g},\mathbf{h} \in G^n} \prod_{(k,l)} \mathbb{E}[\zeta^{A(n)_{kl} \cdot B(\mathbf{g}_k, \mathbf{g}_l)}],
+\]
+where $\zeta = e^{2\pi i / p^d}$ and $B$ is a bilinear form on $G^2$ that depends on the symmetry type:
+\begin{itemize}
+    \item Non-symmetric: $B(\mathbf{g}_k, \mathbf{g}_l) = g_k \cdot h_l$;
+    \item Symmetric: $B(\mathbf{g}_k, \mathbf{g}_l) = g_k \cdot h_l + g_l \cdot h_k$;
+    \item Alternating: $B(\mathbf{g}_k, \mathbf{g}_l) = g_k \cdot h_l - g_l \cdot h_k$.
+\end{itemize}
+This formulation treats all cases uniformly.
+
+\medskip
+\noindent\textbf{Step 4: Main term via isotropic subgroups.}
+The \emph{main term} comes from the ``trivial part'' $\mathcal{G}_{\mathrm{tr}}$: $n$-tuples $(\mathbf{g}_1,\ldots,\mathbf{g}_n)$ for which $U(\mathbf{g}_k) = 0$ and $B(\mathbf{g}_k,\mathbf{g}_l)=0$ for all $k,l$. These correspond to maximal isotropic subgroups of $(G^2, B)$. The main term evaluates to:
+\begin{itemize}
+    \item Non-symmetric: $\sum_{H\le G} 1$;
+    \item Symmetric: $\sum_{H\le G} |\wedge^2 H|$;
+    \item Alternating: $\sum_{H\le G} |\operatorname{Sym}^2 H|$.
+\end{itemize}
+These counts are related to the universal distributions via the correspondence between maximal isotropic subgroups and bilinear pairings on subgroups of $G$.
+
+\medskip
+\noindent\textbf{Step 5: Error term analysis (technical core).}
+The bulk of the proof shows that all non-trivial contributions vanish as $n\to\infty$. The authors classify the ``non-trivial'' $n$-tuples into four cases based on the ``frequency set'' $W = \{\mathbf{g} \in G^2 : \#\{k : \mathbf{g}_k = \mathbf{g}\} \ge \gamma n\}$:
+\begin{enumerate}
+    \item[(C1)] $W$ is \textbf{not isotropic}: then $\Theta(n^2)$ pairs $(k,l)$ have $B(\mathbf{g}_k,\mathbf{g}_l)\neq 0$, giving exponential decay $\exp(-\Theta(n\log n))$ via Bauer's maximum principle and the bound $|1-\alpha_n + \alpha_n \zeta^r| \le 1 - \Theta(\log n / n)$ for $r\neq 0$.
+    \item[(C2)] $W$ is \textbf{isotropic but not maximal}: a combinatorial counting argument (using binary entropy bounds) shows the contribution is $o(1)$ for sufficiently small $\gamma$.
+    \item[(C3a--C3c)] $W$ is \textbf{maximal isotropic} but $(\mathbf{g}_1,\ldots,\mathbf{g}_n) \notin \mathcal{G}_{\mathrm{tr}}$: elements outside $W$ interact non-trivially with $W$ (by the non-constant affine map property of $B$), producing enough ``damping factors'' to kill the contribution. Sub-cases handle different regimes of how many elements lie outside $W$.
+    \item[(C3d)] All $\mathbf{g}_k \in W$ but $(\mathbf{g}_1,\ldots,\mathbf{g}_n)\notin \mathcal{G}_{\mathrm{tr}}$: the tuple doesn't span $W$, and this is handled by showing the number of such tuples is negligible.
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Step 6: Sharpness at $c=1$.}
+The authors construct explicit $\alpha_n$-balanced distributions (with $\alpha_n = \log n / n$) for which the cokernel distribution does \emph{not} converge to the universal limit. The key idea is that at $c=1$, the probability of a zero column (or row) is $\Theta(1/n)$, so the expected number of zero columns remains bounded, preventing universality.
+
+%----------------------------------------------------------------------
+\section{Significance}
+%----------------------------------------------------------------------
+
+\begin{itemize}
+    \item Resolves open problems of Wood on sharp thresholds for cokernel universality.
+    \item Provides a \textbf{unified framework} for non-symmetric, symmetric, and alternating matrices, addressing Wood's Open Problem 3.11.
+    \item The Hom-moment approach (vs.\ Sur-moments) is a methodological advance that may find further applications.
+    \item The sandpile group application extends the theory to sparse Erd\H{o}s--R\'enyi graphs near the connectivity threshold, linking random matrix universality to random graph theory.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Paper:} \url{https://arxiv.org/abs/2603.12879}
+
+\end{document}
