@@ -1,0 +1,193 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Reading Report:\\Upper Tail Large Deviations for Extremal Eigenvalues\\of the Elliptic Ginibre Matrices}
+\author{Auto-generated report on \texttt{arXiv:2603.16339}\\by S.-S.\ Byun, Y.-W.\ Lee, and S.\ Oh}
+\date{March 18, 2026}
+
+\begin{document}
+\maketitle
+
+%----------------------------------------------------------------------
+\section{Core Question}
+%----------------------------------------------------------------------
+
+What is the probability that the largest eigenvalue (either the spectral radius $\max|z_j|$ or the rightmost eigenvalue $\max\operatorname{Re} z_j$) of an \emph{elliptic Ginibre matrix} exits the support of the limiting spectral distribution, and how does this probability decay as the matrix size $N\to\infty$?  The paper answers this for all three symmetry classes---real ($\beta=1$), complex ($\beta=2$), and symplectic ($\beta=4$)---in a unified framework.
+
+%----------------------------------------------------------------------
+\section{Main Result at a Glance}
+%----------------------------------------------------------------------
+
+\begin{theorem}[Theorem 2.1 of \cite{BLO26}]\label{thm:main}
+Let $\tau\in[0,1)$ be the non-Hermiticity parameter.  For $s>1+\tau$ (i.e.\ outside the elliptic law support),
+\[
+\lim_{N\to\infty}\frac{1}{\beta N}\log\mathbb{P}\!\Bigl[\max_{j}|z_j|\ge s\Bigr]
+\;=\;
+\lim_{N\to\infty}\frac{1}{\beta N}\log\mathbb{P}\!\Bigl[\max_{j}\operatorname{Re} z_j\ge s\Bigr]
+\;=\;-\Phi_\tau(s),
+\]
+where $\beta\in\{1,2,4\}$ is the Dyson index and the rate function is
+\[
+\Phi_\tau(s)\;:=\;\frac{1}{2}\!\left(\frac{1}{1+\tau}-\frac{1}{2\tau}\right)\!s^2
+\;+\;\frac{s\sqrt{s^2-4\tau}}{4\tau}
+\;-\;\log\frac{s+\sqrt{s^2-4\tau}}{2}\,.
+\]
+\end{theorem}
+
+\noindent
+\textbf{Limiting cases.}
+\begin{itemize}[nosep]
+\item $\tau=0$ (Ginibre): $\Phi_0(s)=\tfrac{1}{2}(s^2-2\log s-1)$, recovering the circular-law result of Lacroix-A-Chez-Toine--Majumdar--Schehr and Xu--Zeng.
+\item $\tau\to 1$ (Hermitian/GOE--GUE--GSE): $\Phi_1(s)=\tfrac{s\sqrt{s^2-4}}{4}-\log\tfrac{s+\sqrt{s^2-4}}{2}$, the classical Dean--Majumdar rate function.
+\end{itemize}
+
+%----------------------------------------------------------------------
+\section{A Concrete Example}
+%----------------------------------------------------------------------
+
+\begin{example}
+Consider a $100\times 100$ complex elliptic Ginibre matrix ($\beta=2$) with $\tau=0.3$.  The elliptic law is supported on the ellipse with semi-axes $1+\tau=1.3$ (real) and $1-\tau=0.7$ (imaginary).  Take $s=1.5$.  Then
+\[
+\Phi_{0.3}(1.5)\;\approx\;0.038,
+\]
+so the probability that \emph{any} eigenvalue has modulus $\ge 1.5$ is roughly
+\[
+\mathbb{P}\bigl[\max|z_j|\ge 1.5\bigr]\;\approx\; e^{-\beta N\,\Phi_\tau(s)}=e^{-2\cdot 100\cdot 0.038}\approx 0.05\%.
+\]
+This illustrates the exponential suppression: even a modest overshoot past the support boundary is extremely unlikely for large $N$.
+\end{example}
+
+%----------------------------------------------------------------------
+\section{Setup and Intuition}
+%----------------------------------------------------------------------
+
+\subsection*{The elliptic Ginibre ensemble}
+
+Let $G$ be an $N\times N$ random matrix with i.i.d.\ centred Gaussian entries of variance $1/N$ (real, complex, or quaternionic).  Define
+\[
+X_\tau \;:=\; \sqrt{\tfrac{1+\tau}{2}}\,(G+G^\dagger)\;+\;\sqrt{\tfrac{1-\tau}{2}}\,(G-G^\dagger),
+\qquad \tau\in[0,1).
+\]
+\begin{itemize}[nosep]
+\item $\tau=0$: pure Ginibre (maximally non-Hermitian).
+\item $\tau\to 1$: Hermitian (GOE/GUE/GSE).
+\end{itemize}
+The eigenvalues $\{z_j\}_{j=1}^N\subset\mathbb{C}$ and, as $N\to\infty$, their empirical measure converges to the \textbf{elliptic law}:
+\[
+\frac{1}{\pi(1-\tau^2)}\,\mathbf{1}_{\mathcal{E}}(z)\,d^2z,
+\qquad
+\mathcal{E}=\Bigl\{(x,y):\frac{x^2}{(1+\tau)^2}+\frac{y^2}{(1-\tau)^2}\le 1\Bigr\}.
+\]
+
+\subsection*{Why spectral radius and rightmost eigenvalue?}
+
+The \emph{spectral radius} $\max|z_j|$ measures whether eigenvalues escape the support radially.  The \emph{rightmost eigenvalue} $\max\operatorname{Re} z_j$ is the key stability indicator in continuous-time dynamical systems (e.g.\ May's model of ecosystem stability): if it crosses the imaginary axis, the system becomes unstable.
+
+\subsection*{Key insight: same rate function for both}
+
+Despite the different geometry of the two events---$\{|z|\ge s\}$ (annular) vs.\ $\{\operatorname{Re} z\ge s\}$ (half-plane)---the large deviation rate is the same.  This is because the function $\Omega(z)$ (defined below) achieves its minimum on the real axis in both cases, so the ``cheapest'' way for the system to produce an outlier eigenvalue is always along the real line.
+
+%----------------------------------------------------------------------
+\section{Main Results (Detailed)}
+%----------------------------------------------------------------------
+
+\begin{itemize}
+\item \textbf{Theorem 2.1} (stated above): Unified rate function $\Phi_\tau$ for spectral radius \emph{and} rightmost eigenvalue, valid for all $\beta\in\{1,2,4\}$.  In particular, the $\beta=4$ (symplectic) case was \emph{previously unknown} even for $\tau=0$.
+
+\item \textbf{Theorem 2.2} (general domain): Let $U\subset\mathbb{C}$ be measurable and bounded away from $\mathcal{E}$.  Define
+\[
+\Omega(z):=\frac{1}{1-\tau^2}\bigl(|z|^2-\tau\operatorname{Re} z^2\bigr)
+-\operatorname{Re}\frac{2z}{z+\sqrt{z^2-4\tau}}
+-2\log\Bigl|\frac{z+\sqrt{z^2-4\tau}}{2}\Bigr|.
+\]
+Then for $\beta=2,4$:
+\[
+\lim_{N\to\infty}\frac{1}{\beta N}\log\mathbb{P}\bigl[\exists\, z_j\in U\bigr]=-\tfrac{1}{2}\operatorname{ess\,inf}_{z\in U}\,\Omega(z).
+\]
+For $\beta=1$ (eGinOE):
+\[
+\lim_{N\to\infty}\frac{1}{N}\log\mathbb{P}\bigl[\exists\, z_j\in U\bigr]
+=-\min\Bigl\{\operatorname{ess\,inf}_{z\in U\setminus\mathbb{R}}\Omega(z),\;\tfrac{1}{2}\operatorname{ess\,inf}_{z\in U\cap\mathbb{R}}\Omega(z)\Bigr\}.
+\]
+The real eigenvalues (which exist only for $\beta=1$) have a different exponential weight, and it is \emph{always} a real eigenvalue that is the most likely to cause the large-deviation event.
+
+\item \textbf{Propositions 4.2--4.4} (one-point function asymptotics): For $z\in\mathcal{E}^c$, the one-point functions satisfy
+\begin{align*}
+R_N^{\mathbb{C}}(z)&= e^{-N\Omega(z)+o(N)} &&\text{(eGinUE)},\\
+R_N^{\mathbb{H}}(z)&= e^{-2N\Omega(z)+o(N)} &&\text{(eGinSE)},\\
+R_N^{\mathbb{R},r}(x)&= e^{-N\Omega(x)/2+o(N)},\quad
+R_N^{\mathbb{R},c}(z)= e^{-N\Omega(z)+o(N)} &&\text{(eGinOE)}.
+\end{align*}
+These are derived with \emph{precise} prefactors (not just leading exponential order), which is of independent interest.
+
+\item \textbf{Potential-theoretic interpretation}: $\Omega(z)=V(z)-\check{V}(z)$, where $V$ is the external potential and $\check{V}$ is the obstacle function from logarithmic potential theory.  The rate function is the ``energy cost'' of placing a charge at $z$ outside the equilibrium support.
+\end{itemize}
+
+%----------------------------------------------------------------------
+\section{Proof Sketch}
+%----------------------------------------------------------------------
+
+The proof proceeds through the following steps.
+
+\begin{enumerate}[label=\textbf{Step \arabic*.},leftmargin=2.5em]
+
+\item \textbf{Exact finite-$N$ formulas for one-point functions.}\\
+Using the determinantal (eGinUE) and Pfaffian (eGinOE, eGinSE) structures of the eigenvalue point processes, the one-point functions are expressed as sums over planar orthogonal/skew-orthogonal polynomials built from Hermite polynomials $H_n$.  Specifically, define monic polynomials
+\[
+\varphi_{N,j}(z)=\Bigl(\frac{\tau}{2N}\Bigr)^{j/2}H_j\!\Bigl(\sqrt{\frac{N}{2\tau}}\,z\Bigr).
+\]
+The eGinUE kernel is $K_N^{\mathbb{C}}(z,w)=\sum_{j=0}^{N-1}\varphi_{N,j}(z)\overline{\varphi_{N,j}(w)}/h_{N,j}^{\mathbb{C}}$, and the one-point function is $R_N^{\mathbb{C}}(z)=\omega_N^{\mathbb{C}}(z)\,K_N^{\mathbb{C}}(z,\bar z)$.
+
+\item \textbf{Differential-operator reduction (Lee--Riser trick).}\\
+Direct asymptotic analysis of the large sum $K_N^{\mathbb{C}}$ is hard.  Instead, applying $\partial/\partial z$ to $R_N^{\mathbb{C}}(z)$ collapses the sum to a product of only the \emph{two highest-degree} polynomials $\varphi_{N,N}$ and $\varphi_{N,N-1}$ (Lemma~3.1).  Analogous connection formulas reduce eGinSE and eGinOE kernels to the eGinUE kernel plus finite-rank corrections (Lemmas~3.2, 3.3).
+
+\item \textbf{Hermite polynomial asymptotics.}\\
+For $z$ outside the ellipse $\mathcal{E}$, the rescaled Hermite polynomial $\varphi_{N,N+r}(z)$ admits the asymptotic expansion (Lemma~4.1):
+\[
+\varphi_{N,N+r}(z)=\sqrt{h_{N,N+r}^{\mathbb{C}}}\cdot\frac{N^{1/4}}{(1-\tau^2)^{1/4}}\cdot\frac{\psi(z)^r\sqrt{\psi'(z)}}{\sqrt{2\pi^3}}\cdot e^{Ng(z)}\bigl(1+O(1/N)\bigr),
+\]
+where $\psi(z)=\tfrac{z+\sqrt{z^2-4\tau}}{2}$ is the inverse Joukowsky map and $g(z)=\tfrac{z}{2}\psi(z)+\log\psi(z)$.
+
+\item \textbf{Laplace's method to recover $R_N^{\mathbb{C}}$.}\\
+Having the derivative $\partial_x R_N^{\mathbb{C}}(z)\sim e^{-N\Omega(z)}$ from Steps~2--3, one integrates in $x=\operatorname{Re} z$ from $x$ to $\infty$.  Since $\Omega$ is increasing outward, the integral is dominated by its lower endpoint, yielding $R_N^{\mathbb{C}}(z)$ with a precise prefactor (Proposition~4.2).  Analogous arguments give Propositions~4.3 and 4.4 for eGinOE and eGinSE.
+
+\item \textbf{From one-point functions to large deviations.}\\
+\textit{Upper bound:} By a union bound / first-moment method,
+\[
+\mathbb{P}[\exists\, z_j\in U]\;\le\;\int_U R_N(z)\,d^2z\;\le\; |U|\cdot\sup_{z\in U}R_N(z).
+\]
+The exponential rate is then $-\inf_{z\in U}\Omega(z)$ (up to $\beta$-scaling).
+
+\textit{Lower bound:} One shows that the probability of having \emph{exactly one} eigenvalue in a small ball around the minimiser $z^*$ of $\Omega$ in $U$ is at least $e^{-\beta N\,\Omega(z^*)/2+o(N)}$.  This uses the one-point function as a lower bound for the inclusion probability, combined with repulsion estimates to control multi-eigenvalue contributions.
+
+For the eGinOE ($\beta=1$), the real and complex eigenvalue contributions must be handled separately.  The key observation is that $R_N^{\mathbb{R},r}(x)\sim e^{-N\Omega(x)/2}$ while $R_N^{\mathbb{R},c}(z)\sim e^{-N\Omega(z)}$, so real eigenvalues dominate the large-deviation event (smaller exponent $\Rightarrow$ higher probability).
+
+\item \textbf{Minimisation of $\Omega$ for specific domains.}\\
+For $U=\{|z|\ge s\}$ or $U=\{\operatorname{Re} z\ge s\}$, one verifies (Lemma~4.5) that
+\[
+\inf_{z\in U}\Omega(z)=\Omega(s),
+\]
+i.e.\ the infimum is achieved at $z=s\in\mathbb{R}$.  Combined with Theorem~2.2, this yields Theorem~2.1 with $\Phi_\tau(s)=\tfrac{1}{2}\Omega(s)$.
+\end{enumerate}
+
+%----------------------------------------------------------------------
+\begin{thebibliography}{9}
+\bibitem{BLO26}
+S.-S.\ Byun, Y.-W.\ Lee, and S.\ Oh,
+\emph{Upper tail large deviations for extremal eigenvalues of the real, complex and symplectic elliptic Ginibre matrices},
+arXiv:2603.16339 (2026).
+\end{thebibliography}
+
+\end{document}
