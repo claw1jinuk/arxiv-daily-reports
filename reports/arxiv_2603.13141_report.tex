@@ -1,0 +1,137 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\title{Paper Report: Asymptotic Non-Hermitian Degeneracy Phenomenon\\and Its Exactly Solvable Simulation\\[6pt]\normalsize arXiv:2603.13141 --- Miloslav Znojil}
+\author{Auto-generated report for arXiv daily digest}
+\date{March 19, 2026}
+
+\begin{document}
+\maketitle
+
+%% ----------------------------------------------------------------
+\section{Core Question}
+%% ----------------------------------------------------------------
+
+The imaginary cubic oscillator (ICO) $H^{(\mathrm{ICO})} = -\frac{d^2}{dx^2} + ix^3$ possesses an \emph{intrinsic exceptional point} (IEP): its eigenstates fail to form a Riesz basis, so no consistent probabilistic quantum-mechanical interpretation exists.
+\textbf{Can one construct exactly solvable finite-dimensional toy models whose exceptional-point (EP) degeneracies mimic the IEP phenomenon of the ICO, and can these EP singularities---unlike the IEP---be regularized by small perturbations?}
+
+%% ----------------------------------------------------------------
+\section{Key Definitions and Setup}
+%% ----------------------------------------------------------------
+
+\paragraph{PT symmetry.}
+An operator $H$ is \emph{PT-symmetric} if $[H, PT] = 0$, where $P$ is the parity operator and $T$ is complex conjugation (time reversal).  When unbroken, PT symmetry forces the spectrum to be real despite the Hamiltonian being non-Hermitian.
+
+\paragraph{Exceptional point of order $M$ (EP$_M$).}
+In the sense of Kato's perturbation theory, an EP$_M$ of a parameter-dependent matrix $H^{(N)}(\kappa)$ is a parameter value $\kappa^{(\mathrm{EP}_M)}$ at which $M$ eigenvalues \emph{and} their eigenvectors simultaneously coalesce:
+\[
+  \lim_{\kappa \to \kappa^{(\mathrm{EP}_M)}} E_{m_j}^{(N)}(\kappa) = E^{(N)}_{(\mathrm{EP}_M)}, \qquad
+  \lim_{\kappa \to \kappa^{(\mathrm{EP}_M)}} |\psi_{m_j}^{(N)}(\kappa)\rangle = |\psi^{(N)}_{(\mathrm{EP}_M)}\rangle, \qquad j=1,\dots,M.
+\]
+The Hamiltonian is non-diagonalizable at an EP; its Jordan normal form has a block of size $M$.
+
+\paragraph{Intrinsic exceptional point (IEP).}
+Introduced by Siegl and Krej\v{c}i\v{r}\'ik: the eigenstates of $H^{(\mathrm{ICO})}$ satisfy an \emph{asymptotic} parallelization $|\psi_n^{(\mathrm{ICO})}\rangle \approx |\psi_{n+1}^{(\mathrm{ICO})}\rangle$ for $n \gg 1$.  Because this involves infinitely many levels (not a finite Jordan block), the singularity is ``much stronger than any EP associated with finite Jordan blocks.''
+
+\paragraph{The discrete model.}
+Fix $N \in \mathbb{N}$.  Define the $N \times N$ tridiagonal, PT-symmetric Hamiltonian
+\[
+  H^{(N)}(A,B) = T^{(N)} + V^{(N)}(A,B),
+\]
+where $T^{(N)}$ is the discrete Laplacian (tridiagonal with $2$ on the diagonal and $-1$ on the off-diagonals), and $V^{(N)}$ places purely imaginary entries $\pm iA, \pm iB$ on the diagonal in PT-symmetric fashion:
+\[
+  H^{(N)}(A,B) =
+  \begin{pmatrix}
+    -iA & -1 & 0 & \cdots & 0 \\
+    -1 & -iB & -1 & \ddots & \vdots \\
+    0 & \ddots & \ddots & \ddots & 0 \\
+    \vdots & \ddots & -1 & iB & -1 \\
+    0 & \cdots & 0 & -1 & iA
+  \end{pmatrix}.
+\]
+The spectrum is real and non-degenerate in a ``physical domain'' $\mathcal{D}$ of parameters $(A,B)$; the boundary $\partial\mathcal{D}$ consists of EP singularities.
+
+%% ----------------------------------------------------------------
+\section{Concrete Example: $N=6$}
+%% ----------------------------------------------------------------
+
+At $N=6$ ($K=3$), the secular polynomial is
+\[
+  P^{(6)}_{(A,B)}(E) = E^6 + (-5+A^2+B^2)\,E^4 + (6 - B^2 + 2BA - 3A^2 + B^2A^2)\,E^2
+    - 1 - 2BA + A^2 - B^2A^2.
+\]
+Setting $x = E^2$, the EP$_4$ degeneracy at $E=0$ requires the constant term and the coefficient of $x$ to both vanish.  Eliminating $B$ yields $B_{\pm} = \pm 1 - 1/A$, and plugging back in gives a quartic in $A$ that can be solved in closed form (see Theorem~5 below).  For instance, at $K=3$ one finds $A^{(\mathrm{EP}_4)}_- \approx -1.5606$, $B \approx -0.3590$.  A tiny perturbation of $(A,B)$ away from $\partial\mathcal{D}$ restores a fully real, non-degenerate spectrum---the EP$_4$ singularity is \emph{regularizable}.
+
+%% ----------------------------------------------------------------
+\section{Main Results}
+%% ----------------------------------------------------------------
+
+\begin{itemize}[leftmargin=1.5em]
+  \item \textbf{Exact solvability at even $N=2K$.}
+    The EP$_4$ (four central eigenvalues merging at $E=0$) is located by solving two quartic polynomials
+    \[
+      Z^{(\pm 2K)}(x) = (K{-}1)\,x^4 - 2(K{-}1)\,x^2 \pm 2x + 1 = 0.
+    \]
+    All roots are real for $K \ge 4$ and converge as $K \to \infty$:
+    $A^{(\mathrm{EP}_4)} \to \pm\sqrt{2}$ and $0$ (Theorem~5).
+
+  \item \textbf{Exact solvability at odd $N=2K+1$.}
+    The EP$_5$ (five central eigenvalues merging at $E=0$, including the constant root $E_0=0$) is located by solving quartic polynomials $Z^{(2K+1)}(B^2) = 0$; e.g.\
+    $Z^{(5)}(y) = y^4 - 12y^3 + 50y^2 - 76y + 25$.
+
+  \item \textbf{Asymptotic convergence.}
+    As $N \to \infty$ the EP parameters converge to well-defined limits (e.g.\ $A \to -\sqrt{2}$), confirming a meaningful continuous-coordinate limit.
+    An asymptotic expansion $x^{(K)} = -\sqrt{2} + c_1 g + c_2 g^2 + \cdots$ with $g = 1/(K{-}1)$ gives excellent numerical accuracy even at small $N$ (Table~2 in the paper).
+
+  \item \textbf{Regularizability of EP vs.\ non-regularizability of IEP.}
+    At any finite $N$, the EP$_M$ singularity is removable by an $\mathcal{O}(1/N)$ perturbation (the ``corridor of unitarity'' stays open).
+    In the $N \to \infty$ limit mimicking the IEP, this corridor closes \emph{exponentially}, explaining why the IEP singularity of $H^{(\mathrm{ICO})}$ admits no perturbative regularization.
+
+  \item \textbf{IEP simulation.}
+    At large $N$, the four (or five) highly-excited eigenvectors that coalesce at the EP$_M$ simulate the asymptotic parallelization $|\psi_n\rangle \approx |\psi_{n+1}\rangle$ characteristic of the IEP.
+\end{itemize}
+
+%% ----------------------------------------------------------------
+\section{Proof Sketch}
+%% ----------------------------------------------------------------
+
+\begin{enumerate}[leftmargin=1.5em]
+  \item \textbf{Secular polynomial via PT symmetry.}
+    PT symmetry forces the secular polynomial $P^{(N)}_{(A,B)}(E)$ to be an even/odd function of $E$ (depending on parity of $N$).  Setting $x = E^2$ reduces the eigenvalue problem to a polynomial of degree $K = \lfloor N/2 \rfloor$ in $x$.
+
+  \item \textbf{EP$_M$ at $E=0$.}
+    The maximal central degeneracy at $E^{(\mathrm{EP}_M)} = 0$ requires the lowest coefficients $c_K = 0$ and $c_{K-1} = 0$ simultaneously (Corollary~2 for even $N$; Corollary~4 for odd $N$).
+
+  \item \textbf{Closed-form coefficients (Lemmas 1 and 3).}
+    By induction on $K$ using the tridiagonal structure, one obtains explicit formulas:
+    \begin{itemize}
+      \item Even $N$: $(-1)^K c_K = (1+AB)^2 - A^2$, \; $(-1)^K c_{K-1} = B^2 + \tfrac{K(K{-}1)}{2}A^2 - (2K{-}1) - \tfrac{(K{-}1)(K{-}2)}{2}(1+AB)^2$.
+      \item Odd $N$: $(-1)^K c_K = (K{-}1)(1+AB)^2 + 2 - KA^2$, with a similar formula for $c_{K-1}$.
+    \end{itemize}
+
+  \item \textbf{Elimination (even $N$, Theorem 5).}
+    From $c_K = 0$: $(1+AB)^2 = A^2$, giving $B_\pm = \pm 1 - 1/A$.  Substituting into $c_{K-1} = 0$ yields the quartic polynomials $Z^{(\pm 2K)}(x) = 0$ in $x = A$.
+
+  \item \textbf{Reality of roots.}
+    The discriminant analysis (supported by graphical evidence: the local minima of $Z^{(-2K)}(x)$ decrease with $K$) shows all four roots are real for $K \ge 4$.
+
+  \item \textbf{Asymptotic expansion.}
+    Setting $g = 1/(K{-}1)$ and expanding $x = -\sqrt{2} + c_1 g + c_2 g^2 + \cdots$ in $Z = 0$ order by order gives closed-form coefficients: $c_1 = -(4-\sqrt{2})/8$, $c_2 = (29\sqrt{2}-32)/128$, etc.  This confirms $A^{(\mathrm{EP}_4)} \to -\sqrt{2}$ as $K \to \infty$.
+
+  \item \textbf{Regularization argument.}
+    Near any finite-$N$ EP$_M$, standard Kato perturbation theory guarantees that an $\mathcal{O}(\varepsilon)$ perturbation of parameters splits the degenerate eigenvalues into $M$ distinct real levels within the physical domain $\mathcal{D}$.  The ``corridor'' width scales as $\mathcal{O}(1/N)$, which vanishes in the $N \to \infty$ (IEP) limit---explaining the IEP's non-regularizability.
+\end{enumerate}
+
+%% ----------------------------------------------------------------
+\section*{Reference}
+%% ----------------------------------------------------------------
+M.\ Znojil, ``Asymptotic non-Hermitian degeneracy phenomenon and its exactly solvable simulation,'' arXiv:2603.13141 [quant-ph], March 2026.
+
+\end{document}
