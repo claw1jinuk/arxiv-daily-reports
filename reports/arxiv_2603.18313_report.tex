@@ -1,0 +1,198 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+\title{Report: Quantitative Equidistribution of Eigenvalues of Random Normal Matrices in the Wasserstein Distance}
+\author{arXiv:2603.18313 \quad by P.\ Garc\'ia Arias}
+\date{Report generated: March 20, 2026}
+
+\begin{document}
+\maketitle
+
+%----------------------------------------------------------------------
+\section{Core Question}
+%----------------------------------------------------------------------
+
+How fast does the empirical spectral measure of a Random Normal Matrix (RNM) converge to its equilibrium measure, when ``fast'' is measured by the expected 2-Wasserstein distance $\mathbb{E}\,W_2$? More generally, what quantitative convergence rates can be obtained for determinantal and homogeneous point processes?
+
+%----------------------------------------------------------------------
+\section{Main Statement}
+%----------------------------------------------------------------------
+
+\begin{theorem}[Theorem 2 of the paper]
+Let $Q:\mathbb{C}\to\mathbb{R}$ be a potential satisfying the regularity assumptions (A1)--(A4) below, and assume the droplet $S$ is convex. If $z_1,\dots,z_N$ are the eigenvalues of the $N\times N$ Random Normal Matrix model with potential $Q$, and
+\[
+d\sigma(z) = \tfrac{1}{4}\Delta Q(z)\,\chi_S(z)\,dA(z)
+\]
+is the equilibrium measure (where $dA(z)=\frac{1}{\pi}dx\,dy$), then
+\[
+\mathbb{E}\,W_2\!\Bigl(\frac{1}{N}\sum_{n=1}^N \delta_{z_n},\;\sigma\Bigr) \;\lesssim\; \frac{\sqrt{\log N}}{\sqrt{N}}.
+\]
+\end{theorem}
+
+The regularity assumptions on $Q$ are:
+\begin{itemize}[nosep]
+  \item[(A1)] $Q$ is real-analytic in a neighborhood of $S$.
+  \item[(A2)] $\Delta Q \neq 0$ on $S$.
+  \item[(A3)] $\partial S$ is a $C^\omega$ smooth Jordan curve.
+  \item[(A4)] The pre-droplet equals the droplet: $S^* = S$.
+\end{itemize}
+
+For homogeneous point processes the paper also proves:
+
+\begin{theorem}[Theorem 3]
+Let $\Xi$ be a homogeneous point process in $\mathbb{R}^d$ with the variance bound
+$\mathrm{Var}\bigl(\sum_{x\in\Xi^L}f(x)\bigr)\lesssim L\|f\|_{L^2}^2$,
+and let $\Omega\subset\mathbb{R}^d$ be compact and convex. Then
+\[
+\mathbb{E}\,W_2\!\Bigl(\frac{1}{N}\sum_{x\in\Xi^L\cap\Omega}\delta_x,\;\frac{1}{|\Omega|}dx\big|_\Omega\Bigr)
+\;\lesssim\;
+\begin{cases}
+\dfrac{\sqrt{\log L}}{\sqrt{L}} & d=2,\\[6pt]
+\dfrac{1}{L^{1/d}} & d>2.
+\end{cases}
+\]
+\end{theorem}
+
+This applies to the infinite Ginibre ensemble, the Bessel ensemble, and zeros of the planar Gaussian Analytic Function (GAF).
+
+%----------------------------------------------------------------------
+\section{Early Concrete Example}
+%----------------------------------------------------------------------
+
+\begin{example}[Ginibre ensemble]
+Take $Q(z)=|z|^2$. The droplet is the closed unit disk $S=\overline{\mathbb{D}}$, and the equilibrium measure is $\sigma = \frac{1}{\pi}\chi_{\mathbb{D}}\,dx\,dy$ (uniform measure on the disk). The eigenvalues of a random $N\times N$ matrix with i.i.d.\ complex Gaussian entries, rescaled by $1/\sqrt{N}$, form this model. The theorem says
+\[
+\mathbb{E}\,W_2\!\Bigl(\frac{1}{N}\sum_{n=1}^N\delta_{z_n},\;\sigma\Bigr) = O\!\Bigl(\frac{\sqrt{\log N}}{\sqrt{N}}\Bigr).
+\]
+Previously, Prod'homme obtained the rate $O(1/\sqrt{N})$ for Ginibre using rotational symmetry. This paper recovers an almost-optimal rate \emph{without} symmetry, for \emph{all} RNM models with convex droplet.
+\end{example}
+
+%----------------------------------------------------------------------
+\section{Intuition and Setup}
+%----------------------------------------------------------------------
+
+\subsection*{Key objects and notation}
+
+\begin{definition}[Wasserstein distance]
+For two probability measures $\mu,\nu$ on a metric space $(M,d)$, the $p$-Wasserstein distance is
+\[
+W_p(\mu,\nu) = \Bigl(\inf_{\pi\in\Pi(\mu,\nu)}\int_{M\times M}d(x,y)^p\,d\pi(x,y)\Bigr)^{1/p},
+\]
+where $\Pi(\mu,\nu)$ is the set of couplings (transport plans) with marginals $\mu$ and $\nu$.
+\end{definition}
+
+\begin{definition}[Random Normal Matrix model]
+Given a potential $Q:\mathbb{C}\to\mathbb{R}$ with sufficient growth at infinity, consider $N\times N$ complex normal matrices ($M^*M=MM^*$) with probability density proportional to $e^{-N\,\mathrm{tr}\,Q(M)}$. The eigenvalues $z_1,\dots,z_N\in\mathbb{C}$ form a \emph{determinantal point process} (DPP) with joint density
+\[
+\frac{1}{Z_N}\prod_{i<j}|z_i-z_j|^2\prod_{j=1}^N e^{-NQ(z_j)}\,dA(z_j).
+\]
+\end{definition}
+
+\begin{definition}[Droplet and equilibrium measure]
+The \emph{equilibrium potential} is $\hat{Q}(z)=\sup\{f(z): f \text{ subharmonic}, f\le Q, f(w)\le\log^+|w|^2+O(1)\}$. The \emph{droplet} $S=\mathrm{supp}(\frac{1}{4}\Delta\hat{Q})$ is the compact set where eigenvalues accumulate. The equilibrium measure is $d\sigma = \frac{1}{4}\Delta Q\,\chi_S\,dA$.
+\end{definition}
+
+\begin{definition}[Homogeneous point process]
+A point process $\Xi$ in $\mathbb{R}^d$ whose first intensity $\rho_1$ is constant. One rescales $\Xi$ by $L^{-1/d}$ to get $\Xi^L$ with first intensity $\rho_1^L = cL$, concentrating more points in any fixed region $\Omega$.
+\end{definition}
+
+\subsection*{Central idea}
+
+The standard approach to bounding $W_2$ is Peyre's inequality: $W_2(\mu,\nu)\le 2\|\mu-\nu\|_{\dot{H}^{-1}(d\mu)}$, which connects optimal transport to negative Sobolev norms. But empirical measures (sums of Dirac masses) are ``rough'' and hard to control in Sobolev norms directly.
+
+The key innovation is a \textbf{heat smoothing procedure} on convex domains with Neumann boundary conditions. One replaces $\mu$ and $\nu$ by their heat-flow regularizations $\mu_t = P_t[\mu]$ and $\nu_t = P_t[\nu]$, then estimates:
+\[
+W_2(\mu,\nu) \;\le\; W_2(\mu,\mu_t) + W_2(\mu_t,\nu_t) + W_2(\nu_t,\nu).
+\]
+\begin{itemize}[nosep]
+  \item The ``smoothing error'' $W_2(\mu,\mu_t)$ is controlled by $O(\sqrt{t})$ via the heat kernel.
+  \item The ``smooth comparison'' $W_2(\mu_t,\nu_t)$ is controlled by Fourier coefficients (Neumann eigenfunctions) weighted by $e^{-\lambda_k t}/\lambda_k$, which are in turn controlled by variance estimates for linear statistics of the point process.
+  \item Optimizing $t$ yields the final rate.
+\end{itemize}
+
+Previous work (Borda, Marzo--Ortega-Cerd\`a) applied this on compact manifolds \emph{without boundary}. This paper extends it to \textbf{compact convex subsets of $\mathbb{R}^d$} using the Neumann Laplacian, which is the main technical novelty.
+
+%----------------------------------------------------------------------
+\section{Main Results (Summary)}
+%----------------------------------------------------------------------
+
+\begin{itemize}
+  \item \textbf{Heat Smoothing Inequality (Theorem 6):} For measures $\mu,\nu$ on a convex domain $\Omega\subset\mathbb{R}^d$ with $\nu\ge c\,\mathrm{Vol}|_\Omega$,
+  \[
+    W_2(\mu,\nu) \le C_1(dt)^{1/2} + \frac{2}{C_2(\nu,t)}\Bigl(\sum_{k\ge 1}\frac{e^{-\lambda_k t}}{\lambda_k}|\hat\mu(k)-\hat\nu(k)|^2\Bigr)^{1/2},
+  \]
+  where $\lambda_k$ are Neumann eigenvalues of $\Omega$, and $\hat\mu(k)=\int\varphi_k\,d\mu$ are Neumann--Fourier coefficients.
+
+  \item \textbf{RNM (Theorem 2):} $\mathbb{E}\,W_2(\mu_N,\sigma)\lesssim\sqrt{\log N}/\sqrt{N}$ for convex droplet with regular potential.
+
+  \item \textbf{Homogeneous processes (Theorem 3):} Rate $\sqrt{\log L}/\sqrt{L}$ in $d=2$; rate $L^{-1/d}$ in $d>2$, under a variance bound on linear statistics.
+
+  \item \textbf{Corollaries:} Applies immediately to the infinite Ginibre ensemble, Bessel ensemble (via the reproducing property of their kernels), and the planar GAF zeros (via known variance bounds).
+
+  \item \textbf{Optimality:} For Ginibre, the known lower bound is $\Omega(1/\sqrt{N})$, so the result is optimal up to a $\sqrt{\log N}$ factor.
+\end{itemize}
+
+%----------------------------------------------------------------------
+\section{Proof Sketch}
+%----------------------------------------------------------------------
+
+\subsection*{Step 1: Heat smoothing on convex domains (Theorem 6)}
+
+\begin{enumerate}[nosep]
+  \item Given measures $\mu,\nu$ on $\Omega$, define $\mu_t = P_t[\mu]$, $\nu_t=P_t[\nu]$ where $P_t$ is the Neumann heat semigroup.
+  \item \textbf{Smoothing cost} (Lemma 7--8): Using the explicit transport plan $d\pi(x,y)=P(t,x,y)\,d\mu(y)\,dx$ and the convexity of $\Omega$ (to ensure $\partial_n|x-y|^2\ge 0$), one shows
+  \[
+    W_2(\mu,\mu_t) \le \sqrt{2dt\,\mu(\Omega)}.
+  \]
+  \item \textbf{Smooth comparison} (Lemma 9): Apply Peyre's inequality to the smoothed measures. Expanding in the Neumann eigenbasis $\{\varphi_k\}$:
+  \[
+    W_2(\mu_t,\nu_t) \le \frac{2}{C_2(\nu,2t)}\Bigl(\sum_{k\ge 1}\frac{e^{-2\lambda_k t}}{\lambda_k}|\hat\mu(k)-\hat\nu(k)|^2\Bigr)^{1/2}.
+  \]
+  \item Combine via triangle inequality and optimize $t$.
+\end{enumerate}
+
+\subsection*{Step 2: Application to homogeneous processes (Theorem 3)}
+
+\begin{enumerate}[nosep]
+  \item Set $\mu_L = \frac{1}{N}\sum_{x\in\Xi^L\cap\Omega}\delta_x$ and $\nu=\frac{1}{|\Omega|}dx|_\Omega$.
+  \item The variance hypothesis gives $\mathbb{E}|\hat\mu_L(k)-\hat\nu(k)|^2 \lesssim 1/L$.
+  \item Input into Corollary 10 (a bookkeeping lemma using Weyl's law $|\{m:\lambda_m\le x\}|\lesssim x^{d/2}$ to sum the Fourier series). Optimize $t=L^{-\alpha}$ to get $\gamma = a/(2b+d)$ with $a=1$, $b=0$ giving $\gamma=1/d$ (or $\sqrt{\log}$ correction at the critical exponent $b+d/2=1$, i.e.\ $d=2$).
+  \item For DPPs with reproducing kernels, the variance bound follows from the identity $\mathrm{Var}(\sum f(x))=\frac{1}{2}\iint|f(x)-f(y)|^2|K(x,y)|^2$ and $\int|K(x,y)|^2\,dy = K(x,x)\approx L$.
+\end{enumerate}
+
+\subsection*{Step 3: Application to Random Normal Matrices (Theorem 2)}
+
+The RNM proof is more delicate because the equilibrium measure $\sigma$ is \emph{not} uniform---it has varying density $\frac{1}{4}\Delta Q$---and the kernel behavior changes near the boundary $\partial S$.
+
+\begin{enumerate}[nosep]
+  \item \textbf{Decompose $\mathbb{C}$} into three regions relative to the droplet $S$:
+  \begin{itemize}[nosep]
+    \item \emph{Exterior} ($|z|\gg$ or $d(z,\partial S)>a_0\delta_N$ outside $S$, where $\delta_N=\sqrt{\log N}/\sqrt{N}$): the kernel decays as $K(z,z)\lesssim (2+|z|^2)^{-3}$, so very few points lie here. Bound: $\mathbb{E}\,W_2\lesssim 1/\sqrt{N}$.
+    \item \emph{Edge} ($E_N$: a strip of width $\sim\delta_N$ around $\partial S$): handle by a dyadic partition of $E_N$ into $2^k$ sectors, constructing intermediate measures that redistribute mass sector-by-sector. Telscoping over $K\sim\log N$ levels gives $\mathbb{E}\,W_2\lesssim\sqrt{\log N}/\sqrt{N}$.
+    \item \emph{Bulk} ($S_N = r_N\mathring{S}$, slightly contracted droplet): here $K(z,z)\approx\frac{N}{4}\Delta Q(z)$. Apply the heat smoothing (Theorem 6). The key estimate is
+    \[
+      \mathbb{E}\Bigl|\frac{1}{N}\sum_{z_n\in S_N}\varphi_k(z_n)-\sigma(\varphi_k)\Bigr|^2\lesssim\frac{1}{N},
+    \]
+    obtained from the DPP variance formula and the kernel approximation in the bulk.
+  \end{itemize}
+  \item \textbf{Triangle inequality:} Chain exterior $\to$ edge $\to$ bulk $\to$ smoothing, each contributing $O(\sqrt{\log N}/\sqrt{N})$.
+  \item The convexity of $S$ is used crucially in the heat smoothing step (Neumann boundary, Lemma 7) and in the geometric decomposition.
+\end{enumerate}
+
+%----------------------------------------------------------------------
+\section*{References}
+%----------------------------------------------------------------------
+\begin{itemize}[nosep,label={},leftmargin=0pt]
+  \item Garc\'ia Arias, P. ``Quantitative equidistribution of eigenvalues of Random Normal Matrices in the Wasserstein distance.'' arXiv:2603.18313, March 2026.
+\end{itemize}
+
+\end{document}
