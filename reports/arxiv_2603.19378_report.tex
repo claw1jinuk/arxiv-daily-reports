@@ -1,0 +1,156 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{physics}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{arXiv Report: Tailoring Corner States and Exceptional Points in Altermagnets\\[6pt]
+\large arXiv:2603.19378}
+\author{Auto-generated report for arXiv reading group}
+\date{March 23, 2026}
+
+\begin{document}
+\maketitle
+
+\noindent\textbf{Paper:} X.-M.\ Zhao, C.-X.\ Guo, X.-R.\ Ma, X.-R.\ Wang, S.-P.\ Kou,
+``Tailoring Corner States and Exceptional Points in Altermagnets,'' arXiv:2603.19378 (2026).
+
+%=============================================================
+\section{Core Question}
+%=============================================================
+
+How does non-Hermitian (NH) physics---specifically symmetry-compliant dissipation---interact with the unique momentum-dependent spin splitting of \emph{altermagnets} (AMs) to produce topological phase transitions, exceptional points (EPs), and hybrid skin-topological corner modes that are \emph{absent} in conventional antiferromagnets?
+
+%=============================================================
+\section{Key Definitions and Setup}
+%=============================================================
+
+\paragraph{Altermagnets (AMs).}
+A recently identified class of collinear magnets with \emph{zero} net magnetization (like antiferromagnets) but possessing strong \textbf{momentum-dependent spin splitting} enforced by crystal symmetry.
+The splitting has $d_{x^2-y^2}$ symmetry and arises from anisotropic hopping, \emph{not} spin--orbit coupling (SOC).
+Think of it as an antiferromagnet whose band structure ``knows'' about the sublattice, so spin-up and spin-down bands split except along high-symmetry diagonals $k_x = \pm k_y$.
+
+\paragraph{Non-Hermitian systems.}
+A Hamiltonian $H \neq H^\dagger$.  Physically this models open systems with gain/loss (here: dissipation from coupling to an environment).  Key consequences:
+\begin{itemize}[nosep]
+  \item Complex eigenvalues.
+  \item Left and right eigenstates are distinct: $H\ket{u_R} = E\ket{u_R}$, $H^\dagger\ket{u_L} = E^*\ket{u_L}$.
+  \item \textbf{Exceptional points (EPs):} parameter values where two eigenvalues \emph{and} eigenvectors coalesce (the Hamiltonian becomes defective).
+  \item \textbf{NH skin effect:} eigenstates pile up at boundaries.
+\end{itemize}
+
+\paragraph{Model.}
+A 2D $d_{xy}$-type altermagnet on a Lieb-type lattice with sublattices $A$, $B$ (magnetic, opposite N\'eel vectors) and a nonmagnetic ligand site.  After projecting out the ligand, the $4\times 4$ Bloch Hamiltonian is
+\begin{equation}\label{eq:ham}
+  H(\vb{k}) = \bigl(h_0\,\tau_0 + h_1\,\tau_x + h_3\,\tau_z\bigr)\sigma_0
+  \;+\; h_2\,\tau_y\sigma_z
+  \;+\; (J + i\gamma)\,\tau_z\sigma_z,
+\end{equation}
+where $\tau_{0,x,y,z}$ and $\sigma_{0,x,y,z}$ are Pauli matrices in sublattice and spin space respectively, and:
+\begin{align}
+  h_0(\vb{k}) &= -t_a(\cos k_x + \cos k_y), \notag\\
+  h_1(\vb{k}) &= -4t_0\cos\tfrac{k_x}{2}\cos\tfrac{k_y}{2}, \quad
+  h_2(\vb{k}) = 4\lambda\sin\tfrac{k_x}{2}\sin\tfrac{k_y}{2}, \notag\\
+  h_3(\vb{k}) &= -t_b(\cos k_x - \cos k_y). \label{eq:hfns}
+\end{align}
+Here $t_0=1$ is the nearest-neighbor hopping, $t_a,t_b$ encode the anisotropic next-nearest-neighbor hoppings ($t_1 = (t_a+t_b)/2$, $t_2 = (t_a-t_b)/2$), $\lambda$ is SOC strength, $J$ is the $sd$-exchange coupling, and $\gamma > 0$ parameterizes dissipation.
+
+The crucial NH term is $\boxed{H_{\text{AM}} = (J+i\gamma)\,\tau_z\sigma_z}$.  The imaginary part $i\gamma$ is \emph{locked} to the staggered magnetization operator $\tau_z\sigma_z$; it arises microscopically from a spin-dependent self-energy $\Sigma_\mu \approx -i\gamma(\vb{S}_\mu\cdot\boldsymbol{\sigma})$ obtained by integrating out the bath.
+
+\paragraph{Mirror decoupling.}
+The system preserves $M_z$ ($z\to -z$), so $H$ block-diagonalises into spin-$\uparrow$ and spin-$\downarrow$ sectors.  The spectrum is
+\begin{equation}\label{eq:spectrum}
+  E_\pm = h_0 \pm \sqrt{h_1^2 + h_2^2 + \bigl[h_3 + \epsilon(J+i\gamma)\bigr]^2},
+  \qquad \epsilon = \pm 1 \;\text{for spin }\uparrow/\downarrow.
+\end{equation}
+
+%=============================================================
+\section{Concrete Example: Why Altermagnets Differ from Antiferromagnets}
+%=============================================================
+
+Set $t_b = 0$ (the \textbf{antiferromagnet limit}).  Then $h_3(\vb{k}) \equiv 0$, and the mass term inside the square root becomes the constant $\epsilon(J+i\gamma)$---there is no $\vb{k}$-dependent competition, so \emph{no band inversion is possible}, and the system is topologically trivial for all~$\gamma$.
+
+Now turn on $t_b \neq 0$ (altermagnet).  The dispersive term $h_3(\vb{k}) = -t_b(\cos k_x - \cos k_y)$ varies over the Brillouin zone and can change sign.  At certain momenta $h_3 + \epsilon J = 0$, so the real part of the mass vanishes while the imaginary part $i\gamma$ survives, enabling:
+\begin{enumerate}[nosep]
+  \item Band inversion $\Rightarrow$ \textbf{NH topological phase} (non-zero Chern number).
+  \item Coalescence condition $h_3 + \epsilon J = 0$, $h_1^2 + h_2^2 = \gamma^2$ $\Rightarrow$ \textbf{exceptional points}.
+\end{enumerate}
+This cleanly shows that the AM anisotropy is the \emph{prerequisite} for all non-trivial NH topology.
+
+%=============================================================
+\section{Main Results}
+%=============================================================
+
+\begin{itemize}
+  \item \textbf{NH topological phase transition.}
+    The $(J,\gamma)$ parameter space splits into gapped topological (Chern insulator), gapped trivial, and gapless (EP-hosting) phases.  The entire structure collapses to trivial in the AFM limit $t_b=0$.
+
+  \item \textbf{Biorthogonal Chern number.}
+    Topology is diagnosed via the spin-resolved Chern number computed in the biorthogonal basis:
+    \[
+      C_\sigma = \frac{i}{2\pi}\int_{\text{BZ}} \epsilon_{ij}\,
+      \braket{\partial_{k_i} u_L^\sigma}{\partial_{k_j} u_R^\sigma}\,d^2k.
+    \]
+
+  \item \textbf{Exceptional point dynamics.}
+    In the gapless phase, each spin sector hosts up to 8 EPs.  Increasing $\gamma$ drives pairwise creation and annihilation of EPs.  The spin-$\uparrow$ and spin-$\downarrow$ EP patterns are related by a $\pi/2$ rotation, reflecting the $C_{4z}$ symmetry of the altermagnet.
+
+  \item \textbf{Hybrid skin-topological corner modes.}
+    In the topological phase under full open boundary conditions (OBC), chiral edge states \emph{do not} spread uniformly along edges.  Instead, they accumulate at specific \textbf{corners} due to the NH skin effect.  The number of corner modes scales as $O(L)$ (system size), intermediate between $O(1)$ second-order topological modes and $O(L^2)$ bulk skin modes.
+
+  \item \textbf{Deterministic corner control via sublattice termination.}
+    The corners at which modes localise are \emph{analytically} determined by which sublattice ($A$ or $B$) terminates each edge.  For example, ``BBBB'' termination traps states at bottom-right/top-left corners, while ``ABAB'' shifts them.  This is proved via the transfer matrix method.
+
+  \item \textbf{Analytical edge dispersion.}
+    The complex edge spectrum is
+    \[
+      E_{\text{edge}}(k_i) = \alpha(k_i) + i\gamma\,\beta(k_i),
+    \]
+    where $\alpha$ is the Hermitian edge dispersion and $\gamma\beta$ acts as an effective NH potential controlling localisation via the \emph{chiral skin effect} (CSE) criterion.
+\end{itemize}
+
+%=============================================================
+\section{Proof Sketch}
+%=============================================================
+
+\begin{enumerate}
+  \item \textbf{Microscopic derivation of the NH term.}
+    Start with itinerant electrons coupled to local N\'eel order $\vb{S}_\mu$ ($\mu\in\{A,B\}$) via $sd$-hybridisation, plus a dissipative bath.  Integrate out bath $\Rightarrow$ spin-dependent self-energy $\Sigma_\mu = -i\gamma(\vb{S}_\mu\cdot\boldsymbol{\sigma})$.  Because $\vb{S}_A = -\vb{S}_B$ (N\'eel order), the imaginary part is \emph{staggered}: $+i\gamma$ on sublattice $A$, $-i\gamma$ on $B$, producing the $i\gamma\,\tau_z\sigma_z$ term.
+
+  \item \textbf{Effective Hamiltonian via ligand projection.}
+    Project out the nonmagnetic ligand sites on the Lieb lattice using a Schrieffer--Wolff-type downfolding.  This yields the $4\times4$ Bloch Hamiltonian~\eqref{eq:ham} with the functions~\eqref{eq:hfns}.
+
+  \item \textbf{Block diagonalisation.}
+    Exploit $M_z$ symmetry to decouple into two $2\times2$ blocks (spin-$\uparrow$, spin-$\downarrow$), giving the spectrum~\eqref{eq:spectrum}.
+
+  \item \textbf{Topological classification.}
+    Each $2\times2$ block is a NH Chern insulator.  Compute the biorthogonal Berry curvature and integrate over the BZ.  Band inversion occurs when $h_3(\vb{k}) + \epsilon J$ changes sign across the BZ, which requires $t_b\neq 0$.
+
+  \item \textbf{EP conditions.}
+    The square root in~\eqref{eq:spectrum} vanishes (EP) iff both real and imaginary parts vanish simultaneously:
+    \[
+      h_3 + \epsilon J = 0 \quad\text{and}\quad h_1^2 + h_2^2 = \gamma^2.
+    \]
+    The first fixes a curve in $\vb{k}$-space; the second selects discrete points on that curve.  $C_{4z}$ symmetry then constrains the EP pattern.
+
+  \item \textbf{Transfer matrix for edge states.}
+    Write the tight-binding equations row-by-row in the OBC direction as a transfer matrix $T(k_\parallel)$.  Solve for decaying solutions $\Rightarrow$ edge dispersion $E_{\text{edge}}(k_\parallel) = \alpha + i\gamma\beta$.
+
+  \item \textbf{Chiral skin effect criterion.}
+    Define a global dissipation potential $\Gamma_g(r)$ along each edge from the imaginary part of $E_{\text{edge}}$.  Corner localisation at position $r_0$ occurs iff $\Gamma_g(r_0 - 0^+) > 0$ and $\Gamma_g(r_0 + 0^+) < 0$ (a ``trap'' or domain wall in the potential).  The sign of $\Gamma_g$ depends on the sublattice termination, establishing the deterministic corner control.
+
+  \item \textbf{Verification.}
+    Full numerical diagonalisation on finite $80\times80$ lattices with various edge terminations (BBBB, BABA, ABAB, AABB) confirms the analytical predictions: corner modes shift according to the sublattice boundary, and vanish in the AFM limit.
+\end{enumerate}
+
+%=============================================================
+\section*{References}
+%=============================================================
+\noindent
+X.-M.\ Zhao, C.-X.\ Guo, X.-R.\ Ma, X.-R.\ Wang, S.-P.\ Kou,
+\emph{Tailoring Corner States and Exceptional Points in Altermagnets},
+arXiv:2603.19378 (2026).\\
+\url{https://arxiv.org/abs/2603.19378}
+
+\end{document}
