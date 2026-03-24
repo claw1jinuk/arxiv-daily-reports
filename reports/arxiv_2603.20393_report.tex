@@ -1,0 +1,146 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{physics}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\title{Reading Report: Non-Hermitian Disordered Systems\\[4pt]
+\large Kawabata \& Ryu, arXiv:2603.20393}
+\author{Daily arXiv Report}
+\date{March 24, 2026}
+
+\begin{document}
+\maketitle
+
+%=====================================================================
+\section{Core Question}
+%=====================================================================
+How do the familiar organizing principles of symmetry, universality, and localization---originally developed for Hermitian (closed) quantum systems---extend to \emph{non-Hermitian} systems where dissipation, gain/loss, and nonreciprocity cause eigenvalues to spread over the two-dimensional complex plane?
+In particular, what replaces the Wigner--Dyson 10-fold symmetry classification, and what new universality classes emerge for random-matrix spectral statistics and Anderson transitions?
+
+%=====================================================================
+\section{Setup and Key Definitions}
+%=====================================================================
+
+\paragraph{Non-Hermitian operator.}
+An operator $H$ acting on $\mathbb{C}^N$ (or an appropriate Hilbert space) with $H \neq H^\dagger$ in general.  Its eigenvalues $\{E_i\}$ are complex, distributed in $\mathbb{C}$.
+
+\paragraph{Ginibre ensembles.}
+The three classic ensembles of $N\times N$ non-Hermitian random matrices introduced by Ginibre (1965):
+\begin{itemize}[nosep]
+  \item \textbf{GinUE} (class A): $H_{ij}$ are i.i.d.\ complex Gaussians.  All entries independent.
+  \item \textbf{GinOE} (class AI$^\dagger$): $H$ is a real matrix; $H_{ij}$ are i.i.d.\ real Gaussians.
+  \item \textbf{GinSE} (class AII$^\dagger$): $H$ is a quaternion self-dual matrix.
+\end{itemize}
+In the large-$N$ limit the eigenvalue density converges to the \emph{circular law}: eigenvalues fill a disk of radius $\sqrt{N}$ uniformly (after rescaling, the unit disk).
+
+\paragraph{Antiunitary symmetries for non-Hermitian $H$.}
+In the Hermitian setting, time-reversal symmetry (TRS) is the condition $THT^{-1}=H$ with $T$ antiunitary, $T^2=\pm 1$.  For non-Hermitian $H$, one must distinguish:
+\begin{align}
+  \text{TRS:}\quad & THT^{-1} = H,\quad T^2=\pm 1, \label{eq:TRS}\\
+  \text{TRS}^\dagger:\quad & TH^\dagger T^{-1} = H,\quad T^2=\pm 1, \label{eq:TRSdag}\\
+  \text{PHS:}\quad & CH^\dagger C^{-1} = -H,\quad C^2=\pm 1, \label{eq:PHS}\\
+  \text{PHS}^\dagger:\quad & CHC^{-1} = -H,\quad C^2=\pm 1, \label{eq:PHSdag}
+\end{align}
+plus a unitary chiral symmetry (CS) $\Gamma H^\dagger \Gamma^{-1}=-H$ and sublattice symmetry (SLS) $SHS^{-1}=-H$.  Because TRS and TRS$^\dagger$ (resp.\ PHS and PHS$^\dagger$) coincide when $H=H^\dagger$ but \emph{differ} for non-Hermitian $H$, the Hermitian 10-fold Altland--Zirnbauer (AZ) classification splits into the \textbf{38-fold way}.
+
+%=====================================================================
+\section{Concrete Example: The Hatano--Nelson Model}
+%=====================================================================
+Before diving into the full classification, consider the simplest non-Hermitian disordered system.
+The Hatano--Nelson Hamiltonian on $L$ sites with periodic boundary conditions is
+\[
+  H = \sum_{n=1}^{L}\Bigl[-\bigl(J+\gamma\bigr)\,c_{n+1}^\dagger c_n
+       - \bigl(J-\gamma\bigr)\,c_n^\dagger c_{n+1}
+       + m_n\,c_n^\dagger c_n\Bigr],
+\]
+where $J>0$ is the mean hopping, $\gamma>0$ is the nonreciprocal bias (left-hopping $J+\gamma$ $\neq$ right-hopping $J-\gamma$), and $\{m_n\}$ are i.i.d.\ uniform on $[-\Delta/2,\Delta/2]$.
+
+\begin{itemize}[nosep]
+  \item \textbf{Clean case ($\Delta=0$):} Eigenenergies trace an ellipse $E(k)=J\cos k + i\gamma\sin k$ in $\mathbb{C}$.
+  \item \textbf{Weak disorder:} Some states localize (spectrum collapses to $\mathbb{R}$); others remain delocalized with complex eigenvalues.  A \emph{mobility edge} separates the two regimes.
+  \item \textbf{Strong disorder:} All eigenstates localize and the spectrum is entirely real.
+\end{itemize}
+This is striking: delocalized states and Anderson transitions exist \emph{in one dimension}, violating the one-parameter scaling hypothesis that forbids this for Hermitian systems.  The mechanism is topological: the spectral loop defines an integer winding number
+\[
+  W(E) = \oint_0^{2\pi}\frac{d\varphi}{2\pi i}\,\frac{d}{d\varphi}\log\det\bigl[H(\varphi)-E\bigr]\in\mathbb{Z},
+\]
+which is identically zero in the Hermitian case and protects delocalization when nonzero.
+
+%=====================================================================
+\section{Intuition: Why Non-Hermiticity Changes Everything}
+%=====================================================================
+\begin{enumerate}[nosep]
+  \item \textbf{Complex spectra are 2D.}  Hermitian eigenvalue statistics live on $\mathbb{R}$; non-Hermitian ones fill regions of $\mathbb{C}$.  Nearest-neighbor spacing must be redefined (distances in the plane, angular correlations, etc.).
+  \item \textbf{Symmetry doubling.}  Each Hermitian symmetry ($T$, $C$, $\Gamma$) splits into two inequivalent versions depending on whether it relates $H$ to itself or to $H^\dagger$.  This doubles and then further multiplies the number of symmetry classes from 10 to 38.
+  \item \textbf{Intrinsic topology.}  Complex spectra can wind around reference energies (``point gap''), giving topological invariants with no Hermitian analogue.  These protect phenomena like the non-Hermitian skin effect and delocalization in 1D.
+  \item \textbf{New universality.}  Anderson-transition critical exponents in the non-Hermitian setting differ from their Hermitian counterparts \emph{even within the same named symmetry class}.
+\end{enumerate}
+
+%=====================================================================
+\section{Main Results (Bulleted)}
+%=====================================================================
+\begin{itemize}
+  \item \textbf{38-fold symmetry classification.}  Non-Hermitian operators are classified by the 38-fold way (Tables 2--6 in the paper), extending the Hermitian 10-fold AZ scheme.  The classification is built from three 10-fold families (AZ, AZ$^\dagger$, AZ+SLS) plus 8 complex-AZ classes.
+
+  \item \textbf{Complex-spectral diagnostics.}  The paper surveys diagnostics adapted to 2D spectra:
+    \begin{itemize}[nosep]
+      \item Complex spacing ratios $z_i = (E_i^{\mathrm{NN}}-E_i)/(E_i^{\mathrm{NNN}}-E_i)$, whose distribution is a universal fingerprint of the symmetry class.
+      \item Dissipative spectral form factor, extending the Hermitian SFF to complex eigenvalues.
+      \item Spectral density suppression near symmetry-preserving lines (e.g., the real axis under TRS).
+    \end{itemize}
+
+  \item \textbf{Universality of Ginibre-type ensembles.}  The GinUE, GinOE, and GinSE capture the universal bulk statistics of classes A, AI$^\dagger$, and AII$^\dagger$.  Many other classes in the 38-fold way have \emph{not} yet been solved analytically---these remain major open problems.
+
+  \item \textbf{Dissipative quantum chaos.}  Non-Hermitian RMT provides diagnostics for chaos vs.\ integrability in open quantum systems.  Chaotic Lindbladians (e.g., the damped Ising model) match GinUE/GinOE statistics; integrable ones show Poisson statistics.  However, the Grobe--Haake--Sommers conjecture (that spectral statistics alone characterize chaos) has recently been \emph{broken}: some models show RMT bulk statistics yet integrable semiclassical dynamics.
+
+  \item \textbf{Non-Hermitian Anderson transitions.}  Critical exponents $\nu$ for the localization length $\xi\propto|r-r_c|^{-\nu}$ have been numerically determined in 3D (Table 7 in the paper).  Key finding: non-Hermiticity \emph{changes} the critical exponents.  For instance, in class A: $\nu_{\mathrm{Herm}}\approx 1.43$ vs.\ $\nu_{\mathrm{non\text{-}Herm}}\approx 1.00$.
+
+  \item \textbf{Nonlinear sigma model description.}  Each symmetry class has a corresponding fermionic replica NLSM with target manifold listed in Tables 2--5.  Non-Hermitian point-gap topology introduces additional topological terms (e.g., a winding-number term in the 1D action), leading to two-parameter scaling analogous to the quantum Hall effect.
+
+  \item \textbf{Hermitization map.}  Every non-Hermitian class can be mapped to a Hermitian ``doubled'' system via $\mathcal{H}=\begin{pmatrix}0 & H \\ H^\dagger & 0\end{pmatrix}$.  The Hermitized class (listed in the tables) determines the NLSM target manifold and topological terms; the non-Hermitian and Hermitized systems share the same critical exponents.
+\end{itemize}
+
+%=====================================================================
+\section{Proof Sketch / Logical Flow}
+%=====================================================================
+The paper is a review, so instead of a single theorem we outline the logical architecture.
+
+\begin{enumerate}
+  \item \textbf{Symmetry enumeration.}
+    Start from the Hermitian AZ classification (TRS, PHS, CS).  For non-Hermitian $H\neq H^\dagger$, observe that replacing $H\to H^\dagger$ in the symmetry relation gives an \emph{inequivalent} constraint.  This yields TRS vs.\ TRS$^\dagger$, PHS vs.\ PHS$^\dagger$, CS vs.\ SLS.  Systematically enumerating all combinations (including signs $T^2=\pm1$, etc.) and modding out equivalences (e.g., class AI $\simeq$ class D$^\dagger$ up to multiplication by $i$) gives exactly 38 classes.
+
+  \item \textbf{Random matrix ensembles.}
+    For each class, construct the most general Gaussian ensemble respecting the given symmetry.  Compute the joint eigenvalue density via standard methods (Schur decomposition, integration over eigenvector degrees of freedom).  For GinUE this gives the Vandermonde-squared weight $\prod_{i<j}|E_i-E_j|^2\,e^{-\sum|E_i|^2}$, yielding a determinantal point process with kernel expressed through incomplete gamma functions.
+
+  \item \textbf{Spectral diagnostics.}
+    Define complex spacing ratios and the dissipative SFF.  Numerically verify universality: different microscopic models in the same symmetry class produce the same distributions, while different classes are distinguishable.
+
+  \item \textbf{Hatano--Nelson and point-gap topology.}
+    Compute the spectrum of the clean model (ellipse).  Show the winding number $W(E)$ is a topological invariant protected by the point gap.  Argue via gauge transformation (imaginary vector potential) that $W\neq 0$ forces extended states, breaking one-parameter scaling.
+
+  \item \textbf{Nonlinear sigma model.}
+    Perform disorder averaging via the replica trick.  Introduce Hubbard--Stratonovich fields $Q$ valued in the appropriate symmetric space (determined by the symmetry class).  Integrate out fermions to obtain the NLSM action.  The non-Hermitian point-gap topology contributes a topological $\theta$-term or winding-number term to the action, enabling two-parameter scaling (coupling constant $1/g$ and topological angle $W$).
+
+  \item \textbf{Anderson transitions.}
+    Use the transfer-matrix method on quasi-1D strips to numerically extract the localization length $\xi(L,r)$ as a function of strip width $L$ and disorder parameter $r$.  Perform finite-size scaling to extract the critical exponent $\nu$.  The Hermitization map predicts that non-Hermitian class X and its Hermitized partner share the same $\nu$---confirmed numerically.
+
+  \item \textbf{Dissipative chaos.}
+    Vectorize the Lindblad equation $\dot\rho=\mathcal{L}\rho$ to obtain a non-Hermitian matrix $\mathcal{L}$ on the doubled Hilbert space.  Identify its symmetry class (modular conjugation $\Rightarrow$ TRS with $T^2=+1$, i.e., class AI; additional transpose symmetry $\Rightarrow$ class BDI$^\dagger$).  Compare numerically computed spectral statistics against the corresponding random-matrix predictions.
+\end{enumerate}
+
+%=====================================================================
+\section{Open Problems Highlighted}
+%=====================================================================
+\begin{itemize}[nosep]
+  \item Analytical spectral statistics for most of the 38-fold classes (beyond GinUE/GinOE/GinSE) remain unknown.
+  \item A precise, universally accepted definition of quantum chaos for open (non-unitary) systems is lacking.
+  \item Whether the 38-fold non-Hermitian classification has a holographic/gravitational dual (analogous to Jackiw--Teitelboim gravity for the Hermitian 10-fold way) is open.
+  \item The breakdown of the Grobe--Haake--Sommers conjecture calls for refined diagnostics beyond spectral statistics.
+\end{itemize}
+
+\end{document}
