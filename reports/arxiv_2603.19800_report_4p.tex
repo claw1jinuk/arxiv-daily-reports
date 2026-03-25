@@ -1,0 +1,158 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{remark}{Remark}
+
+\title{\textbf{4-Page Theory Report}\\[6pt]
+\large The Logarithmic Law of Sample Correlation Matrices}
+\author{
+\textit{Original paper by:} Yanpeng Li, Zhi Liu, Jiahui Xie, Wang Zhou\\[2pt]
+\small arXiv:2603.19800 \quad\textbullet\quad \url{https://arxiv.org/abs/2603.19800}\\[6pt]
+\small\textit{Report prepared by Claw1 (automated digest agent)}
+}
+\date{March 25, 2026}
+
+\begin{document}
+\maketitle
+
+%% =========================================================
+\section{Executive Summary}
+
+This paper establishes a \emph{universal} central limit theorem (CLT) for the log-determinant of the sample correlation matrix~$\mathbf{R}$ in the high-dimensional regime where both the dimension~$p$ and the sample size~$n$ diverge jointly.
+The main achievement is two-fold:
+\begin{enumerate}[nosep]
+  \item \textbf{Universality under minimal moments.}  The CLT holds whenever the entry distribution satisfies $\lim_{x\to\infty}x^{3}\,\mathbb{P}(|\xi|>x)=0$, which is slightly weaker than a finite third moment.  No Gaussianity or sub-Gaussianity is needed.
+  \item \textbf{Near-singularity regime.}  When $0 \le n-p \le n^{1-w}$ for any $w\in(0,1)$, the moment condition can be relaxed even further to a logarithmically-refined tail bound.
+\end{enumerate}
+The result complements the classical theory for sample \emph{covariance} matrices (Bai--Silverstein, Girko), where log-determinant CLTs were known under stronger assumptions or only for the covariance (not correlation) matrix.
+
+%% =========================================================
+\section{Problem Setup and Intuition}
+
+\paragraph{Data model.}
+Let $\mathbf{X} = (X_{ij}) \in \mathbb{R}^{p\times n}$ with i.i.d.\ entries satisfying $\mathbb{E}[X_{ij}]=0$, $\mathbb{E}[X_{ij}^{2}]=1$, and the tail condition
+\[
+  \lim_{x\to\infty} x^{3}\,\mathbb{P}\!\bigl(|\xi|>x\bigr) = 0. \tag{T}
+\]
+
+\paragraph{Sample correlation matrix.}
+Define the sample covariance matrix $\mathbf{S} = \frac{1}{n}\mathbf{X}\mathbf{X}^{\top}$ and the diagonal matrix $\mathbf{D} = \operatorname{diag}(S_{11},\dots,S_{pp})$.  The sample correlation matrix is
+\[
+  \mathbf{R} = \mathbf{D}^{-1/2}\,\mathbf{S}\,\mathbf{D}^{-1/2}.
+\]
+Unlike~$\mathbf{S}$, the matrix~$\mathbf{R}$ has all diagonal entries equal to~$1$, and $\det\mathbf{R}$ factors out the variance information, isolating the dependence structure.
+
+\paragraph{Why $\log\det\mathbf{R}$?}
+The quantity $\log\det\mathbf{R}$ arises in:
+\begin{itemize}[nosep]
+  \item Likelihood-ratio tests for independence ($H_0\colon \Sigma = \text{diagonal}$).
+  \item Information geometry: it equals the negative of the Kullback--Leibler divergence from $\mathbf{R}$ to the identity, up to lower-order terms.
+  \item High-dimensional hypothesis testing (sphericity, identity tests).
+\end{itemize}
+Understanding its fluctuations under general entry distributions is therefore fundamental for robust high-dimensional inference.
+
+\paragraph{High-dimensional regime.}
+We let $p = p(n) \to \infty$ with
+\[
+  y_n \;=\; \frac{p}{n} \;\in\; (0,1].
+\]
+The interesting case is $y_n \to y \in (0,1]$.  When $y_n\to 1$, the matrix is near-singular, and the analysis becomes delicate.
+
+%% =========================================================
+\section{Main Result}
+
+\begin{theorem}[Logarithmic law --- informal statement]
+Suppose the entries of $\mathbf{X}$ are i.i.d.\ with mean~$0$, variance~$1$, and satisfy condition~\emph{(T)}.
+Let $p \le n$ with $p,n\to\infty$.  Define
+\[
+  \mu_n \;=\; \bigl(p - n + \tfrac{1}{2}\bigr)\log\!\bigl(1 - \tfrac{p-1}{n}\bigr) - p + \tfrac{p}{n},
+\]
+\[
+  \sigma_n^{2} \;=\; -2\log\!\bigl(1 - \tfrac{p-1}{n}\bigr) - \tfrac{2p}{n}.
+\]
+Then
+\[
+  \frac{\log\det\mathbf{R} - \mu_n}{\sigma_n} \;\xrightarrow{\;d\;}\; \mathcal{N}(0,1).
+\]
+\end{theorem}
+
+\begin{remark}[Near-singularity refinement]
+When $0 \le n - p \le n^{1-w}$ for any fixed $w\in(0,1)$, condition~\emph{(T)} can be replaced by the weaker
+\[
+  \lim_{x\to\infty} x^{3}\,(\log x)^{-1/4+\mathfrak{c}}\,\mathbb{P}\!\bigl(|\xi|>x\bigr) < \infty, \qquad 0 < \mathfrak{c} < \tfrac{1}{4}.
+\]
+This shows that near-singularity actually \emph{helps}: fewer extreme entries contribute to the determinant when $p\approx n$.
+\end{remark}
+
+\begin{remark}[Centering and variance]
+As $y_n = p/n \to y \in (0,1)$, one can verify $\sigma_n^{2} \asymp 2(y_n - \log(1+y_n) - y_n^{2}/2\cdot\ldots)$, which is of order~$1$, so the fluctuations of $\log\det\mathbf{R}$ are $O(1)$---much smaller than the $O(p)$ centering term.  This is the ``logarithmic law'' phenomenon.
+\end{remark}
+
+%% =========================================================
+\section{Proof Architecture}
+
+The proof spans 56 pages and combines random matrix theory, martingale methods, and careful truncation arguments.  Here is the high-level roadmap.
+
+\paragraph{Step 1: Decomposition via diagonal extraction.}
+Write
+\[
+  \log\det\mathbf{R} \;=\; \log\det\mathbf{S} \;-\; \sum_{i=1}^{p}\log S_{ii}.
+\]
+The two terms are analyzed separately.  The key difficulty is that $\mathbf{R}$ involves a \emph{data-dependent} normalization $\mathbf{D}^{-1/2}$, coupling all entries.
+
+\paragraph{Step 2: CLT for $\log\det\mathbf{S}$ (sample covariance).}
+Using the identity $\log\det\mathbf{S} = \sum_{k=1}^{p}\log\lambda_k$ (where $\lambda_k$ are eigenvalues of $\mathbf{S}$), the authors build on the Bai--Silverstein framework:
+\begin{itemize}[nosep]
+  \item Express $\log\det(\mathbf{S}-zI)$ via the Stieltjes transform of the empirical spectral distribution.
+  \item Use the Mar\v{c}enko--Pastur law to obtain the deterministic centering.
+  \item Establish a CLT for the linear spectral statistic $\sum f(\lambda_k)$ with $f(x)=\log x$.
+\end{itemize}
+The universality (independence of the entry distribution beyond moments) is achieved via a comparison/replacement strategy: entries are replaced one-by-one with Gaussian entries, and the change in $\log\det$ is controlled.
+
+\paragraph{Step 3: CLT for $\sum\log S_{ii}$ (diagonal terms).}
+Each $S_{ii} = \frac{1}{n}\sum_{j=1}^{n}X_{ij}^{2}$ is a sample mean of i.i.d.\ $\chi^2$-like variables.  By the classical CLT, $\sqrt{n}(S_{ii}-1) \xrightarrow{d} \mathcal{N}(0,\kappa_4)$ where $\kappa_4 = \mathbb{E}[\xi^4]-1$.  A Taylor expansion gives
+\[
+  \log S_{ii} \;\approx\; (S_{ii}-1) - \tfrac{1}{2}(S_{ii}-1)^{2} + \cdots
+\]
+Summing over $i=1,\dots,p$ and using independence across rows, the sum $\sum_i\log S_{ii}$ obeys a CLT with explicit mean and variance.
+
+\paragraph{Step 4: Truncation and moment control.}
+The tail condition~(T) is weaker than $\mathbb{E}[|\xi|^3]<\infty$.  The authors use a truncation-and-recombination argument:
+\begin{enumerate}[nosep]
+  \item Truncate at level $\tau_n = n^{1/3}\ell(n)$ for a slowly varying function $\ell$.
+  \item Show the truncated matrix has the same limiting log-determinant distribution (negligible truncation error).
+  \item For the truncated entries, third-moment bounds suffice for the Lindeberg-type argument in Steps~2--3.
+\end{enumerate}
+
+\paragraph{Step 5: Combining and cancellation.}
+The final CLT for $\log\det\mathbf{R} = \log\det\mathbf{S} - \sum_i\log S_{ii}$ follows by combining the two CLTs.  A crucial point: the \emph{fourth-moment} contribution $\kappa_4$ appearing in both terms \emph{cancels out}, yielding a universal (distribution-free) limiting variance~$\sigma_n^2$.  This cancellation is the heart of the ``universality'' statement.
+
+\paragraph{Step 6: Near-singularity case.}
+When $p/n \to 1$, the smallest eigenvalues of $\mathbf{S}$ are $O((n-p)^2/n^2)$, so $\log\det\mathbf{S}$ diverges to $-\infty$.  The authors refine the truncation threshold and exploit the fact that fewer eigenvalues contribute to the tail, allowing the moment condition to be weakened.
+
+%% =========================================================
+\section{Why It Matters / Limitations / Takeaway}
+
+\paragraph{Significance.}
+\begin{itemize}[nosep]
+  \item \textbf{Strongest universality to date} for $\log\det\mathbf{R}$: prior results required finite fourth moments or Gaussianity.
+  \item \textbf{Practical impact}: the CLT directly provides asymptotic $p$-values for independence tests based on $\log\det\mathbf{R}$ without assuming Gaussian data.
+  \item \textbf{Near-singularity analysis} is new and relevant for modern high-dimensional settings where $p\approx n$.
+\end{itemize}
+
+\paragraph{Limitations.}
+\begin{itemize}[nosep]
+  \item The result requires $p \le n$ (the matrix must be non-singular).  The case $p > n$ would need a different formulation (e.g., using pseudo-determinants).
+  \item Population correlation is assumed to be the identity ($\Sigma = I_p$).  Extension to general $\Sigma$ would require additional technical work.
+  \item Convergence rate (Berry--Esseen bound) is not provided; the result is a limit theorem, not a finite-sample guarantee.
+\end{itemize}
+
+\paragraph{Key takeaway.}
+The log-determinant of the sample correlation matrix is universal: its Gaussian fluctuations depend \emph{only on the dimension-to-sample-size ratio}, not on the specific entry distribution, under essentially the weakest conceivable moment condition.  This makes $\log\det\mathbf{R}$ a robust and distribution-free test statistic for high-dimensional independence testing.
+
+\end{document}
