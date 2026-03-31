@@ -1,0 +1,177 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{conjecture}{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\setlength{\parskip}{4pt plus 1pt}
+\setlength{\parindent}{0pt}
+
+\title{\textbf{Theory Report}\\[6pt]
+Three Non-Hermitian Random Matrix Universality Classes\\
+of Complex Edge Statistics:\\
+Spacing Ratios and Distributions}
+\author{%
+  \textit{Original paper by:} G.~Akemann, G.~Angermann, N.~Ayg\"un,\\
+  A.~Mielke, P.~P\"a\ss ler, C.~Raitzig, T.~Winkler\\[4pt]
+  \small arXiv:2603.28457 [math-ph] --- 30 March 2026\\[2pt]
+  \small\textit{Report prepared automatically by Claw1}
+}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+%% ---------------------------------------------------------------
+\section{Executive Summary}
+%% ---------------------------------------------------------------
+
+Non-Hermitian random matrices---matrices whose eigenvalues are generically \emph{complex}---arise in open quantum systems, dissipative dynamics, neural networks, and non-equilibrium statistical mechanics.
+A foundational question is: \emph{how many distinct universality classes of local eigenvalue statistics exist?}
+
+For the \textbf{bulk} (interior of the eigenvalue support), it was conjectured that there are exactly \textbf{three} generic classes, corresponding to three symmetry types labelled A, AI$^\dagger$, and AII$^\dagger$ in the 38-fold classification of Bernard--LeClair.
+Recently this conjecture was extended to the \textbf{edge} (boundary of the support).
+
+This paper provides the first systematic analytical and numerical study of \textbf{complex spacing ratios} and \textbf{nearest-neighbour (NN) spacing distributions} at the edge, for all three classes.
+Key findings include:
+\begin{itemize}[nosep]
+  \item An exact finite-$N$ formula for the complex spacing ratio in class~A (Ginibre ensemble), simplified via a \emph{conditional point process}.
+  \item A parameter-dependent $N=3$ ``surmise'' for the elliptic Ginibre ensemble interpolating from the 2D class~A edge to the 1D GUE edge.
+  \item Numerical evidence that the three edge classes exhibit distinct repulsion strengths, well-captured by an effective 2D Coulomb gas at inverse temperatures $\beta = 2, 1, 4$ for classes A, AI$^\dagger$, AII$^\dagger$ respectively.
+  \item An indication that the complex spacing ratio \emph{does not fully unfold} local statistics at the edge (unlike in the bulk).
+  \item Verification that NN spacing distributions exhibit \emph{universal cubic repulsion} $p(s)\sim s^3$ for small $s$ in all three classes, both in bulk and at the edge.
+\end{itemize}
+
+%% ---------------------------------------------------------------
+\section{Problem Setup and Intuition}
+%% ---------------------------------------------------------------
+
+\textbf{Setting.}
+Consider an $N\times N$ random matrix $X$ drawn from one of three Gaussian ensembles:
+\begin{itemize}[nosep]
+  \item \textbf{Class A} (complex Ginibre, GinUE): $X$ has i.i.d.\ complex Gaussian entries. No symmetry constraint.
+  \item \textbf{Class AI$^\dagger$}: $X = X^T$ is complex symmetric.
+  \item \textbf{Class AII$^\dagger$}: $X$ is complex self-dual ($2N\times 2N$ quaternion structure with $X = \Sigma_2 X^T \Sigma_2^{-1}$, $\Sigma_2 = I_N \otimes i\sigma_2$).
+\end{itemize}
+In each case the eigenvalues $\{z_k\}$ are complex.  As $N\to\infty$, they fill a disk (circular law) with a sharp \textbf{edge} at $|z| = \sqrt{N}$ (after appropriate scaling).
+
+\textbf{Bulk vs.\ edge.}
+In the \emph{bulk}, the local eigenvalue density is approximately uniform and the natural microscopic scale is $\sim 1/\sqrt{N}$.
+At the \emph{edge}, the density drops from its bulk value to zero over a scale $\sim N^{-1/6}$, akin to the Airy kernel regime for Hermitian matrices but now in 2D.
+
+\textbf{Complex spacing ratio.}
+For Hermitian matrices, the classical spacing ratio $r_n = (E_{n+1}-E_n)/(E_n - E_{n-1})$ is a powerful unfolding-free diagnostic.
+In the non-Hermitian setting, one defines the \emph{complex spacing ratio}:
+\begin{equation}
+  \tilde{z} \;=\; \frac{z_{\mathrm{NN}} - z_0}{z_{\mathrm{NNN}} - z_0}\,,
+\end{equation}
+where $z_0$ is a reference eigenvalue, $z_{\mathrm{NN}}$ its nearest neighbour, and $z_{\mathrm{NNN}}$ its next-nearest neighbour.  The distribution of $\tilde{z}$ in the complex plane encodes level repulsion and correlations.
+
+\textbf{NN spacing distribution.}
+Let $s = |z_{\mathrm{NN}} - z_0|$ (suitably rescaled).  The distribution $p(s)$ for small $s$ reveals the \emph{degree of eigenvalue repulsion}:
+\begin{equation}
+  p(s) \;\sim\; s^{\beta_{\mathrm{eff}} + 1} \quad \text{as } s\to 0\,,
+\end{equation}
+where $\beta_{\mathrm{eff}}$ is interpreted as the inverse temperature of an effective 2D Coulomb gas.
+
+%% ---------------------------------------------------------------
+\section{Main Results}
+%% ---------------------------------------------------------------
+
+\begin{theorem}[Finite-$N$ spacing ratio, Class~A --- informal]
+For the $N\times N$ complex Ginibre ensemble, the joint density of the complex spacing ratio $\tilde{z}$ at a bulk reference point $z_0$ can be expressed as a ratio of $(N-1)$- and $(N-3)$-point conditional correlation functions of a determinantal point process.
+In the large-$N$ limit in the bulk, these reduce to ratios of infinite Ginibre kernel determinants, explaining the convergence of the earlier ``$N=3$ surmise'' approximation.
+\end{theorem}
+
+\begin{theorem}[Elliptic interpolation surmise --- informal]
+For the elliptic Ginibre ensemble with non-Hermiticity parameter $\tau\in[0,1]$, an explicit $N=3$ surmise for the complex spacing ratio is derived.
+As $\tau\to 0$ (Hermitian limit), it reproduces the GUE spacing ratio on the real line; as $\tau\to 1$ (fully non-Hermitian), it recovers the circular Ginibre result.
+\end{theorem}
+
+\textbf{Numerical findings (all three classes, bulk and edge):}
+
+\begin{enumerate}[nosep]
+  \item \textbf{Distinct edge universality.}  The distributions of $|\tilde z|$ and $\arg(\tilde z)$ differ measurably between bulk and edge in each class, confirming three distinct \emph{edge} universality classes.
+
+  \item \textbf{Effective $\beta$ at the edge.}  The angular marginal of $\tilde{z}$ and the NN spacing distribution at the edge are well-fitted by a 2D Coulomb gas at:
+  \[
+    \beta_{\mathrm{eff}} = \begin{cases} 2 & \text{class A},\\ 1 & \text{class AI}^\dagger,\\ 4 & \text{class AII}^\dagger.\end{cases}
+  \]
+  This mirrors the Dyson index assignment in Hermitian RMT but now applies to the 2D non-Hermitian edge.
+
+  \item \textbf{Incomplete unfolding.}  In the bulk, the complex spacing ratio is insensitive to the local density (``self-unfolding'').  At the edge, the authors find the radial marginal $|\tilde z|$ depends on the distance to the boundary, indicating that the complex spacing ratio \emph{does not fully unfold} edge statistics.
+
+  \item \textbf{Universal cubic repulsion.}  For all three classes, in both bulk and edge:
+  \[
+    p(s) \sim s^3 \quad (s\to 0).
+  \]
+  This cubic power law ($\beta_{\mathrm{eff}}+1 = 3$ for $\beta_{\mathrm{eff}}=2$ in 2D) is universal across all non-Hermitian symmetry classes, contrasting with the class-dependent repulsion exponents in the Hermitian (1D) setting.
+\end{enumerate}
+
+%% ---------------------------------------------------------------
+\section{Proof Architecture}
+%% ---------------------------------------------------------------
+
+\textbf{Step 1: Conditional point process formulation.}
+Starting from the $N$-point correlation function of the Ginibre ensemble (a determinantal point process with kernel $K_N(z,w) = \frac{1}{\pi} e^{z\bar w} \sum_{k=0}^{N-1} \frac{(-|z|^2)^k(-|w|^2)^k}{(k!)^2} e^{-|z|^2/2 - |w|^2/2}$), the authors condition on a reference eigenvalue at $z_0$ and express the NN/NNN joint density in terms of gap probabilities and correlation functions of the \emph{reduced} $(N-1)$-point process.
+
+\textbf{Step 2: Simplification via ratio structure.}
+The complex spacing ratio $\tilde{z}$ is a ratio of differences, so the joint density involves a Jacobian from the change of variables $(z_{\mathrm{NN}}, z_{\mathrm{NNN}}) \mapsto (\tilde{z}, z_{\mathrm{NNN}})$.
+Integration over $z_{\mathrm{NNN}}$ yields a marginal that can be written as a Fredholm-determinant ratio.
+
+\textbf{Step 3: Large-$N$ bulk limit.}
+In the bulk, the kernel $K_N$ converges to the infinite Ginibre kernel $K_\infty(z,w) = \frac{1}{\pi} e^{z\bar w - |z|^2/2 - |w|^2/2}$.
+Translation invariance then makes the conditional densities depend only on the \emph{differences} of eigenvalue positions, providing the self-unfolding property and justifying why the $N=3$ surmise (which ignores finite-$N$ boundary effects) works well.
+
+\textbf{Step 4: Elliptic extension.}
+For the elliptic ensemble with parameter $\tau$, the kernel becomes $K_N^\tau$ involving Hermite polynomials in the complex plane.
+The authors carry out the $N=3$ computation exactly, obtaining a closed-form surmise parameterized by $\tau$.
+
+\textbf{Step 5: Edge numerics.}
+At the edge, no closed-form kernel simplification is available (the edge kernel involves the complementary error function and does not have translation invariance).
+The authors resort to Monte Carlo sampling of large matrices ($N$ up to $10^4$) to compute histograms of $\tilde{z}$ and NN spacings, carefully rescaling by the local density (which varies near the edge).
+
+\textbf{Step 6: Coulomb gas interpretation.}
+The small-$s$ behaviour $p(s)\sim s^{\beta_{\mathrm{eff}}+1}$ is derived from the 2D Coulomb gas joint density $\prod_{j<k} |z_j - z_k|^{\beta}$ confined to the plane.
+The exponent $\beta+1$ (rather than $\beta$ as in 1D) arises because the ``phase space'' for placing a neighbour at distance $s$ in 2D contributes an extra factor of $s$ (circumference of circle of radius $s$).
+This yields $s^3$ universally for $\beta_{\mathrm{eff}}=2$ in all three classes, which is then confirmed numerically for the other effective $\beta$ values at the edge.
+
+%% ---------------------------------------------------------------
+\section{Why It Matters / Limitations / Takeaway}
+%% ---------------------------------------------------------------
+
+\textbf{Significance.}
+\begin{itemize}[nosep]
+  \item Establishes the \textbf{first quantitative diagnostic toolkit} (spacing ratios + NN distributions) for identifying non-Hermitian edge universality classes in data or simulations.
+  \item The effective Coulomb gas picture provides a \textbf{simple physical understanding} of why different symmetry classes show different repulsion strengths.
+  \item The observation that complex spacing ratios fail to fully unfold at the edge is a \textbf{cautionary result} for practitioners who use this ratio as a universal diagnostic.
+\end{itemize}
+
+\textbf{Limitations.}
+\begin{itemize}[nosep]
+  \item Analytical results are limited to class~A (Ginibre); classes AI$^\dagger$ and AII$^\dagger$ are treated only numerically.
+  \item The edge kernel lacks the translation invariance of the bulk, making exact finite-$N$ formulae much harder; no closed-form edge surmise is given.
+  \item The paper considers only Gaussian ensembles; universality for non-Gaussian entries (proved in the bulk) is assumed but not established at the edge.
+  \item Physical applications (open quantum systems, neural network weight matrices) are mentioned but not explored.
+\end{itemize}
+
+\textbf{Takeaway.}
+The non-Hermitian world has \emph{exactly three} local universality classes, both in the bulk and at the edge, mirroring the Wigner--Dyson trichotomy of Hermitian RMT.
+The edge, however, is subtler: the standard complex spacing ratio is not a perfect unfolding tool there, and new diagnostics may be needed.
+The universal cubic repulsion $p(s)\sim s^3$ is robust across all classes and provides a clean experimental/numerical signature of 2D eigenvalue repulsion.
+
+\vfill
+\begin{center}
+\small\textit{Auto-generated theory report --- \today}
+\end{center}
+
+\end{document}
