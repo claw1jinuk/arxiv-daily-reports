@@ -1,0 +1,184 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\title{\textbf{Theory Report}\\[6pt]
+Derivative Relations for Determinants, Pfaffians\\and Characteristic Polynomials in Random Matrix Theory}
+\author{Auto-generated report by Claw1 \\ \small Based on arXiv:2603.29510}
+\date{April 2, 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+%----------------------------------------------------------------------
+\section{Paper Information}
+%----------------------------------------------------------------------
+\begin{itemize}[nosep]
+  \item \textbf{Title:} Derivative relations for determinants, Pfaffians and characteristic polynomials in random matrix theory
+  \item \textbf{Authors:} Gernot Akemann, Georg Angermann, Mario Kieburg, Adrian Padellaro
+  \item \textbf{arXiv:} \href{https://arxiv.org/abs/2603.29510}{2603.29510} [math-ph] (March 31, 2026, 46 pages)
+  \item \textbf{Subjects:} Mathematical Physics; Statistical Mechanics; Probability
+\end{itemize}
+
+%----------------------------------------------------------------------
+\section{Executive Summary}
+%----------------------------------------------------------------------
+
+This paper establishes \emph{explicit, closed-form derivative identities} for ratios of the form
+\[
+  R(\mathbf{x}) \;=\; \frac{\det\bigl[f_j(x_k)\bigr]_{j,k=1}^{N}}{\Delta(\mathbf{x})},
+  \qquad
+  \Delta(\mathbf{x}) = \prod_{j<k}(x_k - x_j),
+\]
+where $\Delta(\mathbf{x})$ is the Vandermonde determinant, and analogous Pfaffian ratios $\operatorname{Pf}[\cdots]/\Delta(\mathbf{x})$.
+Such ratios are central objects in random matrix theory (RMT): they encode expectation values of products of characteristic polynomials, Harish-Chandra--Itzykson--Zuber (HCIZ) integrals, and correlation functions at finite matrix size~$N$.
+
+The key contribution is a systematic calculus that expresses \emph{arbitrary mixed higher-order derivatives} $\partial_{x_1}^{m_1}\cdots\partial_{x_N}^{m_N} R(\mathbf{x})$ in terms of determinants (or Pfaffians) built from derivatives of the underlying kernel, with combinatorial coefficients indexed by integer partitions.  Applications to the complex Ginibre ensemble and the circular unitary ensemble (CUE) yield new explicit formulas for mixed moments relevant to the Riemann $\zeta$-function.
+
+%----------------------------------------------------------------------
+\section{Problem Setup and Intuition}
+%----------------------------------------------------------------------
+
+\paragraph{The de l'H\^opital problem in RMT.}
+Many RMT quantities are naturally expressed as
+\[
+  \mathbb{E}\!\Bigl[\prod_{i=1}^{L}\det(z_i - X)^{n_i}\Bigr]
+  \;=\; \frac{\det\bigl[K_N(z_j, z_k)\bigr]_{j,k}}{\Delta(\mathbf{z})^{\beta}},
+\]
+where $K_N$ is the correlation kernel and $\beta\in\{1,2,4\}$ labels the Dyson symmetry class.
+When some of the $z_i$ \emph{coincide} (e.g.\ computing moments at a single point), the Vandermonde $\Delta(\mathbf{z})$ vanishes and one must take limits.  The classical tool is de l'H\^opital's rule applied repeatedly, but the combinatorics become unwieldy at higher order.
+
+\paragraph{Goal.}  Replace ad hoc limit computations by a \emph{universal derivative formula}: given the kernel $K_N$, read off the confluent limit directly as a structured determinant/Pfaffian of kernel derivatives.
+
+\paragraph{Key ingredients.}
+\begin{itemize}[nosep]
+  \item \textbf{Borel transform:} For a matrix $A = [a_{jk}]$, the \emph{Borel transform} $\mathcal{B}[A]$ replaces each entry by $a_{jk}/k!$, converting Taylor coefficients into a canonical form that absorbs factorial denominators from differentiation.
+  \item \textbf{Integer partitions:}  The combinatorial structure of higher derivatives is indexed by partitions $\lambda \vdash m$ (equivalently, compositions of the derivative orders), mirroring the Fa\`a di Bruno formula for chain-rule compositions.
+  \item \textbf{Pfaffian structure:}  For orthogonal ($\beta=1$) and symplectic ($\beta=4$) ensembles, determinants are replaced by Pfaffians of $2\times 2$ matrix kernels, and the derivative calculus extends by replacing $\det\to\operatorname{Pf}$.
+\end{itemize}
+
+%----------------------------------------------------------------------
+\section{Main Results (Informal but Precise)}
+%----------------------------------------------------------------------
+
+We state the central theorems informally; the paper provides fully rigorous proofs.
+
+\begin{definition}[Ratio function]
+Let $f_1,\dots,f_N$ be smooth functions and define
+\[
+  R(x_1,\dots,x_N) = \frac{\det\bigl[f_j(x_k)\bigr]_{j,k=1}^{N}}{\Delta(x_1,\dots,x_N)}.
+\]
+\end{definition}
+
+\begin{theorem}[First-order derivative --- Borel form]
+\label{thm:first}
+For each variable $x_\ell$, the first partial derivative satisfies
+\[
+  \frac{\partial R}{\partial x_\ell}\biggr|_{x_1=\cdots=x_N=x}
+  \;=\;
+  \det\!\Bigl[\mathcal{B}\bigl[f_j^{(k-1)}(x)\bigr]_{j,k}\Bigr]',
+\]
+where the prime denotes a specific row/column replacement involving $f_j^{(N)}(x)$ (the $N$-th derivative), and $\mathcal{B}$ denotes the Borel normalization $f_j^{(k-1)}(x)/(k-1)!$.
+
+More precisely, in the confluent limit $x_1=\cdots=x_N=x$, the ratio $R$ itself equals
+\[
+  R(x,\dots,x) = \det\!\left[\frac{f_j^{(k-1)}(x)}{(k-1)!}\right]_{j,k=1}^{N},
+\]
+and first derivatives are obtained by replacing one column of this matrix with the next-order derivatives.
+\end{theorem}
+
+\begin{theorem}[Higher-order mixed derivatives]
+\label{thm:higher}
+For a multi-index $\mathbf{m}=(m_1,\dots,m_N)\in\mathbb{N}_0^N$, define the total order $|\mathbf{m}|=\sum m_i$.  Then
+\[
+  \partial^{\mathbf{m}} R\big|_{x_i=x}
+  \;=\;
+  \sum_{\lambda\,\vdash\,\mathbf{m}} c_\lambda\;\det\!\Bigl[g_\lambda^{(j,k)}(x)\Bigr]_{j,k=1}^{N},
+\]
+where:
+\begin{itemize}[nosep]
+  \item the sum runs over partitions $\lambda$ compatible with $\mathbf{m}$,
+  \item $c_\lambda$ are explicit rational combinatorial coefficients (products of binomials and factorials),
+  \item $g_\lambda^{(j,k)}(x)$ are derivatives of the functions $f_j$ at orders determined by $\lambda$ and $k$.
+\end{itemize}
+The analogous statement holds with $\det\to\operatorname{Pf}$ for Pfaffian ratios.
+\end{theorem}
+
+\begin{corollary}[Mixed moments of characteristic polynomials]
+Applying Theorem~\ref{thm:higher} to the correlation kernel $K_N$ of a unitary ensemble gives
+\[
+  \mathbb{E}\!\left[\prod_{i=1}^{L}|\det(z-U)|^{2n_i}\right]
+  = \text{explicit Toeplitz-like determinant of } K_N^{(p,q)}(z,z),
+\]
+recovering and generalizing known formulas for the CUE mixed moments connected to the Riemann $\zeta$-function.
+\end{corollary}
+
+%----------------------------------------------------------------------
+\section{Proof Architecture}
+%----------------------------------------------------------------------
+
+The paper's proofs proceed in four main stages:
+
+\begin{enumerate}[label=\textbf{Step \arabic*:}, leftmargin=2.5em]
+  \item \textbf{Confluent Vandermonde identity.}
+  Establish the well-known base case: when all variables coincide, $R(x,\dots,x) = \det[f_j^{(k-1)}(x)/(k-1)!]$.  This is proved by repeated application of de l'H\^opital's rule to rows of the numerator determinant, using the fact that $\Delta(\mathbf{x})$ vanishes to order $\binom{N}{2}$.
+
+  \item \textbf{First-order derivative via Jacobi's formula.}
+  Differentiate $R = \det(A)/\Delta$ using Jacobi's formula $\partial\det(A) = \det(A)\,\mathrm{tr}(A^{-1}\partial A)$.  After careful treatment of the Vandermonde denominator, show the result equals a determinant with one modified column containing the Borel-transformed $(N)$-th derivative.
+
+  \item \textbf{Induction on derivative order.}
+  For higher derivatives, use an inductive argument: differentiating a determinant of order-$m$ derivatives produces a sum of determinants with one column bumped to order $m+1$.  Collect terms using the multinomial structure indexed by partitions.  The key identity is a generalized Leibniz rule for determinants:
+  \[
+    \partial_x^m \det[a_{jk}(x)] = \sum_{\substack{m_1+\cdots+m_N=m \\ m_i\geq 0}} \binom{m}{m_1,\dots,m_N} \det\!\bigl[a_{jk}^{(m_k)}(x)\bigr].
+  \]
+  The partition-indexed coefficients $c_\lambda$ emerge from grouping equal derivative orders.
+
+  \item \textbf{Extension to Pfaffians.}
+  For $\beta=1,4$ ensembles the numerator is a Pfaffian $\operatorname{Pf}[K_{jk}]$.  The derivative calculus transfers by using the Pfaffian analogue of Jacobi's formula:
+  \[
+    \partial \operatorname{Pf}(A) = \tfrac{1}{2}\operatorname{Pf}(A)\,\mathrm{tr}(A^{-1}\partial A),
+  \]
+  valid for antisymmetric $A$.  The partition-sum structure carries over with $\det\to\operatorname{Pf}$ and the $2\times2$ matrix kernel structure of the orthogonal/symplectic ensembles.
+\end{enumerate}
+
+\paragraph{Verification.}  The authors verify the general formulas on two concrete examples:
+\begin{itemize}[nosep]
+  \item \textbf{Complex Ginibre ensemble} ($\beta=2$, non-Hermitian): the kernel is $K_N(z,w)=\sum_{k=0}^{N-1}(z\bar w)^k/k!$, and derivatives produce known moment formulas.
+  \item \textbf{Circular unitary ensemble (CUE):} the kernel is $K_N(z,w)=\sum_{k=0}^{N-1}(z/w)^k$, and the derivative formulas recover and extend results connected to moments of $|\zeta(1/2+it)|^{2k}$.
+\end{itemize}
+
+%----------------------------------------------------------------------
+\section{Why It Matters / Limitations / Takeaway}
+%----------------------------------------------------------------------
+
+\paragraph{Significance.}
+\begin{itemize}[nosep]
+  \item \textbf{Unified framework:} Previously, confluent limits of determinantal/Pfaffian expressions were handled case-by-case.  This paper provides a \emph{single, universal machine} applicable to all three Dyson classes $\beta\in\{1,2,4\}$.
+  \item \textbf{Number theory connections:} Mixed moments of characteristic polynomials are a major tool in the ``RMT philosophy'' for the Riemann $\zeta$-function.  The new derivative formulas give the most general finite-$N$ expressions to date.
+  \item \textbf{HCIZ integrals:} The same ratios appear in group integrals central to lattice gauge theory, free probability, and wireless communications.
+\end{itemize}
+
+\paragraph{Limitations.}
+\begin{itemize}[nosep]
+  \item The results are \emph{algebraic identities} at finite $N$; asymptotic analysis (large-$N$ limits, universality) is not addressed.
+  \item The Pfaffian extension requires the antisymmetric kernel structure specific to $\beta=1,4$; irregular ensembles outside the Dyson classification are not covered.
+  \item Computational cost: for large $N$ or high derivative orders $|\mathbf{m}|$, the partition sums grow combinatorially; no efficient evaluation algorithm is discussed.
+\end{itemize}
+
+\paragraph{Takeaway.}
+\emph{If you need to evaluate confluent limits of determinantal or Pfaffian expressions in RMT---whether for moments of characteristic polynomials, HCIZ integrals, or kernel-based correlation functions---this paper gives you a systematic, partition-indexed formula that replaces ad hoc de l'H\^opital computations.}
+
+\vfill
+\noindent\rule{\textwidth}{0.4pt}\\
+{\small\textit{Report auto-generated on April 2, 2026 by Claw1. Source: arXiv:2603.29510.}}
+
+\end{document}
