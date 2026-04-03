@@ -1,0 +1,153 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\definecolor{secblue}{RGB}{0,51,102}
+\hypersetup{colorlinks=true,linkcolor=secblue,urlcolor=secblue,citecolor=secblue}
+
+\title{\vspace{-1.5cm}\textbf{Theory Report}\\[6pt]
+\large Large Deviations of the Periodic Toda Chain}
+\author{Auto-generated report \;\textbullet\; Source: \href{https://arxiv.org/abs/2604.00635}{arXiv:2604.00635}}
+\date{April 3, 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+%---------------------------------------------------------------------
+\section{Paper Information}
+%---------------------------------------------------------------------
+\begin{itemize}[nosep]
+  \item \textbf{Title:} Large deviations of the periodic Toda chain
+  \item \textbf{Authors:} Tamara Grava, Alice Guionnet, Karol K.\ Kozlowski, Alex Little
+  \item \textbf{arXiv:} \href{https://arxiv.org/abs/2604.00635}{2604.00635} [math.PR] \;\textbullet\; 99 pages
+  \item \textbf{Subjects:} Probability; Mathematical Physics; Exactly Solvable \& Integrable Systems
+\end{itemize}
+
+%---------------------------------------------------------------------
+\section{Executive Summary}
+%---------------------------------------------------------------------
+The paper establishes a \emph{large deviation principle} (LDP) for the empirical spectral measure of the Lax matrix associated with the periodic Toda lattice of $N$ particles evolving under a \emph{generalised Gibbs ensemble} (GGE).
+The key outputs are:
+\begin{enumerate}[nosep]
+  \item A rate function that generalises the classical free energy of the Toda chain to the GGE setting.
+  \item The LDP holds both when total momentum is constrained to zero and when it fluctuates.
+  \item The proof works directly in the \emph{separation-of-variables} (SoV) coordinates that rectify the Toda flow, opening a path to computing thermodynamic limits of \emph{dynamical} correlation functions.
+\end{enumerate}
+
+%---------------------------------------------------------------------
+\section{Problem Setup and Intuition}
+%---------------------------------------------------------------------
+
+\paragraph{The periodic Toda chain.}
+Consider $N$ particles on a ring with positions $q_1,\dots,q_N$ and momenta $p_1,\dots,p_N$.
+The Hamiltonian is
+\[
+  H_{\text{Toda}} \;=\; \sum_{k=1}^{N}\Bigl(\tfrac{1}{2}p_k^2 + e^{q_k - q_{k+1}}\Bigr), \qquad q_{N+1}\equiv q_1.
+\]
+The system is \emph{completely integrable}: there exist $N$ independent conserved quantities (integrals of motion) $H_1,H_2,\dots,H_N$ in involution, encoded as eigenvalues of the \emph{Lax matrix} $L\in\mathbb{R}^{N\times N}$, a tridiagonal matrix with entries depending on the $(q_k,p_k)$.
+
+\paragraph{Generalised Gibbs ensemble.}
+For an integrable system, the long-time statistical description is not the usual Gibbs measure $e^{-\beta H}$ but a \emph{generalised Gibbs measure}
+\[
+  d\mu_N^{(\mathbf{t})} \;\propto\; \exp\!\Bigl(-N\sum_{j=1}^{r} t_j\, H_j\Bigr)\, d\mathbf{p}\,d\mathbf{q},
+\]
+parameterised by ``chemical potentials'' $\mathbf{t}=(t_1,\dots,t_r)$ conjugate to the conserved charges.
+
+\paragraph{The question.}
+What is the probability that the empirical spectral measure
+\[
+  \hat\mu_N \;=\; \frac{1}{N}\sum_{k=1}^{N}\delta_{\lambda_k}, \qquad \lambda_1\le\cdots\le\lambda_N = \operatorname{spec}(L),
+\]
+deviates from its $N\to\infty$ limit?  Quantifying this is a \emph{large deviation principle}.
+
+\paragraph{Intuition.}
+In random matrix theory (RMT), the joint law of eigenvalues of a Hermitian matrix under a unitarily invariant measure satisfies an LDP with rate function given by the logarithmic energy minus an external field.  The Toda chain provides a \emph{physical} realisation of a log-gas: the SoV coordinates turn the GGE partition function into an expression resembling a $\beta$-ensemble on a curved contour, making RMT large-deviation technology applicable---but with significant new challenges from periodicity and the constraint structure.
+
+%---------------------------------------------------------------------
+\section{Main Result (Informal but Precise)}
+%---------------------------------------------------------------------
+
+\begin{theorem}[Large Deviation Principle for the Toda Spectral Measure]
+Let $\hat\mu_N$ denote the empirical spectral measure of the Lax matrix of the periodic Toda chain with $N$ particles, distributed according to the generalised Gibbs measure $\mu_N^{(\mathbf{t})}$.
+Then, as $N\to\infty$, the sequence $(\hat\mu_N)_{N\ge 1}$ satisfies a large deviation principle on the space of Borel probability measures on $\mathbb{R}$ (equipped with the weak topology) with speed $N^2$ and good rate function
+\[
+  I(\mu) \;=\; \int V_{\mathbf{t}}(x)\,d\mu(x) \;-\; \iint \log|x-y|\,d\mu(x)\,d\mu(y) \;-\; C_{\mathbf{t}},
+\]
+where $V_{\mathbf{t}}$ is an effective potential determined by the GGE parameters~$\mathbf{t}$, the double integral is the logarithmic energy, and $C_{\mathbf{t}}$ is a normalising constant.  The unique minimiser of $I$ is the equilibrium (limiting) spectral measure.
+\end{theorem}
+
+\begin{remark}
+The result is proven in two regimes:
+(i)~\emph{zero-momentum sector} ($\sum p_k=0$), and
+(ii)~\emph{free-momentum sector} (no constraint on total momentum).
+The rate functions differ by an additive Gaussian correction accounting for the centre-of-mass fluctuation.
+\end{remark}
+
+%---------------------------------------------------------------------
+\section{Proof Architecture}
+%---------------------------------------------------------------------
+
+The proof proceeds in five main steps.
+
+\medskip\noindent
+\textbf{Step 1: Reduction to separation-of-variables coordinates.}
+The periodic Toda chain admits \emph{action-angle} (or SoV) coordinates $(\gamma_1,\dots,\gamma_{N-1})$ living on the spectral curve.
+The GGE partition function, after this change of variables, becomes a multiple integral whose integrand factorises into:
+\begin{itemize}[nosep]
+  \item a Vandermonde-like interaction $\prod_{j<k}|\gamma_j-\gamma_k|^2$ (giving the log-gas structure),
+  \item single-variable weights $e^{-NV_{\mathbf{t}}(\gamma_j)}$ from the conserved-charge potentials,
+  \item a Jacobian encoding the topology of the spectral curve (periodic boundary conditions introduce non-trivial band structure).
+\end{itemize}
+
+\medskip\noindent
+\textbf{Step 2: Control of the Jacobian and contour structure.}
+Unlike classical $\beta$-ensembles on $\mathbb{R}$, the SoV variables are constrained to lie on arcs (bands) of the spectral curve.  The authors establish sharp estimates on the Jacobian of the SoV transform and show it contributes only sub-leading (order $N$) corrections to the free energy, hence does not affect the speed-$N^2$ rate function.
+
+\medskip\noindent
+\textbf{Step 3: Exponential tightness.}
+Using moment bounds on the spectral measure and the confining nature of $V_{\mathbf{t}}$, the authors show that $(\hat\mu_N)$ is exponentially tight at speed $N^2$.  This ensures that a subsequential LDP on compact sets can be promoted to a full LDP.
+
+\medskip\noindent
+\textbf{Step 4: Matching upper and lower bounds.}
+\begin{itemize}[nosep]
+  \item \emph{Upper bound:} For any closed set $F$ of measures, $\limsup_{N}\frac{1}{N^2}\log\Pr[\hat\mu_N\in F]\le -\inf_{\mu\in F}I(\mu)$.  This follows from Jensen-type inequalities applied to the log-gas energy.
+  \item \emph{Lower bound:} For any open set $G$, $\liminf_{N}\frac{1}{N^2}\log\Pr[\hat\mu_N\in G]\ge -\inf_{\mu\in G}I(\mu)$.  This is the harder direction; it requires constructing ``tilted'' measures that push the spectral measure into a prescribed neighbourhood, adapting the technique of Ben Arous--Guionnet to the periodic/band-constrained setting.
+\end{itemize}
+
+\medskip\noindent
+\textbf{Step 5: Momentum constraint and Gaussian decoupling.}
+When total momentum is constrained to zero, the centre-of-mass degree of freedom is frozen.
+The authors show this constraint modifies the partition function by a factor that is sub-exponential at speed $N^2$, so the rate function is the same up to the normalising constant.
+In the free-momentum case, the centre-of-mass contributes an independent Gaussian, and the LDP for the empirical measure decouples from it.
+
+%---------------------------------------------------------------------
+\section{Why It Matters / Limitations / Takeaway}
+%---------------------------------------------------------------------
+
+\paragraph{Significance.}
+\begin{itemize}[nosep]
+  \item \textbf{Bridge between integrable systems and RMT:} The Toda chain is one of the few physically meaningful integrable systems where RMT-style large deviations can be made rigorous.  This extends the classical results of Ben Arous--Guionnet (1997) and Hiai--Petz to a genuinely \emph{dynamical} setting.
+  \item \textbf{Towards dynamical correlations:} By proving the LDP directly in SoV coordinates, the paper sets up the machinery needed to compute thermodynamic limits of \emph{time-dependent} correlation functions under GGE statistics---a major open problem in mathematical physics and the theory of integrable turbulence.
+  \item \textbf{Generalised Gibbs ensembles:} The result gives rigorous thermodynamic foundations for the GGE in a classical integrable chain, complementing the extensive physics literature on GGE in quantum integrable models.
+\end{itemize}
+
+\paragraph{Limitations.}
+\begin{itemize}[nosep]
+  \item The analysis is specific to the Toda chain; extension to other integrable lattices (e.g., Calogero--Moser, Ablowitz--Ladik) requires different spectral curve geometry.
+  \item Only the \emph{macroscopic} (speed $N^2$) LDP is obtained.  Finer fluctuation results (CLT, rigidity, edge universality) for the Toda GGE remain open.
+  \item The paper treats the classical chain; the quantum Toda chain would require entirely different techniques.
+\end{itemize}
+
+\paragraph{Takeaway.}
+The periodic Toda chain under a generalised Gibbs ensemble behaves, at the spectral level, like a log-gas with an effective potential.  Its empirical spectral measure satisfies a large deviation principle at speed $N^2$ with an explicit rate function---generalising the free energy---proven via a novel blend of integrable-systems SoV technology and random-matrix large-deviation methods.
+
+\end{document}
