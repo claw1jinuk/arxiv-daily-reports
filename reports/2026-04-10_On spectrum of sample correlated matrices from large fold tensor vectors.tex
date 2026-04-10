@@ -1,0 +1,190 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist[itemize]{leftmargin=1.4em,itemsep=0.2em,topsep=0.2em}
+\setlist[enumerate]{leftmargin=1.5em,itemsep=0.2em,topsep=0.2em}
+\begin{document}
+
+{\LARGE \textbf{Theory Report: On spectrum of sample correlated matrices from large fold tensor vectors}}\\[0.4em]
+\textbf{Date:} 2026-04-10\\
+\textbf{Author:} Wangjun Yuan\\
+\textbf{arXiv:} \href{https://arxiv.org/abs/2604.06823}{2604.06823}\\
+\textbf{Primary area:} Probability / random matrix theory
+
+\section*{Executive summary}
+This paper studies a high-dimensional sample correlation matrix built from \emph{large tensor-product observations}. Each sample is formed by taking a $k$-fold tensor product of independent $n$-dimensional random vectors, normalizing that tensor to unit norm, and summing the resulting rank-one projectors with weights $\tau_\alpha$. The main question is whether this strong internal dependence---introduced by the tensor structure and growing tensor order $k$---changes the global eigenvalue distribution.
+
+The answer is: in the regime
+\[
+\frac{m}{n^k}\to c\in(0,\infty), \qquad \frac{k}{n}\to 0,
+\]
+the empirical spectral distribution still converges to a deterministic limit. In the unweighted case $\tau_\alpha\equiv 1$, that limit is the classical Mar\v cenko--Pastur law, exactly as for ordinary sample covariance/correlation matrices. So despite the samples living in a huge tensor space and having highly dependent coordinates, the \emph{global spectrum is asymptotically universal} at this scale.
+
+The proof strategy is clean: compare the tensor \emph{sample correlation} matrix to the tensor \emph{sample covariance} matrix, whose limiting spectrum was already known from earlier work. The core technical step shows that replacing the random normalization $\|Y_\alpha\|^{-2}$ by its deterministic approximation $n^{-k}$ changes the spectrum negligibly when $k=o(n)$. Once that comparison is established, the known limiting law for the covariance model transfers immediately.
+
+\section*{Problem setup and intuition}
+Let $y=(\xi_1,\dots,\xi_n)\in\mathbb{C}^n$ with i.i.d. centered entries of unit variance, and let
+\[
+Y_\alpha = y_\alpha^{(1)}\otimes \cdots \otimes y_\alpha^{(k)} \in (\mathbb{C}^n)^{\otimes k}\cong \mathbb{C}^{n^k},
+\]
+where the factors $y_\alpha^{(\ell)}$ are i.i.d. copies of $y$. Thus $Y_\alpha$ is an $n^k$-dimensional tensor-product vector. The paper studies
+\[
+M_{n,k,m} = \sum_{\alpha=1}^m \tau_\alpha\, \frac{Y_\alpha Y_\alpha^*}{\|Y_\alpha\|^2},
+\]
+which is the weighted sample correlation matrix obtained from unit-normalized tensor samples.
+
+There are three asymptotic ingredients:
+\begin{itemize}
+    \item the ambient dimension is $N=n^k$,
+    \item the number of samples scales like $m\sim cN$,
+    \item the tensor order $k$ also grows, but slowly enough that $k=o(n)$.
+\end{itemize}
+The weights $\tau_\alpha>0$ have asymptotically controlled moments:
+\[
+\frac1m\sum_{j=1}^m \tau_j^q \to m_q^{(\tau)} < \infty,
+\]
+with a growth bound ensuring a well-defined limiting moment problem.
+
+The main difficulty is that tensorization creates strong dependence among the coordinates of $Y_\alpha$. For ordinary random matrix models, independence or rotational invariance often drives the analysis. Here neither is available in a simple way. But one structural fact survives: since
+\[
+\|Y_\alpha\|^2 = \prod_{\ell=1}^k \|y_\alpha^{(\ell)}\|^2,
+\]
+the norm factor itself factorizes. Because each $\|y_\alpha^{(\ell)}\|^2$ concentrates around $n$, the whole product concentrates around $n^k$ provided $k$ does not grow too fast. Intuitively, the normalization in the correlation model is therefore close to the deterministic normalization used in the covariance/Wishart model
+\[
+\widetilde M_{n,k,m}=\frac1{n^k}\sum_{\alpha=1}^m \tau_\alpha Y_\alpha Y_\alpha^*.
+\]
+The paper makes exactly this intuition rigorous.
+
+\section*{Main theorem/result (informal but precise)}
+\textbf{Theorem 1.1 (paper's main result).} Assume:
+\begin{enumerate}
+    \item $m/n^k \to c\in(0,\infty)$,
+    \item $k/n\to 0$,
+    \item the weight moments satisfy
+    $\frac1m\sum_{j=1}^m \tau_j^q \to m_q^{(\tau)}$ for every $q\in\mathbb N$, with suitable growth control,
+    \item the atom variable $\xi_1$ has finite moments of all orders.
+\end{enumerate}
+Then the empirical spectral distribution (ESD) of $M_{n,k,m}$ converges in probability to a deterministic probability distribution $F_c$.
+
+Moreover, if $\tau_\alpha\equiv 1$, the limit $F_c$ is exactly the Mar\v cenko--Pastur law with aspect ratio $c$.
+
+A corollary treats a quantum-information-flavored model: if the base vector is uniform on the unit sphere of $\mathbb C^n$, then the analogous weighted Wishart matrix built from tensor products of independent random unit vectors has the same limiting law. In particular, for unit weights it again converges to Mar\v cenko--Pastur.
+
+\textbf{Why this is interesting.} The theorem says that global spectral behavior is robust even when every observation is a large tensor product. The tensor structure creates substantial dependence, but in the regime $k=o(n)$ that dependence does not alter the limiting density of eigenvalues at macroscopic scale.
+
+\section*{Notation and objects to keep in mind}
+A reader can understand the proof with four objects:
+\begin{itemize}
+    \item $Y_\alpha$: the raw $k$-fold tensor sample in dimension $n^k$;
+    \item $M_{n,k,m}$: the correlation matrix using random normalization $\|Y_\alpha\|^{-2}$;
+    \item $\widetilde M_{n,k,m}$: the covariance/Wishart proxy using deterministic normalization $n^{-k}$;
+    \item $F^A$: the empirical spectral distribution of a Hermitian matrix $A$.
+\end{itemize}
+The Mar\v cenko--Pastur law appears because, after normalization, the model behaves globally like a classical sample covariance ensemble with effective dimension $n^k$ and sample size $m\sim c n^k$.
+
+\section*{Proof architecture}
+The proof is short but conceptually elegant.
+
+\textbf{Step 1: import the known limit for the covariance model.}
+The paper uses an earlier result (stated as Lemma 2.1) saying that the ESD of
+\[
+\widetilde M_{n,k,m}=\frac1{n^k}\sum_{\alpha=1}^m \tau_\alpha Y_\alpha Y_\alpha^*
+\]
+converges almost surely to some deterministic law $F_c$. In the special case $\tau_\alpha\equiv 1$, this law is Mar\v cenko--Pastur.
+
+So the only remaining task is to show that the correlation model $M_{n,k,m}$ has the same limit.
+
+\textbf{Step 2: compare spectra via a matrix distance inequality.}
+A standard random-matrix lemma bounds the L\'evy distance between the ESDs of $AA^*$ and $BB^*$ by a product involving
+\[
+\operatorname{Tr}((A-B)(A-B)^*) \quad \text{and} \quad \operatorname{Tr}(AA^*+BB^*).
+\]
+The paper applies this with
+\[
+A=Y\sqrt{\Lambda_m}, \qquad B=\widetilde Y\sqrt{\Lambda_m},
+\]
+where the columns of $Y$ are $Y_\alpha/\|Y_\alpha\|$ and the columns of $\widetilde Y$ are $Y_\alpha/n^{k/2}$.
+
+This reduces the theorem to estimating two trace terms: an overall size term and a normalization-error term.
+
+\textbf{Step 3: compute moments of the tensor norm.}
+A key lemma proves
+\[
+\mathbb E\|Y_\alpha\|^2=n^k,
+\qquad
+\mathbb E\|Y_\alpha\|^4=n^{2k}\Bigl(1+\frac{m_4-1}{n}\Bigr)^k,
+\]
+where $m_4=\mathbb E|\xi_1|^4$.
+These formulas come from the factorization
+\[
+\|Y_\alpha\|^2 = \prod_{\ell=1}^k \|y_\alpha^{(\ell)}\|^2.
+\]
+This is where the condition $k=o(n)$ enters naturally: expanding
+\[
+\Bigl(1+\frac{m_4-1}{n}\Bigr)^k -1
+\approx \frac{(m_4-1)k}{n},
+\]
+shows that the relative fluctuation of $\|Y_\alpha\|^2/n^k$ vanishes.
+
+\textbf{Step 4: control the easy trace term.}
+The trace of the correlation matrix is exactly
+\[
+\operatorname{Tr}(M_{n,k,m})=\sum_{\alpha=1}^m \tau_\alpha,
+\]
+because each summand is a rank-one projector of trace $1$ times $\tau_\alpha$.
+For the covariance proxy, the trace is random but concentrated around the same quantity. Hence the normalized trace
+\[
+\frac1{n^k}\operatorname{Tr}(M_{n,k,m}+\widetilde M_{n,k,m})
+\]
+remains tight and asymptotically behaves like $\frac{2}{n^k}\sum_\alpha \tau_\alpha$.
+
+\textbf{Step 5: control the hard trace term coming from normalization error.}
+Using a deterministic identity for column-normalized matrices, the paper writes
+\[
+\operatorname{Tr}((Y-\widetilde Y)\Lambda_m(Y-\widetilde Y)^*)
+\]
+in terms of sums of
+\[
+\tau_\alpha\Bigl(\frac{\|Y_\alpha\|^2}{n^k}-1\Bigr).
+\]
+The second moment of this sum is then bounded by the previously computed norm fluctuation. Because
+\[
+\Bigl(1+\frac{m_4-1}{n}\Bigr)^k-1 \to 0,
+\]
+one gets
+\[
+\frac1{n^k}\operatorname{Tr}((Y-\widetilde Y)\Lambda_m(Y-\widetilde Y)^*) \xrightarrow[]{P} 0.
+\]
+This is the central estimate: replacing random normalization by deterministic normalization is spectrally negligible.
+
+\textbf{Step 6: conclude by triangle inequality.}
+Once the ESDs of $M_{n,k,m}$ and $\widetilde M_{n,k,m}$ are close in L\'evy distance, the known convergence of the covariance model transfers to the correlation model. That proves existence of the deterministic limit $F_c$; the unweighted case inherits the Mar\v cenko--Pastur law immediately.
+
+\textbf{Step 7: derive the unit-sphere corollary.}
+For Gaussian base vectors, normalizing each factor $y_\alpha^{(\ell)}$ yields an independent uniform vector on the unit sphere. Tensoring those normalized factors reproduces the correlation-model columns, so the unit-sphere tensor Wishart model has the same distribution as $M_{n,k,m}$. The corollary therefore follows directly from the theorem.
+
+\section*{Why it matters, limitations, and takeaway}
+\textbf{Why it matters.}
+This result extends classical spectral universality into a genuinely tensorial regime. It is relevant both mathematically and conceptually:
+\begin{itemize}
+    \item in statistics, it justifies Mar\v cenko--Pastur-type behavior for data with tensor-product structure;
+    \item in quantum information, it describes spectra of random product-state ensembles and related Wishart-type models;
+    \item in random matrix theory, it shows that global eigenvalue laws can survive substantial coordinate dependence.
+\end{itemize}
+
+\textbf{Limitations.}
+The theorem is deliberately global. It identifies the limiting ESD, not finer properties such as edge behavior, local laws, eigenvector delocalization, or fluctuations of linear statistics. The growth condition $k=o(n)$ is also essential to the current argument: if $k$ were of order $n$ or larger, the norm fluctuations need not be negligible, and different limiting behavior may appear. The paper also assumes finiteness of all moments of the entry distribution and only proves the explicit Mar\v cenko--Pastur formula in the unit-weight case.
+
+\textbf{Takeaway.}
+The paper's message is simple and strong: for large but not too large tensor order, random normalization does not change the global spectral law. The tensor sample correlation matrix behaves asymptotically like its covariance proxy, and in the basic unweighted setting the familiar Mar\v cenko--Pastur law still governs the spectrum. That is a neat universality statement in a model where dependence could easily have broken the classical picture.
+
+\end{document}
