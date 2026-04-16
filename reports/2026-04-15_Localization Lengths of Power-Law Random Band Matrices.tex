@@ -1,0 +1,140 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0pt}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\im}{\mathrm{Im}}
+\newcommand{\R}{\mathbb{R}}
+\begin{document}
+
+\begin{center}
+    {\LARGE \textbf{Daily Theory Report}}\\[0.4em]
+    {\Large \textbf{Localization Lengths of Power-Law Random Band Matrices}}\\[0.6em]
+    Jiaqi Fan, Fan Yang, Jun Yin\\
+    arXiv: \href{https://arxiv.org/abs/2604.12248}{2604.12248} \hspace{1em} Digest date: 2026-04-15
+\end{center}
+
+\section*{Paper information}
+The paper studies an $N\times N$ Hermitian Gaussian random matrix $H=(H_{ij})$ on the discrete circle. The variance profile is long-range and obeys
+\[
+\E |H_{ij}|^2 \asymp \bigl(|i-j|/W+1\bigr)^{-1-\alpha}, \qquad \alpha>-1,
+\]
+where $W\gg 1$ is the band scale and $|i-j|$ denotes the cyclic distance. The main question is how extended a bulk eigenvector must be when matrix entries decay only by a power law, rather than by a short-range cutoff.
+
+The notion of localization length used by the authors is concrete: for a normalized eigenvector $\psi$, let $\ell(\psi)$ be the smallest interval radius such that an interval of that radius contains at least half of the $\ell^2$ mass of $\psi$. Large $\ell(\psi)$ means that eigenvectors cannot concentrate in a short spatial region.
+
+\section*{Executive summary}
+This paper proves sharp lower bounds on the localization length of bulk eigenvectors across the full range of power-law exponents on the \emph{delocalized side} of the phase diagram. The answer depends strongly on $\alpha$, which controls the heaviness of the spatial tails.
+
+Informally, the longer the matrix can jump, the larger the forced eigenvector spread. The theorem confirms the long-standing physics picture:
+\begin{itemize}[leftmargin=1.5em]
+    \item For $-1<\alpha<0$, jumps are so long-range that bulk eigenvectors are completely delocalized: the localization length is of order $N$.
+    \item For $0<\alpha<1$, transport is even stronger than any fixed polynomial scale in $W$: one gets $\ell\ge W^C$ for every large constant $C$.
+    \item For $1<\alpha<2$, the transport is stable-like and superdiffusive, leading to $\ell\ge W^{\alpha/(\alpha-1)}$.
+    \item For $\alpha>2$, one recovers the familiar diffusive lower bound $\ell\ge W^2$.
+\end{itemize}
+
+The conceptual route is elegant. First prove an optimal \emph{local semicircle law} down to the spectral scale corresponding to the expected transport length. Then convert the resolvent control into delocalization bounds through the pointwise inequality
+\[
+|\psi_k(x)|^2 \le \eta \, \im G_{xx}(\lambda_k+i\eta),
+\]
+where $G(z)=(H-z)^{-1}$ is the resolvent. The real technical novelty is a new renormalized matrix flow and a family of two-resolvent observables ($T$-variables) adapted to long-range propagation. This avoids the higher-order loop expansions that were effective only for faster-decaying random band matrices.
+
+\section*{Problem setup and intuition}
+Random band matrices interpolate between Wigner matrices (fully mean-field) and local lattice operators. For short-range bands, one expects transport on a diffusive scale $W^2$. But here the variance profile decays only like a power law, so matrix entries permit rare but influential long jumps. This changes the natural transport scale dramatically.
+
+The key quantity is a scale $\ell(\eta)$ describing how far information propagates when one probes the resolvent at imaginary part $\eta>0$. The paper identifies the heuristic transport length as
+\[
+\ell(\eta)=
+\begin{cases}
+N, & \alpha\le 0,\\
+\min\bigl(W\eta^{-1/(\alpha\wedge 2)},N\bigr), & \alpha>0.
+\end{cases}
+\]
+This formula cleanly reflects the transition between regimes:
+\begin{itemize}[leftmargin=1.5em]
+    \item When $\alpha\le 0$, the tails are so heavy that the system is effectively globally mixed.
+    \item When $0<\alpha<2$, the jump kernel has heavy tails, so propagation is governed by a stable-type scaling rather than Brownian diffusion.
+    \item When $\alpha>2$, second moments become dominant and the usual diffusive picture returns.
+\end{itemize}
+
+Why does a local law matter for localization? The diagonal resolvent entry $G_{xx}(E+i\eta)$ measures how strongly spectral mass near energy $E$ can sit at site $x$ when one averages over a window of width $\eta$. If this quantity matches the semicircle prediction down to very small $\eta$, then no bulk eigenvector can put too much mass on one site or one short interval. Thus fine spectral regularity becomes a statement about spatial spreading.
+
+The challenge is that power-law random band matrices are simultaneously non-mean-field and non-local. Standard Wigner tools are too global, while previous band-matrix techniques depend on fast spatial decay that suppresses long loops. Here one must track how long-range interactions feed back into the resolvent on many scales.
+
+\section*{Main theorem/result (informal but precise)}
+Fix a bulk energy window away from the spectral edges, and consider bulk eigenvectors of the Hermitian Gaussian matrix $H$ with variance profile above. Then, with high probability, their localization length $\ell$ satisfies the following lower bounds:
+\[
+\ell=
+\begin{cases}
+N, & -1<\alpha<0,\\
+\ge W^C \text{ for any fixed large } C, & 0<\alpha<1,\\
+\ge W^{\alpha/(\alpha-1)}, & 1<\alpha<2,\\
+\ge W^2, & \alpha>2.
+\end{cases}
+\]
+
+A few remarks clarify the meaning.
+\begin{enumerate}[leftmargin=1.5em]
+    \item The theorem gives \emph{lower bounds}: it rules out localization on shorter scales. In the completely delocalized regime $-1<\alpha<0$, the lower bound reaches the system size $N$.
+    \item The result is stated for bulk eigenvectors, where the limiting density of states is positive and semicircle methods are stable.
+    \item The scale $W^{\alpha/(\alpha-1)}$ for $1<\alpha<2$ is the superdiffusive analogue of $W^2$: it is larger than $W^2$ near $\alpha=1^+$ and tends down to the diffusive scale as $\alpha\to 2^-$.
+    \item For $0<\alpha<1$, the statement ``$\ell\ge W^C$ for any large constant $C$'' should be read as a stretched-to-arbitrarily-high-polynomial lower bound, reflecting transport so strong that no single fixed polynomial scale captures it.
+\end{enumerate}
+
+In short, the theorem verifies the predicted delocalized phase diagram from physics, and does so with rigorous high-probability estimates.
+
+\section*{Proof architecture (step-by-step)}
+The proof is best viewed as a pipeline from dynamics to resolvent control to eigenvector delocalization.
+
+\textbf{1. Build the right observables.}
+Instead of analyzing isolated resolvent entries or very high-order loop objects, the authors introduce two-resolvent $T$-variables and related loop observables tailored to the long-range kernel. These objects are flexible enough to encode spatial transport while still closing under the matrix flow.
+
+\textbf{2. Run a renormalized matrix flow.}
+A dynamical interpolation is used to evolve the matrix in a way that gradually regularizes the ensemble while preserving the relevant long-range structure. Renormalization is essential because naive evolution would not cleanly separate local and nonlocal effects when the variance profile has slow tails.
+
+\textbf{3. Derive self-consistent evolution/loop equations.}
+The flow produces equations for the new observables. Their structure mirrors the effective transport operator associated with the power-law kernel. This is where the exponent $\alpha$ enters in a decisive way: different tail behaviors generate different propagation laws.
+
+\textbf{4. Prove the optimal local semicircle law down to }$\eta\asymp \ell^{-1}$. 
+The central technical estimate shows that diagonal resolvent entries remain close to the semicircle Stieltjes transform at the finest scale compatible with the transport length. This is the analytic heart of the paper. Achieving it is difficult because one must control long-range spatial feedback without relying on higher-order expansions developed for rapidly decaying bands.
+
+\textbf{5. Convert local law to eigenvector delocalization.}
+For an eigenpair $(\lambda_k,\psi_k)$ and a site $x$,
+\[
+\im G_{xx}(\lambda_k+i\eta)=\sum_j \frac{\eta |\psi_j(x)|^2}{(\lambda_j-\lambda_k)^2+\eta^2}
+\ge \frac{|\psi_k(x)|^2}{\eta}.
+\]
+Rearranging gives
+\[
+|\psi_k(x)|^2 \le \eta \, \im G_{xx}(\lambda_k+i\eta).
+\]
+Choosing $\eta$ at the smallest scale where the local law is valid yields an upper bound on site mass, hence a lower bound on the interval needed to capture half of the eigenvector mass.
+
+\textbf{6. Interpret the resulting scales.}
+The final exponents match the expected transport classes:
+\begin{itemize}[leftmargin=1.5em]
+    \item $\alpha>2$: diffusive behavior, scale $W^2$.
+    \item $1<\alpha<2$: stable-like superdiffusion, scale $W^{\alpha/(\alpha-1)}$.
+    \item $0<\alpha<1$: extremely efficient long-range transport, beyond every fixed polynomial scale.
+    \item $-1<\alpha<0$: complete bulk delocalization on the full system size.
+\end{itemize}
+
+\section*{Why it matters / limitations / takeaway}
+\textbf{Why it matters.} Power-law random band matrices are a natural testing ground for how geometry and long-range hopping influence quantum transport. This paper gives rigorous support for a full delocalized phase diagram that had been predicted physically but not previously justified at this level of generality. Methodologically, it also broadens the random-band-matrix toolbox: the renormalized flow and two-resolvent observables look robust enough to matter beyond this specific model.
+
+\textbf{Limitations.} The theorem provides lower bounds on localization length, not a full matching characterization of all phases. The model is Gaussian and Hermitian on a discrete circle, which is analytically convenient; extending the method to more general entry distributions or geometries may require additional work. The statement is about bulk eigenvectors, so it does not address edge behavior. Finally, the report here is intentionally theory-mode and informal: the full paper contains the exact high-probability formulation, parameter ranges, and technical bootstrap estimates.
+
+\textbf{Takeaway.} The paper shows that once hopping tails decay like a power law, the delocalization scale is no longer universally diffusive. Instead it is dictated by the transport law of the tail: diffusive for $\alpha>2$, superdiffusive for $1<\alpha<2$, stronger still for $0<\alpha<1$, and fully global for $-1<\alpha<0$. The proof is notable not only for the result, but for introducing a dynamic, long-range-adapted mechanism to turn transport intuition into an optimal local semicircle law and then into eigenvector delocalization.
+
+\vfill
+{\small Prepared from the arXiv abstract and extracted technical context for the Scholar Inbox digest dated 2026-04-15.}
+
+\end{document}
