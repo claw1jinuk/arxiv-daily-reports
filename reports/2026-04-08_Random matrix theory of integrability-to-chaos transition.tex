@@ -1,0 +1,106 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.4em,itemsep=0.25em,topsep=0.35em}
+\setlist[enumerate]{leftmargin=1.5em,itemsep=0.25em,topsep=0.35em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\begin{document}
+\begin{center}
+{\LARGE \textbf{Theory Report: Random matrix theory of integrability-to-chaos transition}}\\[0.4em]
+{\large Ben Craps, Marine De Clerck, Oleg Evnin, Maxim Pavlov}\\[0.25em]
+\href{https://arxiv.org/abs/2604.03669}{arXiv:2604.03669} \hspace{1em} Date: 2026-04-08
+\end{center}
+
+\section*{Paper information}
+\textbf{Title.} Random matrix theory of integrability-to-chaos transition
+
+\textbf{Authors.} Ben Craps, Marine De Clerck, Oleg Evnin, Maxim Pavlov
+
+\textbf{Core question.} When an integrable quantum Hamiltonian is deformed by a chaotic perturbation, what statistical information determines the intermediate level-spacing law between the Poisson and Wigner--Dyson limits?
+
+\textbf{Basic objects.} The paper studies Hamiltonians of the form
+\[
+H = H_0 + \gamma H_1,
+\]
+where $H_0$ is integrable, $H_1$ is a chaotic perturbation, and $\gamma$ tunes the distance from integrability.
+
+\section*{Executive summary}
+The paper gives a clean answer to a messy old problem. The authors argue that, in the crossover from integrability to chaos, the full microscopic pattern of the perturbation matrix is not what matters for level-spacing statistics. What matters is much coarser: the empirical distribution of the off-diagonal matrix elements of $H_1$ when written in the eigenbasis of the integrable part $H_0$.
+
+From that observation they build a random-matrix surrogate
+\[
+\mathcal H = \mathcal D + \gamma' \mathcal M,
+\]
+where $\mathcal D$ is a random diagonal matrix sampled from the distribution of the eigenvalues of $H_0$, and $\mathcal M$ is a symmetric zero-diagonal random matrix whose nonzero entries are i.i.d. draws from the empirical distribution of off-diagonal entries $\langle n|H_1|m\rangle$ with $n<m$. After matching perturbation strengths through the average adjacent-gap ratio $\bar r$, this surrogate reproduces the full unfolded spacing histogram of the physical model with striking accuracy.
+
+They validate the proposal on two very different families: perturbed spin-$1/2$ chains and quantum resonant systems. In both cases the new ensemble matches the observed crossover statistics much better than standard baselines such as the Brody fit and the Rosenzweig--Porter model. A second punchline is empirical but intriguing: the distribution of off-diagonal perturbation matrix elements often has a broad power-law regime. That suggests crossover statistics may fall into universality classes indexed by the tail shape of this matrix-element distribution rather than by a single interpolation parameter.
+
+\section*{Problem setup and intuition}
+Two benchmark limits are familiar. For integrable systems, unfolded level spacings $s$ are asymptotically Poisson,
+\[
+P_{\rm P}(s)=e^{-s}.
+\]
+For chaotic systems with time-reversal symmetry, one gets Gaussian-orthogonal-ensemble behavior, well approximated by the Wigner surmise,
+\[
+P_{\rm WD}(s)=\frac{\pi s}{2}e^{-\pi s^2/4}.
+\]
+The hard regime is the interpolation between these two limits. Existing descriptions either fit data phenomenologically or use overly rigid random-matrix models that miss system-specific intermediate shapes.
+
+The key intuition is to write $H_1$ in the eigenbasis $\{|n\rangle\}$ of $H_0$:
+\[
+H_0 |n\rangle = E_n |n\rangle, \qquad H_{1,nm}=\langle n|H_1|m\rangle.
+\]
+The authors argue that the crossover spacing law is controlled by the statistics of the cloud of numbers $\{H_{1,nm}: n<m\}$, not by the exact geometric placement of those entries inside the matrix. Once one knows the diagonal spectrum inherited from the integrable part and the empirical distribution of off-diagonal couplings injected by the perturbation, one already has the main information needed to reproduce the transition.
+
+\section*{Main result (informal but precise)}
+The authors propose the ensemble
+\[
+\mathcal H = \mathcal D + \gamma'\mathcal M
+\]
+with the following ingredients:
+\begin{itemize}
+\item $\mathcal D$ is diagonal, with i.i.d. entries drawn from a smoothed version of the empirical spectrum of $H_0$.
+\item $\mathcal M$ is symmetric with zero diagonal, and its off-diagonal entries are i.i.d. draws from a smoothed version of the empirical distribution of $\langle n|H_1|m\rangle$ in the $H_0$ eigenbasis.
+\item $\gamma'$ is tuned so that this model has the same average adjacent-gap ratio $\bar r$ as the physical Hamiltonian $H_0+\gamma H_1$.
+\end{itemize}
+Then, at large Hilbert-space dimension, the unfolded nearest-neighbor spacing distribution of the surrogate matches that of the physical system across the integrability-to-chaos crossover.
+
+The matching statistic is
+\[
+r_n=\frac{\min(\delta_n,\delta_{n-1})}{\max(\delta_n,\delta_{n-1})}, \qquad \delta_n = E_{n+1}-E_n,
+\]
+and the limiting values are $\bar r_{\rm P}=2\log 2-1\approx 0.386$ and $\bar r_{\rm WD}=4-2\sqrt 3\approx 0.536$.
+
+\section*{Proof architecture}
+\begin{enumerate}
+\item \textbf{Identify the right state variables.} Start with $H=H_0+\gamma H_1$, diagonalize $H_0$, and record the samples of eigenvalues $\{E_n\}$ and off-diagonal perturbation entries $\{\langle n|H_1|m\rangle:n<m\}$.
+\item \textbf{Build a surrogate ensemble.} Replace the physical Hamiltonian by a random matrix with the same coarse one-point statistics: a diagonal part sampled from the $H_0$ spectrum and an i.i.d. symmetric off-diagonal part sampled from the perturbation-entry distribution.
+\item \textbf{Normalize comparisons through $\bar r$.} Tune $\gamma$ and $\gamma'$ so the physical model and surrogate sit at the same value of the average gap ratio $\bar r$.
+\item \textbf{Compute unfolded spacing histograms.} Trim edge levels, unfold the remaining spectrum using a mesoscopic local-density prescription, and compare histograms for several intermediate values of $\bar r$.
+\item \textbf{Benchmark against alternatives.} Compare the new ensemble to the Rosenzweig--Porter model and Brody-family fits; the proposed ensemble tracks the physical histograms substantially better.
+\end{enumerate}
+
+\section*{Why the model works}
+Nearest-neighbor repulsion is a local spectral phenomenon produced by mixing of nearly resonant unperturbed states. In first approximation, that mixing is encoded by the size statistics of off-diagonal couplings, not by the exact deterministic architecture of the perturbation matrix. The diagonal spectrum of $H_0$ sets the unperturbed gaps; the distribution of $H_{1,nm}$ tells us how strongly those gaps are hybridized.
+
+This also explains why the Rosenzweig--Porter model can miss real systems. RP hardcodes Gaussian off-diagonal statistics, whereas the physical perturbations examined here often have highly non-Gaussian, broad, approximately power-law entry distributions.
+
+\section*{Validation, limitations, and takeaway}
+For a perturbed transverse-field Ising chain with an XY-Heisenberg-type perturbation, the ensemble reproduces the physical spacing curves at several intermediate values of $\bar r$. The same strategy succeeds again for perturbed quantum resonant systems, which are structurally quite different many-body bosonic models. That cross-family agreement is what makes the proposal compelling.
+
+A particularly interesting empirical finding is that the distribution $P_{\mathcal M}(x)$ of off-diagonal perturbation entries often shows a broad power-law regime that can be fit schematically by
+\[
+P_{\mathcal M}(x)\sim \frac{e^{-Cx^2}}{x^p}, \qquad 0\le p\le 1.
+\]
+The exact cutoff behavior seems much less important than the existence and slope of this broad regime.
+
+The work is convincing numerically, but analytic control is still missing. The paper does not derive the crossover law from first principles or prove that all higher-order correlations become irrelevant. It also focuses on spacing statistics, not on eigenvector structure, transport, entanglement dynamics, or thermal observables.
+
+\textbf{Bottom line.} The paper's main contribution is a new coarse-grained random-matrix principle: Poisson-to-Wigner crossover statistics are governed by the diagonal spectrum of the integrable part together with the empirical distribution of off-diagonal perturbation matrix elements.
+\end{document}

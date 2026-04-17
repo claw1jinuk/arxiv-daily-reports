@@ -1,0 +1,172 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+
+\title{\vspace{-1.5em}\textbf{Daily Theory Report:}\\[0.25em]
+From Gaussian to Gumbel: extreme eigenvalues of complex Ginibre products with exact rates}
+\author{Report generated for Scholar Inbox digest dated 2026-04-16\\arXiv: \href{https://arxiv.org/abs/2604.13134}{2604.13134}}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\textbf{Paper.} Yutao Ma and Xujia Meng, \emph{From Gaussian to Gumbel: extreme eigenvalues of complex Ginibre products with exact rates}.\\
+\textbf{Context.} The paper studies extremal eigenvalues of products of $k_n$ independent $n\times n$ complex Ginibre matrices as $n\to\infty$, with the controlling parameter
+\[
+\alpha_n:=\frac{n}{k_n}\longrightarrow \alpha\in[0,\infty].
+\]
+The main message is that the edge statistics of these non-Hermitian products exhibit a \emph{continuous transition} from Gaussian behavior to Gumbel behavior, with an intermediate one-parameter family of laws when $\alpha\in(0,\infty)$.
+
+\section*{1. Why this is interesting}
+Products of Ginibre matrices are among the most tractable non-Hermitian random matrix models, but they already display genuinely new phenomena compared with a single Ginibre matrix. The number of factors $k_n$ changes the geometry of the spectrum and, at the edge, changes the fluctuation regime itself. Earlier works had already identified a trichotomy for the spectral radius depending on the scaling of $k_n$ relative to $n$: one gets Gaussian, intermediate, or Gumbel limits. What was still missing was a truly unified formulation that places these limits on the same scale and proves quantitative convergence rates.
+
+This paper does exactly that, and then goes further: it carries out an analogous program for the \emph{rightmost eigenvalue} $\max_j \Re Z_j$, where rotational symmetry no longer diagonalizes the problem. The resulting contrast between the spectral radius and the rightmost eigenvalue is one of the conceptual highlights of the work.
+
+\section*{2. Model and observables}
+Let
+\[
+\mathbf A_1,\dots,\mathbf A_{k_n}
+\]
+be independent complex Ginibre matrices of size $n\times n$, and let
+\[
+Z_1,\dots,Z_n
+\]
+be the eigenvalues of the product $\mathbf A_1\cdots \mathbf A_{k_n}$. The paper studies two natural edge observables:
+\[
+\max_{1\le j\le n}|Z_j| \qquad\text{and}\qquad \max_{1\le j\le n}\Re Z_j.
+\]
+The asymptotic regime is governed by
+\[
+\alpha_n=\frac{n}{k_n}\to \alpha\in[0,\infty],
+\]
+which separates three cases:
+\begin{itemize}[leftmargin=1.5em]
+\item $\alpha=0$: \textbf{dense-factor regime} ($k_n\gg n$),
+\item $\alpha\in(0,\infty)$: \textbf{proportional regime} ($k_n\asymp n$),
+\item $\alpha=\infty$: \textbf{sparse-factor regime} ($k_n\ll n$).
+\end{itemize}
+The goal is to understand not only the limiting laws in each regime, but also the exact scale of convergence toward those laws.
+
+\section*{3. Main theorem for the spectral radius}
+The authors introduce a normalized spectral-radius variable
+\[
+X_n=b_n^{-1}\Bigl[\sqrt{\alpha_n}\bigl(2\log\max_j |Z_j|-k_n\psi(n)\bigr)-a_n\Bigr],
+\]
+where $\psi=\Gamma'/\Gamma$ is the digamma function and $a_n,b_n$ are carefully chosen centering and scaling constants depending on $\alpha_n$. The point of this normalization is that it treats all three regimes on one common scale.
+
+For fixed $\alpha\in(0,\infty)$, the limit law is an explicit infinite product
+\[
+\Phi_\alpha(x)=\prod_{j=1}^{\infty}\Phi\bigl(v_\alpha(j,x)\bigr),
+\]
+where $\Phi$ is the standard normal cdf and $v_\alpha(j,x)$ is an explicit affine function of $x$ and $j/\sqrt\alpha$. Thus the limit is neither purely Gaussian nor Gumbel, but an interpolating family indexed by $\alpha$.
+
+The spectral-radius theorem can be summarized as follows.
+\begin{itemize}[leftmargin=1.5em]
+\item If $\alpha=0$, then $X_n$ converges to the \textbf{standard normal law}.
+\item If $\alpha\in(0,\infty)$, then $X_n$ converges to the \textbf{interpolating law} $\Phi_\alpha$.
+\item If $\alpha=\infty$, then $X_n$ converges to the \textbf{Gumbel law}
+\[
+\Lambda(x)=e^{-e^{-x}}.
+\]
+\end{itemize}
+Even more strikingly, the family $\{\Phi_\alpha\}_{\alpha>0}$ extends continuously to the boundary regimes:
+\[
+\Phi_\alpha \Longrightarrow \Phi \quad (\alpha\downarrow 0),
+\qquad
+\Phi_\alpha \Longrightarrow \Lambda \quad (\alpha\to\infty).
+\]
+So the transition from Gaussian to Gumbel is not merely heuristic; it is encoded in a precise one-parameter family.
+
+\section*{4. Exact convergence rates}
+A major contribution of the paper is that it does not stop at weak convergence. It proves exact Berry--Esseen type asymptotics for the Kolmogorov distance in all spectral-radius regimes.
+
+In the sparse-factor regime $\alpha=\infty$, the error is shown to be of order
+\[
+\frac{(\log\log \alpha_n)^2}{\log \alpha_n},
+\]
+with the exact leading constant $1/(2e)$ after suitable normalization. In the dense-factor regime $\alpha=0$, the error is asymptotically controlled by a Gaussian correction term of order $\sqrt{\alpha_n}$ together with a smaller $n^{-1}$ contribution. In the proportional regime, the exact asymptotics are expressed through explicit functions $q_1(j,x)$ and $q_2(j,x)$ inside the infinite-product representation.
+
+The paper also computes the \emph{boundary asymptotics} of the interpolating family itself:
+\[
+\sup_x |\Phi_\alpha(x)-\Phi(x)| \sim \frac{\sqrt\alpha}{\sqrt{2\pi}} \quad (\alpha\downarrow 0),
+\]
+while
+\[
+\sup_x |\Phi_\alpha(x)-\Lambda(x)| \sim \frac{(\log\log\alpha)^2}{2e\log\alpha} \quad (\alpha\to\infty).
+\]
+These formulas quantify how the intermediate law approaches the two endpoint distributions.
+
+\section*{5. Rightmost eigenvalue: same transition, harder mechanism}
+For the rightmost eigenvalue, the authors define an analogous normalized variable
+\[
+\widetilde X_n=\widetilde b_n^{-1}\Bigl[\sqrt{\alpha_n}\bigl(2\log\max_j \Re Z_j-k_n\psi(n)\bigr)-\widetilde a_n\Bigr].
+\]
+The limit laws again follow the same trichotomy:
+\begin{itemize}[leftmargin=1.5em]
+\item Gaussian at $\alpha=0$,
+\item Gumbel at $\alpha=\infty$,
+\item an intermediate family for $\alpha\in(0,\infty)$.
+\end{itemize}
+But now the proportional-regime limit is not an explicit product. Instead, it is a Fredholm determinant
+\[
+\widetilde\Phi_\alpha(x)=\det(I-\widetilde M(x,\alpha)),
+\]
+where $\widetilde M(x,\alpha)$ is a trace-class operator on $\ell^2(\mathbb N)$ with explicit matrix elements built from Gaussian tails and trigonometric integrals.
+
+This is where the geometry matters. The spectral radius is radial, so rotational invariance diagonalizes the reduced matrix problem. The rightmost eigenvalue is not radial, so the corresponding matrix is genuinely non-diagonal. The intermediate limit still interpolates continuously between Gaussian and Gumbel, but it is structurally more complicated and the fixed-$\alpha$ convergence rate in closed form remains out of reach.
+
+In particular, for $\alpha\in(0,\infty)$ the authors prove existence and continuity of $\widetilde\Phi_\alpha$, as well as endpoint asymptotics
+\[
+\sup_x |\widetilde\Phi_\alpha(x)-\Phi(x)|\asymp \sqrt\alpha \qquad (\alpha\downarrow 0)
+\]
+and
+\[
+\sup_x |\widetilde\Phi_\alpha(x)-\Lambda(x)|\asymp \frac{(\log\log\alpha)^2}{\log\alpha} \qquad (\alpha\to\infty),
+\]
+with explicit constants matching the theorem statements.
+
+\section*{6. Core method: determinantal reduction plus regime-dependent asymptotics}
+The eigenvalues of the Ginibre product form a determinantal point process with kernel
+\[
+\mathbb K_n(z,w)=\frac{\sqrt{\varphi(z)\varphi(w)}}{\pi^{k_n}}\sum_{j=0}^{n-1}\frac{(z\bar w)^j}{(j!)^{k_n}}.
+\]
+Gap probabilities for the edge events are therefore Fredholm determinants. The key reduction is to convert those Fredholm determinants into determinants of finite $n\times n$ matrices.
+
+For the spectral radius, rotational symmetry forces the reduced matrix to be diagonal. The diagonal entries are probabilities involving products of Gamma variables. More precisely, if
+\[
+Y_j=\prod_{r=1}^{k_n} S_{j,r},
+\]
+with $S_{j,r}\sim \mathrm{Gamma}(j,1)$ independent, then the spectral-radius gap probability factors into a product of one-dimensional tail events for $\log Y_j$. This is the source of the explicit infinite-product formula and the sharp error analysis.
+
+For the rightmost eigenvalue, a polar-coordinate reduction introduces an additional angular random variable $\Theta\sim \mathrm{Unif}[0,\pi/2)$. The diagonal terms involve probabilities of the form
+\[
+\mathbb P\bigl(\log Y_j+\log\cos^2\Theta \ge \text{threshold}\bigr),
+\]
+while the off-diagonal terms contain cosine oscillations. This produces a non-diagonal matrix whose determinant cannot be collapsed to an elementary product.
+
+A useful methodological lesson is that the naïve approximation
+\[
+\det(I-K)\approx e^{-\operatorname{Tr} K}
+\]
+works only in the sparse regime, where the operator norm is sufficiently small. In the dense and proportional regimes, finer asymptotic control of the reduced matrix entries is essential. The authors combine central-limit estimates, Edgeworth expansions, truncation arguments, and delicate determinant comparisons to close the analysis.
+
+\section*{7. What to take away}
+There are three main takeaways.
+
+\textbf{First}, products of Ginibre matrices exhibit a clean edge-transition principle governed by a single parameter $\alpha=n/k_n$. Gaussian and Gumbel limits are not isolated phenomena; they are endpoints of a continuous family.
+
+\textbf{Second}, the spectral radius is substantially more explicit than the rightmost eigenvalue. This is not a superficial technicality but a consequence of radial symmetry versus non-radial geometry. The paper makes this dichotomy very transparent.
+
+\textbf{Third}, the work is quantitative. It obtains exact convergence rates, not just convergence in law, and it does so in a form that should be useful as a template for other non-Hermitian product ensembles such as truncated unitary products or spherical ensembles.
+
+Overall, this is a strong and conceptually satisfying paper. The main novelty is the unified Gaussian-to-Gumbel interpolation together with sharp asymptotic error control, and the most interesting technical contribution is the extension of that picture from the radial spectral radius to the non-radial rightmost eigenvalue via an explicit Fredholm-determinant framework.
+
+\end{document}

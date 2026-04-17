@@ -1,0 +1,126 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{microtype}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Prob}{\mathbb{P}}
+\begin{document}
+\begin{center}
+{\Large \textbf{Theory Report: The extreme statistics of some noncolliding Brownian processes}}\\[0.5em]
+{\large Mustazee Rahman}\\[0.25em]
+\texttt{arXiv:2604.03206} \quad \url{https://arxiv.org/abs/2604.03206}
+\end{center}
+
+\textbf{Paper information.} This paper studies the top particle in several interacting diffusive systems that can be viewed either as noncolliding Brownian motions or as eigenvalue processes of random matrices. The common theme is that the edge observable---the largest particle / largest eigenvalue / running maximum of the top path---admits exact Fredholm determinant formulas and, after suitable scaling, converges to universal edge objects such as the Airy process.
+
+\section*{Executive summary}
+The paper has three tightly connected contributions.
+
+First, it studies a Hermitian matrix consisting of a deterministic matrix with equally spaced eigenvalues plus GUE noise. After centering by the top deterministic eigenvalue and a logarithmic correction, the largest eigenvalue converges to a new distribution written as a Fredholm determinant with a contour-integral kernel involving Gamma functions. This also gives a limit law for Brownian motion on the symmetric space of Hermitian positive-definite matrices.
+
+Second, it proves an edge-universality theorem for Dyson Brownian motion started from a broad class of deterministic initial spectra. After a model-dependent centering and $n^{-2/3}$ edge scaling, the top eigenvalue process converges to the Airy process. The content here is not merely that GUE itself has Airy edge fluctuations, but that many nontrivial initial conditions flow to the same universal limit.
+
+Third, it derives a Fredholm determinant formula for the running maximum of the top path in a noncolliding Brownian / Brownian last-passage setting with drifts and flat boundary. Via known correspondences, this yields a new formula for the largest eigenvalue distribution in the Laguerre Orthogonal Ensemble (LOE), and also for a related point-to-line last-passage percolation problem.
+
+Conceptually, the paper shows that exact integrable formulas for edge observables in noncolliding systems remain powerful enough to do both \emph{new exact finite-$n$ formulas} and \emph{asymptotic universality proofs}. The mathematical engine is a blend of determinantal point process structure, contour-integral kernels, last-passage representations, and steep-descent asymptotics.
+
+\section*{Problem setup and intuition}
+A noncolliding Brownian system is a collection of Brownian particles conditioned never to intersect. In one standard realization, these are the ordered eigenvalues of Hermitian matrix Brownian motion. If we write the ordered eigenvalues as
+\[
+\lambda_1(t) > \lambda_2(t) > \cdots > \lambda_n(t),
+\]
+then Dyson's Brownian motion for GUE satisfies the SDEs
+\[
+d\lambda_i(t)=dB_i(t)+\sum_{j\neq i}\frac{1}{\lambda_i(t)-\lambda_j(t)}dt,
+\]
+where the repulsion term prevents collisions. The observable of interest is the \emph{edge}: typically $\lambda_1(t)$, or its running maximum over time.
+
+Why is the edge subtle? In large random systems, bulk observables often obey law-of-large-numbers behavior, but the extreme particle feels a delicate competition between noise, repulsion, and boundary geometry. At the correct $n^{-2/3}$ scale, many models exhibit Tracy--Widom / Airy-type fluctuations. The paper asks when this universality survives under nontrivial initial data and how far exact formulas can be pushed for related extremal observables.
+
+The three model families are: (1) a deterministic Hermitian matrix with arithmetic-progression spectrum, perturbed by GUE noise; (2) Dyson Brownian motion started from general deterministic initial spectra; and (3) Brownian last-passage / noncolliding Brownian bridge models whose top path maximum corresponds to a random-matrix edge statistic.
+
+The intuition is that all three live in the same integrable ecosystem. The top path can be encoded by determinantal kernels; those kernels can be analyzed exactly or asymptotically; and the resulting edge laws reveal either a new finite-parameter distribution or the universal Airy process.
+
+\section*{Main results (informal but precise)}
+\subsection*{1. Equidistant-spectrum perturbation model}
+Consider
+\[
+H(\tau)=H^{\mathrm{reg}}+\sqrt{\tau}\,H^{\mathrm{GUE}},
+\]
+where $H^{\mathrm{reg}}$ is Hermitian with eigenvalues
+\[
+\lambda_i^{(n)}=\lambda_1^{(n)}-\Delta(i-1),\qquad 1\le i\le n,
+\]
+for fixed gap $\Delta>0$. Define the centered top eigenvalue
+\[
+\Lambda_n:=\Delta\bigl(\lambda_{\max}(H(1)) - \lambda_1^{(n)}\bigr)-\log(n-1).
+\]
+Then $\Lambda_n$ converges in distribution to a law with cdf
+\[
+F_\Delta(a)=\det(I-K_\Delta)_{L^2[a,\infty)},
+\]
+where $K_\Delta$ is an explicit double-contour kernel. The important point is that this edge law is not the standard Tracy--Widom law; the arithmetic structure of the deterministic spectrum survives at the edge and produces a different Fredholm determinant limit.
+
+A corollary identifies the same limit for the largest eigenvalue of Brownian motion on Hermitian positive-definite matrices after logarithmic transformation.
+
+\subsection*{2. Airy-process universality for Dyson Brownian motion with generic initial data}
+Let $H_n(t)$ be Hermitian matrix Brownian motion and let $H_n^0$ be a deterministic Hermitian initial matrix with eigenvalue cloud $\nu^{(n)}=\{\nu_1^{(n)},\dots,\nu_n^{(n)}\}$. The paper defines spectral edge parameters $b_n,a_n,d_n$ from the cloud via self-consistency equations of the form
+\[
+1=\frac1n\sum_{j=1}^n \frac{1}{(b_n-\nu_j^{(n)})^2},
+\qquad
+ a_n=b_n+\frac1n\sum_{j=1}^n\frac{1}{b_n-\nu_j^{(n)}},
+\]
+and a cubic-scale parameter $d_n$ from the third inverse moment. Under a uniform regularity condition saying the edge is neither too sparse nor too degenerate, the rescaled top eigenvalue process converges:
+\[
+\frac{\lambda_{\max}(H_n(t_n)+H_n^0)-a_n-2t d_n^2(b_n-a_n)n^{-1/3}}{d_n n^{-2/3}}
+\Longrightarrow \mathcal{A}(t),
+\]
+where $\mathcal{A}(t)$ is the Airy process and $t_n=(1-2d_n^2tn^{-1/3})/n$.
+
+This is the paper's universality theorem: a broad class of deterministic initial conditions flows, at the edge, to the same Airy process as classical GUE.
+
+\subsection*{3. Running maximum / flat last-passage / LOE formula}
+For Hermitian Brownian motion with drift,
+\[
+M(t)=H(t)+t\,\mathrm{diag}(\mu),
+\]
+consider the running maximum of the top eigenvalue,
+\[
+Z_n(t)=\sup_{0\le s\le t}\lambda_{\max}(M(s)).
+\]
+Using a Brownian last-passage representation with flat boundary, the paper proves a Fredholm determinant formula for the law of $Z_n(t)$, and in the negative-drift limit obtains an explicit determinant formula for a point-to-line last-passage random variable $\Pi_{\mathrm{flat}}$.
+
+By combining this with a known identity connecting the maximum of the top noncolliding Brownian bridge to the largest eigenvalue of a real Wishart / LOE matrix, the paper derives a new Fredholm determinant expression for the largest eigenvalue distribution of the Laguerre Orthogonal Ensemble.
+
+\section*{Proof architecture}
+The paper's proofs are best read as an integrable-probability pipeline.
+
+\textbf{Step 1: Determinantal representations.} The starting point is that noncolliding Brownian systems, Dyson eigenvalues, and related line ensembles can be encoded by determinantal kernels. This gives exact formulas for finite-dimensional distributions as Fredholm determinants. Instead of directly analyzing probabilities of edge events, the paper analyzes kernels.
+
+\textbf{Step 2: Brownian last-passage correspondence.} A central organizing device is Brownian last-passage percolation (BLPP) with drifts and boundary conditions. The top path in noncolliding systems is represented as a last-passage value. For flat boundary this connects the running maximum of the top eigenvalue to a point-to-line percolation problem. This translation is powerful because BLPP admits contour-integral kernels amenable to exact computation.
+
+\textbf{Step 3: Discrete-to-continuum integrable limit.} To derive the Brownian Fredholm formulas, the author starts from an inhomogeneous geometric last-passage percolation model, for which determinantal formulas are available. A scaling limit then converts the geometric model into Brownian last-passage percolation. This is technically useful because the discrete model comes with ready-made kernel formulas and Markov structure.
+
+\textbf{Step 4: Kernel formulas by contour integrals.} The resulting kernels are expressed as contour integrals involving exponentials, rational factors, and in the first theorem, Gamma-function ratios. This contour form is what makes steep-descent asymptotics possible: one can isolate critical points and read off the edge scaling behavior from local cubic expansions.
+
+\textbf{Step 5: Edge asymptotics.} For the universality theorem, the kernel for Dyson Brownian motion with deterministic initial spectrum is centered at the spectral edge determined by $a_n,b_n,d_n$. After conjugation and rescaling, the kernel is shown to converge pointwise to the extended Airy kernel, with uniform bounds strong enough to pass to Fredholm determinants. This is the decisive step turning exact formulas into Airy-process convergence.
+
+\textbf{Step 6: Specialization to finite-$n$ formulas.} In the flat-boundary / negative-drift setting, the contour kernel simplifies to a one-variable integral formula. Through known identities between noncolliding bridges and LOE, this produces the new determinant formula for the largest LOE eigenvalue. So the same technology yields both asymptotic universality and concrete exact distributions.
+
+\section*{Why it matters, limitations, and takeaway}
+\textbf{Why it matters.} The paper expands the edge-toolkit for noncolliding diffusions in two directions at once. On the exact side, it gives new Fredholm determinant formulas for extremal observables that were not previously available in this form, especially the LOE-related formula. On the asymptotic side, it proves that the Airy process is stable under a sizable class of nontrivial deterministic initial conditions, reinforcing the idea that edge universality is robust far beyond the pure GUE start.
+
+There is also a conceptual gain: apparently different models---Dyson Brownian motion, Brownian bridges, symmetric-space Brownian motion, and last-passage percolation---become manifestations of one integrable structure. The edge is where that unity becomes most visible.
+
+\textbf{Limitations.} The strongest universality theorem still assumes a regularity class on the initial spectra. So this is not a fully arbitrary initial-data result; genuinely singular edge configurations may fall outside the framework. Also, several distributions are characterized through Fredholm determinants rather than more elementary formulas, which is standard in the area but means the results are structurally exact rather than immediately explicit. Finally, the first theorem yields a new edge law, but its probabilistic properties are less transparent than for classical Tracy--Widom distributions.
+
+\textbf{Takeaway.} If one wants a single-sentence summary: \emph{the paper shows that the extreme particle in several noncolliding Brownian / random-matrix models can still be controlled exactly, and that under broad regularity conditions the edge dynamics renormalize to the universal Airy process.} The work is mathematically valuable because it cleanly merges exact solvability, kernel asymptotics, and cross-model correspondences into one theory-driven story.
+
+\end{document}
