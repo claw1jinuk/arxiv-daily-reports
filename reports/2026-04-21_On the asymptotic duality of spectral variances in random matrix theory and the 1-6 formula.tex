@@ -1,0 +1,146 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+\begin{document}
+
+\begin{center}
+{\Large \textbf{Theory Report}}\\[0.4em]
+{\large On the asymptotic duality of spectral variances in random matrix theory and the ``1/6'' formula}\\[0.5em]
+Peng Tian, Roman Riser, and Eugene Kanzieper\\
+\href{https://arxiv.org/abs/2604.17150}{arXiv:2604.17150} \hspace{1em} Digest date: 2026-04-21
+\end{center}
+
+\section*{Paper information}
+This paper studies a surprisingly sharp relation between two different fluctuation observables in bulk random-matrix statistics. The setting is the unfolded bulk spectrum, where the local mean density is normalized to one, so the eigenvalues form the universal Sine-$\beta$ point process in the infinite-volume limit. The main rigorous result is for the unitary class $\beta=2$, with conjectural extensions for the orthogonal and symplectic classes $\beta=1,4$.
+
+Two observables are central. First, the \emph{number variance} $\mathrm{var}_{\beta}[N(L)]$, where $N(L)$ counts how many unfolded levels fall in an interval of length $L$. Second, the variance of the $L$-th ordered eigenvalue, $\mathrm{var}_{\beta}[\lambda_L]$, where $\lambda_L$ denotes the position of the $L$-th level in the infinite ordered spectrum. Heuristically these objects encode global versus ordered-local fluctuations; the paper makes that link precise.
+
+\section*{Executive summary}
+The headline statement is that for the unitary class,
+\[
+\mathrm{var}_2[N(L)]-\mathrm{var}_2[\lambda_L] \to \frac16 \qquad (L\to\infty),
+\]
+and the authors do more than prove the limit: they derive the precise asymptotic correction,
+\[
+\mathrm{var}_2[N(L)]-\mathrm{var}_2[\lambda_L]
+= \frac16 + \frac{1}{2\pi^4 L^2}\Big(\log(2\pi L)+\gamma-\frac{\pi^2+9}{6}\Big)+o(L^{-2}).
+\]
+This is the modern resolution of an old ``mystery'' from the random-matrix literature: the difference between two apparently unrelated variances tends to the universal constant $1/6$.
+
+The proof works by reducing the ordered-level variance to sums of level-spacing covariances and then proving a new sum rule for those covariances. The new ingredient is a Fourier-analysis identity tied to the counting-function generating integral and to earlier work of the authors on power spectra of eigenvalue fluctuations. In short, the paper turns an old empirical rule into a theorem, explains why the constant is exactly $1/6$, and clarifies how fast the convergence occurs.
+
+\section*{Problem setup and intuition}
+Let $\{\lambda_\ell\}_{\ell\in\mathbb Z}$ denote the ordered unfolded bulk spectrum with unit mean spacing. The unfolding is essential: it removes model-dependent density effects and isolates the universal fluctuation laws. The Dyson index $\beta\in\{1,2,4\}$ labels symmetry class.
+
+The paper contrasts two kinds of statistics.
+
+\textbf{1. Ordinary/global statistic.} The counting function $N(L)$ counts levels in an interval of length $L$. Its variance is the classical number variance, a long-range statistic measuring spectral rigidity.
+
+\textbf{2. Ordered statistic.} The random variable $\lambda_L$ tracks the location of the $L$-th ordered level. Its variance measures how far an individual ordered level wanders from its mean position.
+
+Why should these be related? Very roughly, saying ``the $L$-th level moved to the right'' is close to saying ``fewer than expected levels fit into a box of length $L$''. That heuristic underlies the old French--Mello--Pandey relation. But the two objects are not literally the same: one is a counting fluctuation, the other is an inverse-fluctuation problem for an ordered point process. The difference between them therefore probes a subtle mismatch between direct counting and inverse ordering. The paper shows that this mismatch is not only bounded, but asymptotically universal.
+
+The key notation is:
+\begin{itemize}
+\item $N(L)$: number of unfolded levels in an interval of length $L$;
+\item $\lambda_L$: the $L$-th ordered unfolded eigenvalue;
+\item $s_\ell=\lambda_{\ell+1}-\lambda_\ell$: consecutive spacings;
+\item $\delta^{(\beta)}_{I,\ell}=\mathrm{Cov}(s_j,s_{j+\ell})$: spacing auto-covariance, depending only on lag by stationarity in the infinite process.
+\end{itemize}
+
+The spacing covariances are the bridge between the two variances, because
+\[
+\lambda_L=\sum_{\ell=1}^{L} s_\ell,
+\]
+so $\mathrm{var}[\lambda_L]$ can be rewritten as a weighted sum of $\delta^{(\beta)}_{I,\ell}$.
+
+\section*{Main theorem/result}
+The main rigorous theorem is Theorem 2.1. For the Sine-$2$ process,
+\[
+\mathrm{var}_2[N(L)]-\mathrm{var}_2[\lambda_L]
+= \frac16 + \frac{1}{2\pi^4 L^2}\Big(\log(2\pi L)+\gamma-\frac{\pi^2+9}{6}\Big)+o(L^{-2}).
+\]
+In particular the difference converges to $1/6$.
+
+A companion proposition gives the asymptotic expansion of the ordered-level variance itself:
+\[
+\mathrm{var}_2[\lambda_L]
+= \frac{1}{\pi^2}\big(\log(2\pi L)+\gamma+1\big)-\frac16
+-\frac{1}{2\pi^4L^2}\Big(\log(2\pi L)+\gamma-\frac{\pi^2+6}{6}\Big)+o(L^{-2}).
+\]
+Combined with the known expansion of the number variance,
+\[
+\mathrm{var}_2[N(L)]
+=\frac{1}{\pi^2}\big(\log(2\pi L)+\gamma+1\big)-\frac{1}{4\pi^4L^2}+o(L^{-2}),
+\]
+one obtains the theorem immediately.
+
+The other structural result is a new sum rule for spacing auto-covariances,
+\[
+\sum_{\ell=1}^{\infty} \ell\left(\delta^{(2)}_{I,\ell}+\frac{1}{2\pi^2\ell^2}\right)
+= \frac{1}{12}-\frac{1}{2\pi^2}\log(2\pi).
+\]
+This identity is what fixes the constant term in the variance asymptotics and ultimately produces the universal $1/6$.
+
+For $\beta=1,4$ the paper gives conjectural analogues. The authors' numerics strongly support that the same $1/6$ limit persists, but the correction law depends on symmetry class; in particular the $\beta=4$ case has a slower $L^{-1}$ correction.
+
+\section*{Proof architecture}
+The proof is cleanly modular.
+
+\textbf{Step 1: Rewrite ordered-level fluctuations in terms of spacing covariances.}
+Since $\lambda_L=\sum_{\ell=1}^L s_\ell$, one has
+\[
+\mathrm{var}_2[\lambda_L]=\sum_{|\ell|\le L-1}(L-|\ell|)\delta^{(2)}_{I,|\ell|}.
+\]
+This reduces the problem to asymptotics of two weighted sums of $\delta^{(2)}_{I,\ell}$.
+
+\textbf{Step 2: Isolate two partial sums.}
+The authors introduce
+\[
+\sigma_k^{(2)}(L)=\sum_{|\ell|\le L-1}|\ell|^k\delta^{(2)}_{I,|\ell|},\qquad k=0,1,
+\]
+so that
+\[
+\mathrm{var}_2[\lambda_L]=L\sigma_0^{(2)}(L)-\sigma_1^{(2)}(L).
+\]
+The first term is controlled using the large-lag asymptotics of the spacing covariance together with Pandey's older sum rule. The second term is subtler and is where the new sum rule enters.
+
+\textbf{Step 3: Prove the new sum rule from a Fourier representation.}
+A key lemma expresses the sine and cosine Fourier series of the spacing covariance matrix through the generating integral
+\[
+\int_0^{\infty} \mathbb E[e^{i\omega n(\lambda)}] \, d\lambda,
+\]
+where $n(\lambda)$ is the point-counting function. This converts the discrete covariance problem into a small-$\omega$ asymptotic analysis of a continuum generating function.
+
+\textbf{Step 4: Obtain the small-frequency expansion.}
+The authors expand the logarithm of the counting-function characteristic function in cumulants. The dominant singular contribution comes from the divergent part of the number variance; higher cumulants and product terms are shown to be lower order. The resulting expansion is
+\[
+\Im\int_0^{\infty}\mathbb E[e^{i\omega n(\lambda)}]d\lambda
+=\frac1\omega+\frac{\omega}{2\pi^2}\log\frac{|\omega|}{2\pi}-\frac{\omega}{2\pi^2}+o(\omega).
+\]
+After combining this with the Fourier identity and the Clausen-function correction, the new spacing-covariance sum rule follows.
+
+\textbf{Step 5: Recover the asymptotics of $\mathrm{var}_2[\lambda_L]$.}
+With the sum rule in hand, Euler--Maclaurin summation gives asymptotics of $\sigma_0^{(2)}(L)$ and $\sigma_1^{(2)}(L)$, hence of $\mathrm{var}_2[\lambda_L]$.
+
+\textbf{Step 6: Subtract from the known number-variance asymptotics.}
+Once Proposition 2.2 is established, Theorem 2.1 is immediate by subtracting the classical large-$L$ formula for $\mathrm{var}_2[N(L)]$.
+
+Conceptually, the proof pipeline is: \emph{ordered level $\to$ spacing covariance sums $\to$ Fourier/generating-function identity $\to$ small-frequency asymptotics $\to$ sum rule $\to$ precise variance expansion}.
+
+\section*{Why it matters, limitations, and takeaway}
+This paper matters for two reasons. First, it resolves a long-standing conceptual loose end in random-matrix theory: a formula that had circulated for decades as a heuristic or numerical observation is now placed on a rigorous asymptotic footing for $\beta=2$. Second, it reveals that the constant $1/6$ is not an accidental fit but the endpoint of a precise compensation between global counting fluctuations and ordered-level fluctuations.
+
+The work also strengthens the bridge between three viewpoints on spectra: counting statistics, ordered eigenvalue statistics, and spacing-power-spectrum methods. That bridge is likely useful beyond this single identity, because it supplies a transferable analytic mechanism for extracting long-range information from counting-function generating integrals.
+
+The main limitation is equally clear: full proofs are only given for the unitary class. The $\beta=1$ and $\beta=4$ statements are conjectural, even though the numerical evidence is convincing. A second limitation is that the paper is asymptotic and bulk-unfolded in nature; it does not address finite-$N$ edge behavior or non-universal, model-specific corrections before unfolding.
+
+The clean takeaway is: in the universal bulk of random-matrix spectra, the fluctuation gap between ``how many levels fit in length $L$'' and ``where the $L$-th level sits'' converges to the exact constant $1/6$. The paper explains why, quantifies how fast, and identifies the new spacing-covariance sum rule that makes the theorem work.
+
+\end{document}
