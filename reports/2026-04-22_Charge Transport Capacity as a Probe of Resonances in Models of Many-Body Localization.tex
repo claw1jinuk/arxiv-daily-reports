@@ -1,0 +1,84 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+\begin{document}
+
+\begin{center}
+{\Large \textbf{Theory Report}}\\[0.4em]
+{\large Charge Transport Capacity as a Probe of Resonances in Models of Many-Body Localization}\\[0.5em]
+Jessica Kaijia Jiang, Federica Maria Surace, and Olexei I. Motrunich\\
+\href{https://arxiv.org/abs/2604.18710}{arXiv:2604.18710} \hspace{1em} Digest date: 2026-04-22
+\end{center}
+
+\section*{Paper information}
+This paper proposes the \emph{charge transport capacity} (CTC) as a sharply targeted diagnostic for rare transport events in disordered interacting chains. The motivating problem is the long-running puzzle of many-body localization (MBL): numerics at accessible sizes often look localized at strong disorder, yet many observables drift toward thermal behavior as the system size increases. The authors argue that standard averaged observables are too insensitive to the rare resonant events that actually drive this drift.
+
+Their central idea is to study an adversarial, worst-case transport observable rather than a typical-state one. For a one-dimensional spinless-fermion chain with a cut at the center, let $\hat N_R$ count charge to the right of the cut. They define the operator
+\[
+\hat M \equiv \hat N_R-[\hat N_R]_{\mathrm{diag}},
+\]
+where the diagonal part is taken in the energy eigenbasis of the Hamiltonian. The charge transport capacity is then the spectral diameter
+\[
+\Lambda(\hat M)=\lambda_{\max}(\hat M)-\lambda_{\min}(\hat M).
+\]
+Operationally, this quantity upper bounds the largest net charge that can ever be transferred across the cut, optimized over all initial states and all times. In other words, it is not a conductivity or a late-time typical transport coefficient; it is a bound on the most violent charge-transfer process allowed by the spectrum.
+
+\section*{Executive summary}
+The main message is striking. In noninteracting localized systems, the disorder-averaged CTC behaves as expected for localization: it saturates at $O(1)$ once the system size exceeds the localization length. In ergodic systems it grows linearly with $L$, empirically as $\sim L/2$. But in the interacting Anderson chain, even deep in the putative MBL regime and for very large disorder, the average CTC grows with system size across all exact-diagonalization sizes studied ($L\le 16$), and the growth rate appears surprisingly insensitive to disorder strength.
+
+The authors trace this growth to the increasing probability of \emph{charge transport resonances} (CTRs): rare many-body resonances whose two participating configurations differ by transporting a net integer amount of charge across the cut. The CTC eigenstates with extremal eigenvalues isolate precisely these resonances. Numerically, the probability distribution of $\Lambda(\hat M)$ develops peaks near integer values $1,2,3,\dots$, which the paper interprets as resonant events transferring one, two, three, and more particles across the cut.
+
+The conceptual payoff is twofold. First, the observed finite-size drift toward thermalization in MBL numerics may be driven not by conventional bulk transport, nor yet by fully developed avalanches, but by the proliferation of finite-range many-body resonances that become more probable with $L$. Second, this drift need not automatically mean that MBL is absent asymptotically: the authors construct a perturbative picture in which accessible sizes show apparent growth, yet at larger $L$ the probabilities of long-range resonances are still exponentially suppressed, compatible with an ultimately localized phase.
+
+\section*{Problem setup and physical intuition}
+The paper studies the interacting Anderson model of spinless fermions with open boundaries,
+\[
+\hat H=-t\sum_{i=1}^{L-1}(\hat c_i^\dagger \hat c_{i+1}+\hat c_{i+1}^\dagger \hat c_i)
++\sum_{i=1}^L h_i \hat n_i
++J\sum_{i=1}^{L-1} \hat n_i \hat n_{i+1},
+\]
+with $t=1$, weak interaction $J=0.1$, and onsite disorder $h_i\in[-W,W]$. Exact diagonalization is performed at half filling for even $L=4,6,\dots,16$, with the cut chosen at the center.
+
+Why is the CTC a useful observable? In an ergodic system, one expects some states to move an extensive amount of charge across the cut, so a worst-case measure should be extensive. In a localized system with quasilocal integrals of motion (LIOMs), the operator $\hat M$ should itself be quasilocal near the cut, which would force its spectral diameter to remain $O(1)$. Thus the scaling of $\Lambda(\hat M)$ gives a direct test of whether the system admits arbitrarily large charge-transfer processes.
+
+The point of the construction is that it is maximally sensitive to rare events. Typical-state probes can miss resonances because their contribution is diluted in averages over eigenstates or over simple product-state quenches. The CTC instead asks whether \emph{there exists} a state and time that can move a lot of charge. For the MBL problem, where rare resonant structures may control asymptotic stability, this is exactly the right adversarial question.
+
+\section*{Main numerical findings}
+The paper first calibrates the CTC in settings where the answer is known. In delocalized systems the CTC grows linearly, empirically close to $L/2$ and exactly with that scaling for inversion-symmetric cases. In localized free-fermion systems such as the Anderson insulator, the average CTC saturates and its distribution develops exponentially decaying tails. This establishes the CTC as a sensible localization diagnostic.
+
+The interacting case is the surprise. For the disordered interacting chain, the disorder-averaged CTC remains relatively small but grows systematically with $L$, even at large $W$ where one would normally expect a deeply localized regime. On a log scale the growth looks roughly exponential over the accessible sizes, and its slope changes only weakly with $W$ at strong disorder. This is the opposite of the naive expectation that stronger disorder should strongly suppress all transport-related observables.
+
+Equally important is the full probability distribution. At small $L$ and strong disorder, the distribution resembles the noninteracting localized case: a peak near very small CTC and another near $1$, corresponding to a single-particle-like resonance crossing the cut. As $L$ increases, weight shifts toward larger values, the peak near $1$ strengthens, and peaks near $2$ and even $3$ begin to emerge. This integer structure strongly suggests that the relevant rare events are not arbitrary broad continua of transport amplitudes but rather discrete resonant processes carrying definite particle number across the cut.
+
+The authors also argue that the CTC is not merely a loose upper bound whose growth is artificial. By quenching from the extremal eigenstate $|\phi_{\min}\rangle$ of $\hat M$ and tracking the largest achieved charge transfer, they show that at strong disorder the bound is rather tight: the same rare resonances responsible for the large spectral diameter also generate actual large-amplitude dynamical charge transfer. So, in the numerically accessible regime, the growth of the CTC corresponds to genuinely more potent transport processes.
+
+\section*{Charge transport resonances and microscopic mechanism}
+A central conceptual move in the paper is to identify the extremal eigenstates of $\hat M$, denoted $|\phi_{\min}\rangle$ and $|\phi_{\max}\rangle$, with pairs of many-body configurations connected by resonant hybridization. These are the charge transport resonances. The resonant partners differ by rearranging occupations across some spatial region, leading to a net transported charge across the central cut.
+
+The paper emphasizes that the largest accessible CTRs are not controlled solely by the local disorder right at the cut. Instead, they are sensitive to a broader ``resonance collar'': a surrounding region of frozen background charges whose extent is set primarily by the \emph{range of the resonance}. This explains one of the paper's more counterintuitive findings, namely the weak disorder dependence of the growth rate. At fixed resonance range, the important combinatorics come from how many many-body configurations in a neighborhood can support the near-degeneracy and hybridization needed for a CTR; this spatial/combinatorial effect can dominate the naive suppression with $W$ over the small sizes accessible numerically.
+
+To sharpen this picture, the authors introduce a diagonally improved first-order perturbative model. The idea is to include the diagonal interaction shifts exactly enough to track when two many-body product configurations experience an avoided crossing under weak interactions. Charge transport resonances then correspond to those avoided crossings where the two configurations differ by moving charge across the cut. Within this toy description, increasing $L$ creates more opportunities for such resonances to occur, and hence the CTC grows over the accessible range.
+
+But the same toy model also suggests caution against naive extrapolation. Even if the number of potential resonant channels grows with $L$, the probability of realizing a resonance of range $r$ can still be exponentially suppressed in $r$ in a true strong-disorder regime. Then accessible exact-diagonalization sizes may sit entirely inside a broad preasymptotic window where larger and larger resonances keep appearing, while the eventual large-$L$ asymptotics could still be controlled and compatible with MBL. This is one of the most interesting outcomes of the paper: it gives a concrete mechanism for why MBL numerics can drift strongly with size without decisively ruling out localization at asymptotically larger scales.
+
+\section*{Relation to LIOM pictures and average-state transport}
+The paper is especially valuable because it clarifies what does and does not follow from the observed growth of the CTC. In a naive LIOM picture with strictly quasilocal conserved quantities, one would expect $\hat M$ to remain quasilocal near the cut, forcing $\Lambda(\hat M)=O(1)$. The data therefore show that this naive picture is too simple for the accessible finite sizes. Short- and intermediate-range resonances significantly dress the effective conserved quantities and spoil a simple saturation of the worst-case transport bound.
+
+However, the authors argue that this does \emph{not} immediately imply extensive transport for generic states. They study complementary average-state diagnostics, including the Frobenius norm of $\hat M$ and a state charge transfer bound for product states. These appear much better behaved at strong disorder and are consistent with only $O(1)$ charge transfer for typical initial states. This distinction is important: the worst-case transport channel may grow because rare resonances proliferate, while almost all states still fail to move extensive charge. That separation between adversarial and typical transport is precisely the kind of nuance one expects near a localization problem controlled by rare events.
+
+From a theory perspective, this is maybe the most appealing aspect of the work. It suggests that the finite-size drift in MBL numerics may come from the tail of the distribution rather than from the center. The tail matters enormously for stability questions, but it need not dominate ordinary dynamical experiments until much larger scales.
+
+\section*{Why it matters, limitations, and takeaway}
+This paper matters because it reframes a vague numerical pathology into a concrete microscopic mechanism. Instead of simply observing that ``the apparent MBL transition drifts with $L$,'' it isolates the rare processes that can plausibly cause that drift and provides a new observable tailored to them. The CTC is theoretically clean, operationally meaningful, and unusually sensitive to the resonances that standard averaged probes tend to wash out.
+
+The main limitation is obvious and acknowledged by the authors: the work is numerical and confined to exact-diagonalization sizes up to $L=16$. The observed growth of the CTC is therefore a preasymptotic statement. The paper gives a plausible perturbative framework for extrapolating beyond those sizes, but it does not resolve the ultimate thermodynamic fate of MBL. A second limitation is that the CTC is a worst-case bound, not a direct measure of ordinary transport coefficients or experimentally typical state dynamics. The authors partly address this by examining tighter dynamical and average-state proxies, but the precise relation between CTR proliferation, avalanche physics, and true asymptotic delocalization remains open.
+
+Still, the conceptual takeaway is strong. The finite-size drift toward thermalization in strongly disordered interacting chains may be driven by an expanding set of finite-range charge transport resonances whose probabilities increase with system size long before one reaches the asymptotic regime. The charge transport capacity offers a sharp probe of these events. It shows that the numerically accessible ``MBL regime'' is far less inert than a naive LIOM cartoon suggests, while also leaving room for the possibility that sufficiently strong disorder ultimately controls these resonances at larger scales. In short: rare resonances, not ordinary transport, may be the right language for understanding why MBL numerics are so unsettled.
+
+\end{document}
