@@ -1,57 +1,37 @@
 \documentclass[11pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{hyperref}
 \usepackage{enumitem}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.5em}
 \setlist[itemize]{leftmargin=1.2em}
 \begin{document}
-
 \begin{center}
 {\LARGE \textbf{Gradual eigenvector ergodization in coupled Ginibre matrices}}\\[0.4em]
 {\large Margherita Disertori and Yan V. Fyodorov}\\[0.3em]
 \href{https://arxiv.org/abs/2604.23708}{arXiv:2604.23708}\\[0.3em]
 \textbf{Scholar Inbox digest date: 2026-04-28}
 \end{center}
-
 \section*{Executive summary}
-This paper studies a clean, exactly solvable model for how eigenvectors of a non-Hermitian system lose their subsystem identity when two chaotic components are coupled together. The matrix is a $2N\times 2N$ block matrix
+This paper studies a solvable model for how eigenvectors of a non-Hermitian system gradually lose subsystem identity when two chaotic blocks are coupled. The matrix has block form
 \[
-X=\begin{pmatrix}G_1 & c I_N\\ c I_N & G_2\end{pmatrix},
+X=\begin{pmatrix}G_1 & cI_N \\ cI_N & G_2\end{pmatrix},
 \]
-where $G_1$ and $G_2$ are independent complex Ginibre matrices and $c\in\mathbb C$ controls coupling strength. When $c=0$, every eigenvector lives entirely in one subsystem. When $|c|$ grows, the eigenvector spreads across both blocks. The paper gives an explicit asymptotic formula, at spectral point $z=0$ and in the large-$N$ limit, for the joint distribution of the weights carried by the two blocks.
-
-If an eigenvector is written as $v=(v_1,v_2)^\top$ with $v_1,v_2\in\mathbb C^N$ and $\|v\|_2=1$, define
-\[
-p_1=\|v_1\|_2^2,\qquad p_2=\|v_2\|_2^2,\qquad p_1+p_2=1.
-\]
-The main result gives the limiting density of $(p_1,p_2)$ explicitly in terms of modified Bessel functions. This formula captures the whole crossover from localization in one block to near-equipartition between the two blocks. A notable by-product is that for fixed coupling $c=O(1)$, the mean eigenvalue density at the origin stays equal to $2/\pi$, so the eigenvectors can ergodize before the bulk eigenvalue density visibly changes. Only when $|c|\sim \sqrt N$ does the spectral density itself undergo a qualitative transition.
-
-The paper matters because it turns a vague physical picture---``two coupled dissipative chaotic subsystems gradually mix''---into an analytically controlled random-matrix statement with a closed-form answer. It is especially appealing as a benchmark for non-Hermitian many-body chaos, where one would like quantitative diagnostics of how subsystem identity is lost.
-
+where $G_1,G_2$ are independent complex Ginibre matrices and $c\in\mathbb{C}$ controls coupling strength. When $c=0$, each eigenvector lives in exactly one subsystem; when $|c|$ grows, weight spreads across both blocks. The main theorem gives an explicit large-$N$ formula, at $z=0$, for the joint distribution of the subsystem weights.
 \section*{Problem setup and intuition}
-The authors model two non-Hermitian chaotic subsystems by independent Ginibre matrices $G_1,G_2$. The off-diagonal blocks are the deterministic coupling $cI_N$, so every degree of freedom in one subsystem couples uniformly to the matching degree of freedom in the other. This is a stripped-down but informative setting: the randomness sits entirely inside the two subsystems, while the coupling is transparent enough to preserve analytic tractability.
-
-At $c=0$, the spectrum is just the union of the spectra of $G_1$ and $G_2$, and every eigenvector has either $(p_1,p_2)=(1,0)$ or $(0,1)$. So the eigenvectors are perfectly localized at the level of subsystem support. For $|c|>0$, both components become nonzero. The real question is not whether mixing occurs, but how it occurs statistically in the large-$N$ regime.
-
-The right diagnostic is therefore the distribution of $(p_1,p_2)$ for eigenvectors whose eigenvalue lies near a fixed spectral point $z$. The paper focuses on $z=0$, the center of the Ginibre bulk, where formulas are simplest and the phenomenon is already fully visible. Intuitively:
-\begin{itemize}
-  \item small $|c|$: most eigenvectors still strongly prefer one subsystem, so $p_1$ is near $0$ or $1$;
-  \item intermediate $|c|$: both subsystems carry nontrivial weight, but asymmetrically and with large fluctuations;
-  \item large fixed $|c|$: $p_1$ and $p_2$ concentrate near $1/2$, meaning the eigenvector has become ergodic across the two blocks.
-\end{itemize}
-
-A pleasant conceptual point is that ``ergodization'' here is defined in a concrete, observable way: not by a slogan, but by the distribution of norm fractions across the two subsystems.
-
-\section*{Main theorem / result}
-Let $\pi_N(0,p_1,p_2)$ denote the normalized joint density of $(p_1,p_2)$ for eigenvectors attached to eigenvalues near $z=0$. For any fixed coupling $0<|c|<\infty$, the authors prove that
+Writing an eigenvector as $v=(v_1,v_2)^\top$ with $\lVert v\rVert_2=1$, define
 \[
-\pi_\infty(0,p_1,p_2)=\lim_{N\to\infty}\pi_N(0,p_1,p_2)
+p_1=\lVert v_1\rVert_2^2,\qquad p_2=\lVert v_2\rVert_2^2,\qquad p_1+p_2=1.
 \]
-exists and is given by
+The limiting density of $(p_1,p_2)$ is given explicitly in terms of modified Bessel functions. This captures the crossover from localization in one block to near-equipartition across both blocks. For fixed $c=O(1)$, the mean eigenvalue density at the origin stays equal to $2/\pi$, so eigenvector ergodization is visible before the bulk spectral density changes.
+\section*{Main theorem / result}
+For eigenvectors attached to eigenvalues near $z=0$, the normalized joint density converges as $N\to\infty$ to
 \[
 \pi_\infty(0,p_1,p_2)
 =
@@ -62,92 +42,9 @@ exists and is given by
 I_1(2|c|^2)+\frac12\!\left(\frac{p_1}{p_2}+\frac{p_2}{p_1}\right)I_0(2|c|^2)
 \Bigg],
 \]
-where $I_0,I_1$ are modified Bessel functions of the first kind.
-
-Equivalently, after using $p_2=1-p_1$, the one-variable density for $p=p_1\in[0,1]$ is
-\[
-P_\infty(p)=\frac{|c|^2}{p(1-p)}
-\exp\!\left[-|c|^2\!\left(\frac{p}{1-p}+\frac{1-p}{p}\right)\right]
-\Bigg[
-I_1(2|c|^2)+\frac12\!\left(\frac{p}{1-p}+\frac{1-p}{p}\right)I_0(2|c|^2)
-\Bigg].
-\]
-This formula is the heart of the paper. It is explicit enough to read off the whole transition regime.
-
-Two limiting regimes are especially informative.
-
-\textbf{Weak coupling.} As $|c|\to 0$, the distribution converges in the distributional sense to
-\[
-\tfrac12\delta(p_1-1)\delta(p_2)+\tfrac12\delta(p_1)\delta(p_2-1),
-\]
-meaning complete localization in one subsystem or the other.
-
-\textbf{Strong fixed coupling.} For $|c|^2\gg 1$ with $c$ still independent of $N$, the density becomes sharply peaked near $p_1=p_2=1/2$, approximately Gaussian with width of order $|c|^{-1}$. So the vector is nearly equally spread over both blocks.
-
-The paper also isolates a threshold value $|c|_{\mathrm{th}}^2\approx 0.583$ where the shape of $P_\infty(p)$ changes: below threshold the distribution is bimodal, reflecting residual subsystem identity; above threshold it is unimodal around $1/2$, reflecting effective loss of identity.
-
-Finally, for the same fixed-coupling regime the mean eigenvalue density at the origin satisfies
-\[
-\rho_\infty(0)=\lim_{N\to\infty}\mathbb E[\rho_N(0)]=\frac{2}{\pi}.
-\]
-So eigenvector mixing is nontrivial long before the average spectral density notices the coupling.
-
+where $I_0$ and $I_1$ are modified Bessel functions. In the weak-coupling limit the mass sits near $(1,0)$ and $(0,1)$; for strong fixed coupling the distribution sharpens near $(1/2,1/2)$.
 \section*{Proof architecture}
-The proof has two clear layers: an exact finite-$N$ representation, followed by large-$N$ asymptotics.
-
-\textbf{1. Start from a general eigenvector-density identity.}
-The authors rely on a recent formula for the joint empirical density of eigenvalues and right eigenvectors of a general non-Hermitian random matrix. This converts the original eigenvector problem into an integral representation involving commuting and anticommuting variables. The point is not formal elegance for its own sake: it produces a finite-$N$ object one can actually analyze.
-
-\textbf{2. Exploit the block structure of the coupled Ginibre model.}
-For
-\[
-X=\begin{pmatrix}G_1 & cI_N\\ cI_N & G_2\end{pmatrix},
-\]
-the supersymmetric / Gaussian integral manipulations simplify substantially. After integrating over the Ginibre randomness and then over angular degrees of freedom in the eigenvector variables, the dependence on the eigenvector enters only through the block norms $p_1,p_2$ and certain auxiliary ratios. This is where the special structure of the model pays off.
-
-\textbf{3. Derive an exact finite-$N$ integral for the averaged joint density.}
-Corollary 2.3 gives an exact formula for $\mathbb E[\Pi_N(0,p_1,p_2)]$ as a two-complex-variable integral. The prefactor already contains the key dependence
-\[
-\exp\!\left[-|c|^2\!\left(\frac{p_1}{p_2}+\frac{p_2}{p_1}\right)\right]/(p_1p_2),
-\]
-which foreshadows the final answer. The remaining integral contains the $N$-dependence and encodes how the coupling and random blocks interact.
-
-\textbf{4. Rescale the integration variables and apply Laplace's method.}
-The authors introduce polar-type variables $q_1=\sqrt N R_1 e^{i\theta_1}$ and $q_2=\sqrt N R_2 e^{i\theta_2}$. After this change, the radial part of the integral contains factors of the form
-\[
-\exp\{-N(R_j-1-\ln R_j)\},
-\]
-whose unique minimum is at $R_j=1$. Therefore, as $N\to\infty$, the radial integrals localize near $(R_1,R_2)=(1,1)$. The asymptotic analysis reduces the whole problem to evaluating the integrand at the saddle and controlling the error uniformly.
-
-\textbf{5. Identify the angular integral with Bessel functions.}
-At the saddle, the remaining angular dependence is essentially
-\[
-\exp(2|c|^2\cos\theta),
-\]
-possibly multiplied by either $1$ or $2\cos\theta$. Integrating these terms over $\theta\in[0,2\pi]$ yields exactly $I_0(2|c|^2)$ and $I_1(2|c|^2)$. This is why the final theorem has such a clean closed form.
-
-\textbf{6. Normalize by the mean spectral density.}
-To pass from the unnormalized joint density to the conditional law of $(p_1,p_2)$ given an eigenvalue near $z=0$, the authors divide by $\mathbb E[\rho_N(0)]$. A clever change of variables reduces the needed normalization integrals to modified Bessel $K$-functions, and a standard Wronskian identity between $I_\nu$ and $K_\nu$ then gives the constant cleanly.
-
-\textbf{7. Analyze a second regime, $c=\sqrt N\,\tilde c$.}
-As a by-product, the paper briefly studies the stronger coupling scale where the off-diagonal interaction is extensive. In this regime the saddle point itself changes. The outcome is that the mean density at the origin becomes
-\[
-\frac{2}{\pi}(1-|\tilde c|^2)\quad\text{for }|\tilde c|<1,
-\]
-and vanishes for $|\tilde c|\ge 1$, signaling a split of the spectral support into two disconnected components.
-
-The proof architecture is therefore satisfying: an exact integral representation exposes the right observable, then a saddle-point analysis extracts a universal large-$N$ law.
-
-\section*{Why it matters, limitations, and takeaway}
-\textbf{Why it matters.} The paper gives an analytically explicit interpolation between localized and ergodic subsystem weights in a non-Hermitian random matrix model. That is valuable for at least three reasons.
-\begin{itemize}
-  \item It supplies a quantitative benchmark for non-Hermitian chaos with gain/loss, where eigenvectors are often more informative than eigenvalues.
-  \item It separates two phenomena that are often conflated: eigenvectors can already be strongly mixed while the mean eigenvalue density remains unchanged.
-  \item It identifies a natural ``subsystem identity threshold'' in the shape of the norm distribution, which is potentially useful as an observable in more realistic many-body models.
-\end{itemize}
-
-\textbf{Limitations.} The theorem is proved only at the spectral point $z=0$, though the authors argue the same form should hold throughout the bulk. The model also uses Gaussian Ginibre blocks and a very special coupling matrix $cI_N$. Both choices are mathematically strategic. They make the result sharp, but they also leave universality beyond this setting as a conjectural rather than proven statement.
-
-\textbf{Takeaway.} This is a strong theory paper because it solves the right reduced problem exactly. Instead of merely stating that coupled non-Hermitian subsystems should mix, it gives a closed-form law for how much weight an eigenvector places in each subsystem, across the full crossover. The qualitative message is crisp: for fixed $c=O(1)$, the eigenvectors undergo a gradual ergodization transition visible in the distribution of $(p_1,p_2)$, while the eigenvalue density remains essentially unchanged; only at the larger scale $|c|\sim \sqrt N$ does the spectrum itself reorganize.
-
+The proof combines an exact finite-$N$ integral representation with a saddle-point/Laplace analysis. The block structure reduces the dependence on the eigenvector to the norm fractions $p_1,p_2$, then the large-$N$ asymptotics localize the radial variables near a simple saddle. The remaining angular integral produces modified Bessel functions, which is why the final answer is fully explicit.
+\section*{Why it matters / takeaway}
+The main value of the paper is that it turns a qualitative physical story into a sharp random-matrix statement. It gives an analytic benchmark for non-Hermitian many-body chaos and separates eigenvector mixing from spectral-density reorganization. The model is special, but as a theory benchmark it is unusually clean and useful.
 \end{document}
