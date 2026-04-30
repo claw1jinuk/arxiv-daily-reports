@@ -2,49 +2,73 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{fontspec}
 \defaultfontfeatures{Ligatures=TeX}
-\setmainfont{DejaVu Serif}
+\setmainfont{Liberation Serif}
 \setsansfont{DejaVu Sans}
 \setmonofont{DejaVu Sans Mono}
-\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{amsmath,amssymb,mathtools}
 \usepackage{hyperref}
-\usepackage{enumitem}
-\setlength{\parindent}{0pt}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
 \setlength{\parskip}{0.5em}
-\setlist[itemize]{leftmargin=1.2em}
+\setlength{\parindent}{0pt}
 \begin{document}
 \begin{center}
-{\LARGE \textbf{Gradual eigenvector ergodization in coupled Ginibre matrices}}\\[0.4em]
-{\large Margherita Disertori and Yan V. Fyodorov}\\[0.3em]
-\href{https://arxiv.org/abs/2604.23708}{arXiv:2604.23708}\\[0.3em]
-\textbf{Scholar Inbox digest date: 2026-04-28}
+{\Large \textbf{Theory Report: Gradual eigenvector ergodization in coupled Ginibre matrices}}\\[0.5em]
+{\large Margherita Disertori and Yan V. Fyodorov}\\[0.25em]
+\texttt{arXiv:2604.23708} \quad \url{https://arxiv.org/abs/2604.23708}
 \end{center}
+
+\textbf{Paper information.} The paper studies two independent complex Ginibre matrices coupled by a deterministic block interaction $c\mathbf 1_N$. The focus is not just on eigenvalues but on right eigenvectors: how the weight of an eigenvector is distributed between the two subsystems as the coupling strength grows. The authors derive an explicit large-$N$ formula for the joint distribution of the subsystem weights at a bulk point and show a smooth crossover from localization in one subsystem to full ergodization across both.
+
 \section*{Executive summary}
-This paper studies a solvable model for how eigenvectors of a non-Hermitian system gradually lose subsystem identity when two chaotic blocks are coupled. The matrix has block form
-\[
-X=\begin{pmatrix}G_1 & cI_N \\ cI_N & G_2\end{pmatrix},
-\]
-where $G_1,G_2$ are independent complex Ginibre matrices and $c\in\mathbb{C}$ controls coupling strength. When $c=0$, each eigenvector lives in exactly one subsystem; when $|c|$ grows, weight spreads across both blocks. The main theorem gives an explicit large-$N$ formula, at $z=0$, for the joint distribution of the subsystem weights.
+For a single chaotic open system modeled by a non-Hermitian Ginibre matrix, eigenvectors are already delocalized inside that system. This paper asks a subtler question: if two such systems are coupled, how does an eigenvector attached to the combined matrix spread between the two blocks?
+
+The answer is exact and pleasantly explicit. At the spectral point $z=0$, if $p_1$ and $p_2$ denote the squared norms of the two block components of a normalized eigenvector, then in the large-$N$ limit the joint density of $(p_1,p_2)$ is supported on $p_1+p_2=1$ and given by a closed Bessel-function formula depending on $|c|^2$. For small coupling the density is concentrated near $(1,0)$ and $(0,1)$, meaning the eigenvector essentially lives in one subsystem. As $|c|$ grows, the mass shifts toward balanced weights, describing gradual ergodization.
+
+As a by-product, the authors also compute the mean eigenvalue density at the origin in an extensively scaled regime $c=\sqrt N\,\tilde c$, finding a transition at $|\tilde c|=1$ where the bulk support splits.
+
 \section*{Problem setup and intuition}
-Writing an eigenvector as $v=(v_1,v_2)^\top$ with $\lVert v\rVert_2=1$, define
+The random matrix is a $2N\times 2N$ block matrix built from two independent $N\times N$ Ginibre blocks and deterministic coupling between them. Because the matrix is non-Hermitian, left and right eigenvectors are non-orthogonal, but the paper focuses on the right eigenvector weights inside each subsystem:
 \[
-p_1=\lVert v_1\rVert_2^2,\qquad p_2=\lVert v_2\rVert_2^2,\qquad p_1+p_2=1.
+p_1=\|\mathbf v_1\|^2,\qquad p_2=\|\mathbf v_2\|^2,\qquad p_1+p_2=1.
 \]
-The limiting density of $(p_1,p_2)$ is given explicitly in terms of modified Bessel functions. This captures the crossover from localization in one block to near-equipartition across both blocks. For fixed $c=O(1)$, the mean eigenvalue density at the origin stays equal to $2/\pi$, so eigenvector ergodization is visible before the bulk spectral density changes.
-\section*{Main theorem / result}
-For eigenvectors attached to eigenvalues near $z=0$, the normalized joint density converges as $N\to\infty$ to
+If $c=0$, the two blocks decouple and an eigenvector attached to one block has almost all its mass in that block. If $|c|$ is very large, one expects the two subsystems to mix strongly, so typical eigenvectors should spread more evenly. The nontrivial problem is to quantify the full crossover rather than just the endpoints.
+
+The point $z=0$ is chosen as a representative bulk location where the formulas become manageable but still capture the ergodization transition.
+
+\section*{Main theorem}
+The principal theorem states that for fixed coupling $0<|c|<\infty$, the normalized joint probability density of $(p_1,p_2)$ at $z=0$ converges as $N\to\infty$ to
 \[
-\pi_\infty(0,p_1,p_2)
-=
+\pi_\infty(0,p_1,p_2)=
 \frac{|c|^2}{p_1p_2}
-\exp\!\left[-|c|^2\!\left(\frac{p_1}{p_2}+\frac{p_2}{p_1}\right)\right]
+\exp\!\left[-|c|^2\left(\frac{p_1}{p_2}+\frac{p_2}{p_1}\right)\right]
 \delta(p_1+p_2-1)
-\Bigg[
-I_1(2|c|^2)+\frac12\!\left(\frac{p_1}{p_2}+\frac{p_2}{p_1}\right)I_0(2|c|^2)
-\Bigg],
+\left[I_1(2|c|^2)+\frac12\left(\frac{p_1}{p_2}+\frac{p_2}{p_1}\right)I_0(2|c|^2)\right].
 \]
-where $I_0$ and $I_1$ are modified Bessel functions. In the weak-coupling limit the mass sits near $(1,0)$ and $(0,1)$; for strong fixed coupling the distribution sharpens near $(1/2,1/2)$.
+This formula gives the full crossover. The exponential term suppresses highly unbalanced ratios when $|c|$ is large, while the singular prefactor still records the competition between localization near one block and spreading across both.
+
+The same theorem also yields the asymptotic mean eigenvalue density at the origin,
+\[
+p_\infty(0)=\frac{2}{\pi},
+\]
+for fixed coupling. In the distinct extensive-coupling regime $c=\sqrt N\,\tilde c$, the paper further finds that the limiting density at the origin vanishes for $|\tilde c|>1$, signaling that the spectral support splits into two disconnected components.
+
 \section*{Proof architecture}
-The proof combines an exact finite-$N$ integral representation with a saddle-point/Laplace analysis. The block structure reduces the dependence on the eigenvector to the norm fractions $p_1,p_2$, then the large-$N$ asymptotics localize the radial variables near a simple saddle. The remaining angular integral produces modified Bessel functions, which is why the final answer is fully explicit.
-\section*{Why it matters / takeaway}
-The main value of the paper is that it turns a qualitative physical story into a sharp random-matrix statement. It gives an analytic benchmark for non-Hermitian many-body chaos and separates eigenvector mixing from spectral-density reorganization. The model is special, but as a theory benchmark it is unusually clean and useful.
+\textbf{1. Kac--Rice-type meta-theorem.} The paper builds on a general theorem from earlier work giving the joint density of eigenvalues and right eigenvectors for non-Hermitian matrices as an integral over auxiliary variables.
+
+\textbf{2. Exact finite-$N$ formula for the coupled Ginibre model.} Specializing the meta-theorem to the two-block ensemble yields an explicit integral representation for the joint density at $z=0$ and finite $N$.
+
+\textbf{3. Reduction to subsystem norms.} Because only the block weights matter, the angular degrees of freedom can be integrated out, leaving an effective two-variable density in $(p_1,p_2)$.
+
+\textbf{4. Large-$N$ asymptotics.} A saddle-point/Laplace analysis of the remaining integral gives the limiting Bessel-function formula. This is where the gradual ergodization profile emerges cleanly.
+
+\textbf{5. Separate extensive-coupling analysis.} The authors then revisit the same integral in the scaling $c=\sqrt N\,\tilde c$ to capture the change in eigenvalue density and the topological splitting of the support.
+
+The architecture is appealing because one exact integral formula drives both the eigenvector crossover and the spectral-support transition.
+
+\section*{Why it matters, limitations, and takeaway}
+The paper is important because eigenvector structure in non-Hermitian systems is often less understood than eigenvalue density, especially in coupled-system settings relevant for dissipative quantum chaos. Here the authors derive a full closed-form ergodization law rather than a qualitative story.
+
+The main limitation is scope: the cleanest theorem is at the bulk point $z=0$ for a particularly symmetric coupling. One expects broader phenomena, but the explicit formula exploits that structure strongly.
+
+The takeaway is that eigenvector delocalization between coupled chaotic subsystems can be quantified exactly, and in this Ginibre model the crossover is smooth, explicit, and controlled by a simple coupling parameter through a Bessel-function law.
 \end{document}

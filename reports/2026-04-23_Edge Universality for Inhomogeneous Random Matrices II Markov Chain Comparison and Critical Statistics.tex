@@ -1,32 +1,66 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Liberation Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\usepackage{amsmath,amssymb,mathtools}
 \usepackage{hyperref}
-\usepackage{enumitem}
-\usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\title{\textbf{Theory-mode report: Edge Universality for Inhomogeneous Random Matrices II: Markov Chain Comparison and Critical Statistics}}
-\author{Generated from Scholar Inbox digest}
-\date{Digest date: 2026-04-23}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
 \begin{document}
-\maketitle
-\section*{Paper information}
-\begin{itemize}[leftmargin=1.5em]
-\item \textbf{Title:} Edge Universality for Inhomogeneous Random Matrices II: Markov Chain Comparison and Critical Statistics
-\item \textbf{Authors:} Dang-Zheng Liu, Guangyi Zou
-\item \textbf{arXiv:} \href{https://arxiv.org/abs/2604.20215}{2604.20215}
-\item \textbf{Scholar digest score:} 95.0
-\end{itemize}
+\begin{center}
+{\Large \textbf{Theory Report: Edge Universality for Inhomogeneous Random Matrices II: Markov Chain Comparison and Critical Statistics}}\\[0.5em]
+{\large Dang-Zheng Liu and Guangyi Zou}\\[0.25em]
+\texttt{arXiv:2604.20215} \quad \url{https://arxiv.org/abs/2604.20215}
+\end{center}
+
+\textbf{Paper information.} This paper develops a comparison principle for inhomogeneous random matrices whose variance profiles are encoded by Markov chains. The key claim is that edge statistics are controlled not by microscopic entry details alone, but by the local central-limit behavior of the associated Markov chain. The resulting framework covers supercritical, critical, subcritical, and even tricritical edge regimes for several structured matrix models.
+
 \section*{Executive summary}
-This report summarizes the highest-scoring paper in the Scholar Inbox digest dated \textbf{2026-04-23}. The abstract states the core claim as follows: \emph{The first paper in this series introduced a \textbackslash\{\}emph\{short-to-long mixing\} condition that captures mean-field GOE/GUE edge universality in the supercritical sparsity regime, for symmetric/Hermitian random matrices with independent entries and a Markov variance profile. This condition reduces the universality problem to the mixing properties of the underlying Markov chains.
-  In this paper, we develop new \textbackslash\{\}emph\{short-to-long comparison\} conditions that extend the analysis to the subcritical and critical sparsity regimes. Specifically, we prove that two inhomogeneous random matrices exhibit the same universal edge statistics whenever their variance-profile Markov chains are comparable, regardless of the fine details of the matrix entries. To illustrate the power of our Markov chain comparison theorem, we derive the spectral edge statistics for several prototypical models: random band matrices}.
+Classical edge universality says many mean-field random matrices have Tracy--Widom fluctuations. This paper asks what replaces that statement when the matrix is spatially inhomogeneous, so that the variance profile remembers geometry. The answer is a powerful comparison theorem: if two variance-profile Markov chains are ``short-to-long comparable,'' then the corresponding matrices have asymptotically identical mixed Chebyshev moments and therefore the same edge statistics.
+
+That abstract theorem becomes concrete through model applications. For one-dimensional power-law band matrices, the authors recover a phase diagram with supercritical Airy universality, subcritical non-universal Poisson-type behavior, a critical point process, and a new tricritical process when a critical finite-rank perturbation is also turned on. Similar transitions are described for Wegner orbital models and Hankel-profile matrices.
+
+The memorable slogan in the introduction is ``One CLT, One Statistics'': every local central limit theorem for the profile Markov chain dictates a corresponding edge-statistics universality class.
 
 \section*{Problem setup and intuition}
-The introduction reinforces this lens: the paper appears motivated by a gap between practical behavior and theoretical understanding.
+Consider a Hermitian or symmetric random matrix with independent entries up to symmetry, but with variances depending on position. Those variances define a matrix $\Sigma=(\sigma_{xy}^2)$, and after normalization one obtains a Markov transition kernel $P_N$. The powers of $P_N$ encode how variance mass spreads through the geometry.
+
+Why should this matter for edge statistics? In the moment method, traces of Chebyshev polynomials count weighted paths through the variance graph. When the matrix is homogeneous, these paths rapidly mix and one recovers Airy universality. In a structured ensemble, however, the walk may remain localized, diffuse anomalously, or feel boundary geometry. The edge therefore remembers the random walk.
+
+The paper's insight is that one should compare matrices by comparing these walks over the relevant time window. If the walks agree at the scale that drives the edge moments, then the spectral edge should agree too.
+
+\section*{Main theorem and results}
+The central theorem is the \emph{Markov Chain Comparison Theorem}. For two inhomogeneous random matrices $X$ and $\widetilde X$, if the associated Markov chains are short-to-long comparable and two error parameters satisfy
+\[
+\frac{\mathcal E_n}{n}\to 0,\qquad \frac{\Delta_n}{b_n}\to 0,
+\]
+under the natural moment-scale condition $n^2b_n=O(1)$ and mild operator-norm control, then the relevant mixed Chebyshev moments of $X$ and $\widetilde X$ are asymptotically the same. This is the engine that transfers edge laws from one model to another.
+
+The main application is to power-law random band matrices. When the bandwidth is supercritical, the rescaled edge process converges to the GOE/GUE Airy point process. When the bandwidth is subcritical, the rescaled correlation measures factorize, reflecting a sparse-edge regime. At critical bandwidth $W\sim \gamma N^{1-1/(3\alpha)}$, one obtains a nonstandard critical point process $R_k^{\mathrm{(Crit)}}(\gamma;\cdot)$ instead of Tracy--Widom.
+
+The most distinctive new phenomenon is the \emph{tricritical} regime: after adding a critically scaled finite-rank perturbation, the edge statistics converge to a new family of tricritical point processes interpolating between critical behavior, BBP-type transition behavior, and subcritical factorized behavior.
 
 \section*{Proof architecture}
-The technical core appears to build the surrogate quantity and the chain of lemmas needed to propagate local control into the final theorem: the paper follows a standard theory-paper structure with structural reduction plus quantitative bounds.
+\textbf{1. Chebyshev moment expansion.} The starting point is a graphical expansion for products of traces of Chebyshev polynomials. This converts the spectral problem into weighted sums over ribbon graphs and diagrams.
 
-\section*{Takeaway}
-The key reusable lesson is to define the right object, find the structural reduction, and quantify the error terms clearly.
+\textbf{2. Diagram comparison.} For each fixed diagram, the authors compare the contributions produced by two variance profiles. The short-to-long comparability assumptions ensure that the corresponding diagram weights differ by an asymptotically negligible amount.
+
+\textbf{3. Cumulant control and connected diagrams.} Cluster expansions reorganize mixed moments into cumulants, which isolate the genuinely interacting diagram classes responsible for point-process limits.
+
+\textbf{4. Model-specific local CLTs.} For reference ensembles such as $\alpha$-stable band matrices, the required asymptotics are computed from local limit theorems for the underlying random walk on the torus. This step is where geometry enters explicitly.
+
+\textbf{5. Transfer of edge statistics.} Once the mixed-moment asymptotics are identified for the reference model, the comparison theorem transports them to any model with a comparable Markov chain. This yields universality statements without redoing the full spectral analysis from scratch.
+
+The proof is notable because it upgrades the moment method from a model-by-model computation into a transport principle.
+
+\section*{Why it matters, limitations, and takeaway}
+The paper offers a broad reframing of structured-edge universality. Instead of asking whether a given matrix is ``close to Wigner,'' it asks whether its variance-profile walk has the same mesoscopic diffusion law as a reference model. That is a much more geometric and portable viewpoint.
+
+The limitation is that the framework remains technically tied to ensembles where mixed Chebyshev moments are controllable and the comparison errors can be quantified. It is not yet a universal theorem for arbitrary correlated matrices.
+
+The takeaway is the slogan itself: at the spectral edge of inhomogeneous matrices, the right organizing principle is not just symmetry class but the local central-limit theorem of the variance-profile Markov chain.
 \end{document}

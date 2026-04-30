@@ -1,31 +1,66 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Liberation Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\usepackage{amsmath,amssymb,mathtools}
 \usepackage{hyperref}
-\usepackage{enumitem}
-\usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\title{\textbf{Theory-mode report: Fluctuations for the Toda lattice}}
-\author{Generated from Scholar Inbox digest}
-\date{Digest date: 2026-04-17}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
 \begin{document}
-\maketitle
-\section*{Paper information}
-\begin{itemize}[leftmargin=1.5em]
-\item \textbf{Title:} Fluctuations for the Toda lattice
-\item \textbf{Authors:} Amol Aggarwal, Matthew Nicoletti
-\item \textbf{arXiv:} \href{https://arxiv.org/abs/2604.14346}{2604.14346}
-\item \textbf{Scholar digest score:} 77.0
-\end{itemize}
+\begin{center}
+{\Large \textbf{Theory Report: Fluctuations for the Toda lattice}}\\[0.5em]
+{\large Amol Aggarwal and Matthew Nicoletti}\\[0.25em]
+\texttt{arXiv:2604.14346} \quad \url{https://arxiv.org/abs/2604.14346}
+\end{center}
+
+\textbf{Paper information.} The paper studies the infinite Toda lattice at thermal equilibrium and proves diffusive fluctuation laws for currents, quasi-particles, and two-point functions. The central message is that even though the Toda lattice is a deterministic integrable Hamiltonian system, its long-time fluctuations around Euler-scale transport are Gaussian and can be described explicitly through a dressed L\'evy--Chentsov field.
+
 \section*{Executive summary}
-This report summarizes the highest-scoring paper in the Scholar Inbox digest dated \textbf{2026-04-17}. The abstract states the core claim as follows: \emph{In this paper we consider the Toda lattice \$(\textbackslash\{\}mathbf\{p\}(t);\textbackslash\{\}mathbf\{q\}(t))\$ at thermal equilibrium, meaning that its variables \$(p\_j)\$ and \$(e\textasciicircum{}\{q\_j - q\_\{j+1\}\})\$ are independent Gaussian and Gamma random variables, respectively. We show under diffusive scaling that the space-time fluctuations for the model's currents converge to an explicit Gaussian limit. As consequences, we deduce, (i) the scaling limit for the trajectory of a single particle \$q\_0\$ is a Brownian motion; (ii) space-time two-point correlation functions for the model decay inversely with time, with explicit scaling distributions predicted by Spohn (Spohn, J. Phys. A 53 (2020), 265004). Our starting point is the notion that the Toda lattice can be thought of as a dense collection of many ``quasi-particles'' that interact through scattering. The core of our work is to establish that the full joint scaling limit of the fluctua}.
+The authors place the classical Toda lattice in the now-standard hydrodynamic-fluctuation viewpoint: one expects ballistic transport at Euler scale, but after subtracting the deterministic drift there should remain a smaller stochastic-looking fluctuation field. Their main theorem confirms this picture. Quasi-particle trajectories, integrated currents of conserved quantities, and local charge observables all fluctuate on the $T^{1/2}$ scale and converge to explicit Gaussian objects.
+
+The conceptual novelty is that the limiting Gaussian field is not an ad hoc Brownian correction. It is built from the quasi-particle description of the integrable system and is ``dressed'' by the interaction encoded in the Lax operator. From this one gets concrete consequences: the position of a tagged particle converges to Brownian motion with explicit variance, and time-dependent two-point functions decay like $T^{-1}$ along Euler scaling, confirming predictions from generalized hydrodynamics and earlier physics work.
 
 \section*{Problem setup and intuition}
-The introduction reinforces this lens: the paper appears motivated by a gap between practical behavior and theoretical understanding.
+The Toda lattice is the infinite chain with exponential nearest-neighbor interaction. In Flaschka variables one can write the dynamics in Lax form, which makes integrability exact rather than perturbative. At equilibrium, the initial data are sampled from a Gibbs measure, so the chain starts random but evolves deterministically.
+
+The natural large-scale picture is that the system is filled with quasi-particles labelled by spectral data of the Lax matrix. Each quasi-particle travels ballistically with an effective velocity depending on its spectral parameter, but collisions induce phase shifts. The hard part is to show that after many interactions the residual randomness from the initial state aggregates into a universal Gaussian fluctuation field.
+
+The observables of interest are: \emph{(i)} integrated currents across moving macroscopic intervals, \emph{(ii)} local charges such as momentum correlations, and \emph{(iii)} quasi-particle positions themselves. The theorem is not merely a central limit theorem for one scalar statistic; it is a joint functional limit theorem tying all these together.
+
+\section*{Main theorem and principal results}
+The headline result is the quasi-particle fluctuation theorem. If $Q_j(t)$ denotes the location of the $j$-th quasi-particle and $v_{\mathrm{eff}}(\lambda_j)$ its effective velocity, then
+\[
+T^{-1/2}\bigl(Q_j(T\tau)-Q_j(0)-T\tau\,v_{\mathrm{eff}}(\lambda_j)\bigr)
+\]
+converges jointly, uniformly over large windows of labels and times, to an explicit Gaussian process called a dressed L\'evy--Chentsov field. The ``dressing'' reflects the linearized scattering structure of the integrable gas.
+
+A second major theorem identifies current fluctuations. For integrated current observables $J^{[m]}_{T\tau}(Tq,Tq')$, the centered current scaled by $T^{-1/2}$ converges to Gaussian white-noise functionals with explicit test functions determined by the dressed charge basis and the effective velocity.
+
+Two corollaries are especially memorable. First, the tagged particle trajectory $T^{-1/2}q_0(T\tau)$ converges to Brownian motion. Second, the two-point correlation function for local charges, such as momentum-momentum correlations, has the asymptotic form predicted by Spohn: along Euler scaling it decays like $T^{-1}$ with an explicit profile.
 
 \section*{Proof architecture}
-The technical core appears to build the surrogate quantity and the chain of lemmas needed to propagate local control into the final theorem: the paper follows a standard theory-paper structure with structural reduction plus quantitative bounds.
+The proof runs through the quasi-particle picture rather than direct analysis of the nonlinear lattice variables.
 
-\section*{Takeaway}
-The key reusable lesson is to define the right object, find the structural reduction, and quantify the error terms clearly.
+\textbf{1. Lax-matrix spectral encoding.} The Toda dynamics admit a Lax matrix whose eigenvalues and localization centers encode the quasi-particles. This turns dynamical observables into spectral-statistical ones.
+
+\textbf{2. Scattering relation and approximate linearization.} A key input from earlier work is an asymptotic scattering formula expressing quasi-particle positions through cumulative interactions with other modes. After smoothing indicator functions, the fluctuation observable is rewritten in a form amenable to comparison with linear statistics.
+
+\textbf{3. Independent-sum approximation.} The complicated observables built from the random Lax matrix are approximated by sums of weakly dependent or effectively independent block contributions. This is where concentration and locality estimates enter.
+
+\textbf{4. Gaussian coupling.} Those block sums are then coupled to Gaussian processes via multiscale approximation and covariance control. The limiting covariance is exactly the one defining the L\'evy--Chentsov field; applying the dressing operator produces the final field governing quasi-particle fluctuations.
+
+\textbf{5. Transfer from quasi-particles to physical observables.} Once the quasi-particle theorem is established, current and local-charge fluctuation results follow by deterministic identities and approximation arguments linking currents to occupation differences of quasi-particles.
+
+The proof architecture matters because it shows the Gaussianity is not imposed externally. It emerges from an integrable scattering description plus a probabilistic limit theorem for random Lax statistics.
+
+\section*{Why it matters, limitations, and takeaway}
+This is one of the cleanest rigorous demonstrations that an interacting deterministic many-body system can exhibit stochastic hydrodynamic fluctuations with fully explicit covariance structure. It strengthens the bridge between classical integrable dynamics, generalized hydrodynamics, and random-matrix-style fluctuation theory.
+
+A limitation is that the argument uses the integrable structure very heavily: Lax matrices, quasi-particles, dressing operators, and delicate coupling statements are all specific to this setting. So the theorem is not a black-box route to fluctuation theory for generic anharmonic chains.
+
+The takeaway is sharp: for the Toda lattice at equilibrium, the right fluctuation object is not KPZ and not an undifferentiated central limit law. It is a model-specific Gaussian field obtained by dressing a universal L\'evy--Chentsov structure through integrable scattering data.
 \end{document}

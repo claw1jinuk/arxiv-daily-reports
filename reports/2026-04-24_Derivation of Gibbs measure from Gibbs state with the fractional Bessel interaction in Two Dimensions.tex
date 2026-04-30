@@ -1,125 +1,81 @@
-\documentclass[10pt]{article}
-\usepackage[margin=0.78in]{geometry}
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
 \usepackage{fontspec}
 \defaultfontfeatures{Ligatures=TeX}
 \setmainfont{Liberation Serif}
 \setsansfont{DejaVu Sans}
 \setmonofont{DejaVu Sans Mono}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath,amssymb,mathtools}
 \usepackage{hyperref}
-\setlength{\parindent}{0pt}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
 \setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
 \begin{document}
-
 \begin{center}
-{\Large \textbf{Theory Report}}\\[0.35em]
-{\large Derivation of Gibbs measure from Gibbs state with the fractional Bessel interaction in Two Dimensions}\\[0.45em]
-Phan Thanh Nam, Rongchan Zhu, and Xiangchan Zhu\\
-\href{https://arxiv.org/abs/2604.21583}{arXiv:2604.21583} \hspace{1em} Digest date: 2026-04-24
+{\Large \textbf{Theory Report: Derivation of Gibbs measure from Gibbs state with the fractional Bessel interaction in Two Dimensions}}\\[0.5em]
+{\large Phan Thanh Nam, Rongchan Zhu, and Xiangchan Zhu}\\[0.25em]
+\texttt{arXiv:2604.21583} \quad \url{https://arxiv.org/abs/2604.21583}
 \end{center}
 
-\section*{Paper information}
-This paper studies a quantum-to-classical limit for a two-dimensional bosonic grand-canonical Gibbs state on the torus $\mathbb T^2$. The interaction is the fractional Bessel potential whose Fourier coefficients are
-\[
-\widehat v_\beta(k)=\langle k\rangle^{-\beta}=(1+|k|^2)^{-\beta/2},\qquad \tfrac32<\beta\le 2,
-\]
-so $v_\beta=(1-\Delta)^{-\beta/2}$ as an operator kernel on $L^2(\mathbb T^2)$. The range $\beta\le 2$ is exactly the non-summable regime in dimension two, so
-\[
-\sum_{k\in\mathbb Z^2}\widehat v_\beta(k)=\infty,
-\]
-which means the naive density-square rewriting of the quantum interaction produces an infinite self-energy.
-
-The quantum model lives on bosonic Fock space with one-body Hamiltonian $h=-\Delta+1$. At temperature of order $\lambda^{-1}$, the authors consider a renormalized Gibbs state
-\[
-\Gamma^{\mathrm{re}}_\lambda=\frac{e^{-H^{\mathrm{re}}_\lambda}}{Z^{\mathrm{re}}_\lambda},
-\qquad
-H^{\mathrm{re}}_\lambda=\lambda d\Gamma(h)+W^{(2)}_\beta+c_\lambda N+C_\lambda,
-\]
-where the renormalization is implemented by extracting only the zero Fourier mode and replacing it by a centered number-fluctuation term proportional to $(N-N_0)^2$. The target object is the classical Gibbs measure
-\[
- d\nu(u)=z_{\mathrm{cl}}^{-1}e^{-\mathcal D(u)}\,d\mu_0(u),
-\]
-where $\mu_0$ is the Gaussian free field with covariance $h^{-1}$ and $\mathcal D(u)$ is the Wick-renormalized fractional-Bessel Hartree energy.
+\textbf{Paper information.} The paper derives a classical nonlinear Gibbs measure on $\mathbb T^2$ from a renormalized grand-canonical quantum Bose gas with fractional-Bessel pair interaction $\widehat v_\beta(k)=\langle k\rangle^{-\beta}$ in the full singular range $3/2<\beta\le 2$. The novelty is that the Fourier coefficients are not summable, so the usual density-square renormalization breaks down and a more delicate zero-mode/high-frequency analysis is required.
 
 \section*{Executive summary}
-The main theorem says that as $\lambda\downarrow 0$, the renormalized quantum Gibbs state converges to the classical Gibbs measure associated with the same interaction, simultaneously at the level of free energy and correlation operators. More concretely,
-\[
--\log\frac{Z^{\mathrm{re}}_\lambda}{Z_0}\to -\log z_{\mathrm{cl}},
-\qquad
-k!\lambda^k\Gamma^{(k)}_\lambda\to \int |u^{\otimes k}\rangle\langle u^{\otimes k}|\,d\nu(u)
-\]
-in Hilbert--Schmidt norm for each fixed $k\ge 1$.
+This is a quantum-to-classical limit theorem in a singular regime. The authors consider a two-dimensional bosonic Gibbs state at temperature of order $\lambda^{-1}$ and ask whether, as $\lambda\downarrow0$, it converges to a classical field theory Gibbs measure. For regular enough interactions this is known, but here the Bessel interaction is so singular that the naive density-square rewrite of the quantum interaction generates an infinite self-energy.
 
-What makes the result nontrivial is not merely that the interaction is nonlocal, but that it is singular enough that the quantum Hamiltonian cannot be put into the standard positive density-square form. The obstruction is the divergent self-energy coming from the Fourier sum of $\widehat v_\beta$. So the paper has to do two hard things at once: define the correct renormalized many-body model, and show that its variational structure still matches the classical fractional-Bessel Gibbs theory in the weak-coupling/high-temperature limit.
+The main result still proves convergence. After an adjusted renormalization---keeping nonzero modes in genuine quartic form and centering only the zero mode---the relative free energy converges to the classical partition function, and the $k$-particle reduced density matrices converge in Hilbert--Schmidt norm to the classical $k$-point correlation operators.
 
-The proof architecture is very clean. First, localize to low Fourier modes. Second, compare the low-mode quantum problem with a finite-dimensional classical Hartree problem through coherent states, lower symbols, Berezin--Lieb, and a quantitative quantum de Finetti theorem. Third, prove that every high-frequency remainder produced by localization vanishes. The paper's real contribution is that third step: it develops a multi-scale decomposition of the ultraviolet error into zero-mode, shell, and far-tail pieces and controls each by a different mechanism.
+Conceptually, the paper shows that the quantum-to-classical program survives beyond the summable-kernel setting, but only after a multiscale decomposition that isolates zero-mode, shell, and tail remainders.
 
 \section*{Problem setup and intuition}
-The classical interaction functional is formally
+The one-body space is $L^2(\mathbb T^2)$ with free Hamiltonian $h=-\Delta+1$, and the interaction has Fourier coefficients
 \[
-\mathcal D(u)=\frac12\int_{\mathbb T^2\times\mathbb T^2} v_\beta(x-y):|u(x)|^2::|u(y)|^2:\,dx\,dy,
+\widehat v_\beta(k)=\langle k\rangle^{-\beta},\qquad \frac32<\beta\le 2.
 \]
-with Wick ordering relative to the Gaussian free field. Because $u$ under $\mu_0$ is distribution-valued, this renormalization is essential even classically.
-
-On the quantum side, the genuine two-body operator is harmless in quartic form but dangerous in density form. If one writes the density Fourier modes
+The classical target measure is the Gibbs measure
 \[
-\rho_k=d\Gamma(e_k)=\frac1{2\pi}\sum_{p\in\mathbb Z^2} a^*_{p+k}a_p,
+ d\nu(u)=z_{\mathrm{cl}}^{-1}e^{-D(u)}d\mu_0(u),
 \]
-then the canonical commutation relations give
+where $\mu_0$ is the Gaussian free field with covariance $h^{-1}$ and $D(u)$ is the Wick-renormalized nonlinear energy.
+
+The quantum difficulty is immediate. If one rewrites the two-body interaction in terms of density modes $\rho_k$, the commutation relations produce a self-energy proportional to
 \[
-W^{(2)}_\beta \sim \frac{\lambda^2}{2}\sum_k \widehat v_\beta(k)\rho_k\rho_{-k}
--\frac{\lambda^2}{2(2\pi)^2}\Big(\sum_k \widehat v_\beta(k)\Big)N.
+\sum_k \widehat v_\beta(k)\,\mathcal N,
 \]
-The second term diverges because $\widehat v_\beta\notin \ell^1(\mathbb Z^2)$. So one cannot start from the usual positive density-square representation. The authors instead keep all nonzero modes in the genuine quartic operator and renormalize only the zero mode by replacing the raw quadratic number term with a centered fluctuation $(N-N_0)^2$.
+which diverges because $\widehat v_\beta\notin \ell^1(\mathbb Z^2)$ in the full range considered. So the standard route used for summable kernels fails at the operator level, not merely in an estimate.
 
-The intuition behind the limit is standard in the nonlinear Gibbs program: when temperature is of order $\lambda^{-1}$ and the coupling is scaled as in the Hamiltonian, the bosonic Gibbs state should behave semiclassically and be described by a random field rather than a many-body density operator. But here that transition has to survive an ultraviolet singularity that is still present at the quantum level. The proof therefore asks: after projecting to low frequencies, can the leftover ultraviolet pieces be shown to disappear fast enough to recover the classical functional exactly?
+The authors' fix is to renormalize only the zero mode via a centered number-fluctuation term and keep the nonzero modes in their original quartic form. The rest of the paper is devoted to proving that this renormalized model still converges to the desired classical Gibbs measure.
 
-\section*{Main theorem/result (informal but precise)}
-For every fixed $\beta\in(\tfrac32,2]$, the authors prove two coupled convergence statements.
-
-\textbf{1. Relative free energy convergence.} Let $Z^{\mathrm{re}}_\lambda$ be the partition function of the renormalized interacting Bose gas and $Z_0$ that of the free Gibbs state. Then
+\section*{Main theorem}
+The paper's main theorem states that as $\lambda\downarrow0$,
 \[
--\log(Z^{\mathrm{re}}_\lambda/Z_0)\to -\log z_{\mathrm{cl}}.
+-\log \frac{Z_\lambda^{\mathrm{re}}}{Z_0}\to -\log z_{\mathrm{cl}},
 \]
-So the quantum variational problem converges to the classical fractional-Bessel free-energy problem.
-
-\textbf{2. Density-matrix convergence.} For every fixed $k\ge 1$,
+and for every fixed $k\ge 1$,
 \[
-k!\lambda^k\Gamma^{(k)}_\lambda \to \gamma^{(k)}_{\nu}:=\int |u^{\otimes k}\rangle\langle u^{\otimes k}|\,d\nu(u)
+k!\lambda^k\Gamma_\lambda^{(k)}\longrightarrow \int |u^{\otimes k}\rangle\langle u^{\otimes k}|\,d\nu(u)
+\qquad\text{in }\mathfrak S^2.
 \]
-in Hilbert--Schmidt norm on the symmetric $k$-particle space. In other words, the rescaled quantum $k$-point functions converge to the $k$-th moments of the limiting classical field.
-
-A key point is what is actually rigorous. The theorem is proved for the full non-summable range $\tfrac32<\beta\le 2$. The restriction $\beta>\tfrac32$ is not cosmetic: it enters the shell summability estimates and the control of the far-tail block. The authors explicitly note that new ideas would be needed below that threshold.
+So one gets both free-energy convergence and operator-level convergence of reduced density matrices. The latter is stronger than convergence of scalar moments alone and confirms that the entire low-order correlation structure of the quantum state converges to the classical field theory.
 
 \section*{Proof architecture}
-\textbf{Step 1: Variational setup and a priori bounds.} The argument begins from the Gibbs variational principle. Even the preliminary bounds are Bessel-specific because one cannot harmlessly rewrite the interaction as a density square. The nonzero modes are estimated directly from the quartic formula, and the cancellation $\mathrm{Tr}(\gamma_0 M_k)=0$ for $k\neq 0$ removes the dangerous direct Wick term in source-perturbed estimates.
+\textbf{1. Renormalized Hamiltonian.} The interaction is rewritten so that only the zero mode is extracted and centered. This yields a well-defined renormalized Gibbs state even though the full density-square decomposition is illegal.
 
-\textbf{Step 2: Low-frequency localization.} Choose a low-frequency projector $P=\mathbf 1_{\{h\le \Lambda^2\}}$ with $\Lambda=\lambda^{-\alpha}$, $0<\alpha<1/4$. The localized state on $P\mathcal H$ is compared with a finite-dimensional Hartree functional
-\[
-\mathcal D_P(u)=\frac12\sum_{k\ne 0}\widehat v_\beta(k)|\langle u,e_{k,P}u\rangle|^2
-+\frac1{2(2\pi)^2}(\|u\|^2-(2\pi)^2\rho_{0,P})^2.
-\]
-This is the classical effective energy seen by the low modes.
+\textbf{2. Variational free-energy framework.} The authors work with the Gibbs variational principle and compare the interacting quantum free energy to finite-dimensional classical Hartree functionals after low-frequency projection.
 
-\textbf{Step 3: Quantum-to-classical comparison on the low modes.} The authors pass from the localized quantum state to a probability measure on $P\mathcal H$ using coherent states and the lower symbol (Husimi measure). The quantitative de Finetti theorem expresses low-order reduced density matrices in terms of moments of that lower symbol, with explicit error terms. Berezin--Lieb and entropy monotonicity then give a free-energy lower bound by the classical variational functional. A pointwise comparison between the free lower symbol and the Gaussian free field measure shows that the free reference state really becomes the classical Gaussian measure on the projected space.
+\textbf{3. First cutoff and high-frequency decomposition.} A low-frequency projector $P$ is introduced. The discrepancy between the full interaction and its projected version is then decomposed into several remainder terms. The paper's structure makes clear that not all remainders can be treated the same way.
 
-\textbf{Step 4: Decompose the ultraviolet error.} Localization produces explicit high-frequency remainders. These are split into three pieces: (i) a zero-mode high-frequency remainder, (ii) a shell contribution after introducing a second cutoff $\Lambda_1=\lambda^{-\alpha_1}$ with $1/2<\alpha_1<3/4$, and (iii) a far-tail contribution beyond that shell.
+\textbf{4. Zero-mode remainder.} A recent second-order correlation inequality is used to control localized fluctuation observables, converting second moments into manageable commutator terms. This yields a quantitative vanishing theorem for the zero-mode high-frequency remainder.
 
-\textbf{Step 5: Control the zero-mode remainder.} This is handled by a second-order correlation inequality plus a careful block decomposition of the relevant double commutator. The useful structural fact is that every surviving quartic monomial still contains a low-frequency leg, which lets the authors estimate it by asymmetric quartic Hilbert--Schmidt bounds together with kinetic-energy estimates.
+\textbf{5. Shell and tail analysis.} A second cutoff splits the remaining nonzero-mode error into shell and tail pieces. The shell term is handled through mode-by-mode fluctuation bounds and commutator estimates. The tail term uses a different mechanism: positivity of the full Bessel operator and careful off-diagonal control.
 
-\textbf{Step 6: Show the shell contribution vanishes.} The shell piece is not positive and not termwise negligible. The authors rewrite it in terms of shell-mode fluctuation observables, polarize those observables, and apply the same commutator strategy mode by mode. This is where the restriction $\beta>3/2$ appears in a weighted summability estimate.
+\textbf{6. Quantum de Finetti and passage to density matrices.} Once the free-energy lower and upper bounds match, quantitative de Finetti estimates connect the projected quantum state to a classical measure, and the reduced density matrices converge in Hilbert--Schmidt norm.
 
-\textbf{Step 7: Control the far tail from below.} The far-tail part is treated differently. After discarding a positive high-high block, the mixed remainder is kept as a genuine off-diagonal two-body operator. Its operator norm is paired with the small high-frequency particle-number mass, yielding a quantitative lower bound $E_{\mathrm{tail}}(\Gamma_\lambda)\ge -o(1)$.
+The proof is a good example of a modern field-theory derivation: variational principles provide the outer structure, while the singularity is managed by multiscale operator inequalities.
 
-\textbf{Step 8: Match upper and lower bounds.} The free-energy lower bound comes from the classical variational principle after all remainders are shown negligible. For the upper bound, the authors build a trial state that is interacting on the low-frequency Fock space and free on the high-frequency complement. Because this ansatz is compatible with localization, the same error decomposition works and the remainder terms vanish again. The projected partition function converges to the finite-dimensional classical partition function, which then converges to $z_{\mathrm{cl}}$.
+\section*{Why it matters, limitations, and takeaway}
+The paper pushes the quantum-to-classical Gibbs-measure program into a regime where the fixed interaction is itself ultraviolet-singular. That is mathematically important because it shows the program is not confined to smooth or summable kernels.
 
-\textbf{Step 9: Recover density matrices.} Once the free energy converges, the lower symbols converge to the projected classical Gibbs measures with polynomial weights. The quantitative de Finetti formula converts this weighted measure convergence into scalar moment convergence, and then into Hilbert--Schmidt convergence of the full rescaled reduced density matrices.
+The price is complexity. The method is highly tailored to the Bessel interaction and to the two-dimensional torus setting; extending it below $\beta=3/2$ or to other singular kernels would require new ideas, and the paper openly says so.
 
-\section*{Why it matters / limitations / takeaway}
-This paper pushes the nonlinear Gibbs derivation program into a regime where the quantum interaction is itself singular enough to break the standard renormalization template. That is the main conceptual achievement. It shows that the bridge from quantum bosonic Gibbs states to classical field theory does not depend on having a summable interaction kernel or an immediately positive density-square representation.
-
-The main limitation is also clear. The proof needs $\beta>3/2$, and the authors explain that below this threshold both shell and tail estimates would need genuinely new ideas. The setting is also homogeneous on the torus; extensions to inhomogeneous traps or to the true Coulomb interaction are discussed as plausible but not carried out here.
-
-The clean takeaway is: after the correct zero-mode renormalization, the two-dimensional Bose gas with fractional-Bessel interaction has the expected classical fractional-Bessel Gibbs measure as its precise weak-coupling/high-temperature limit. The paper proves this not by a black-box semiclassical argument, but by a sharp variational reduction plus a delicate ultraviolet remainder analysis. That remainder analysis is the real engine of the theorem.
-
+The takeaway is that the obstruction from non-summability is real but not fatal: with the right renormalization and a finely tuned high-frequency decomposition, the renormalized quantum Bose gas still converges to the expected classical Gibbs field.
 \end{document}

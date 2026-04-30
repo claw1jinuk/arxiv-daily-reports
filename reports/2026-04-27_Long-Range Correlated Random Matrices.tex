@@ -1,31 +1,82 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Liberation Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\usepackage{amsmath,amssymb,mathtools}
 \usepackage{hyperref}
-\usepackage{enumitem}
-\usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\title{\textbf{Theory-mode report: Long-Range Correlated Random Matrices}}
-\author{Generated from Scholar Inbox digest}
-\date{Digest date: 2026-04-27}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
 \begin{document}
-\maketitle
-\section*{Paper information}
-\begin{itemize}[leftmargin=1.5em]
-\item \textbf{Title:} Long-Range Correlated Random Matrices
-\item \textbf{Authors:} Abbas Ali Saberi, Roderich Moessner
-\item \textbf{arXiv:} \href{https://arxiv.org/abs/2604.22447}{2604.22447}
-\item \textbf{Scholar digest score:} 99.0
-\end{itemize}
+\begin{center}
+{\Large \textbf{Theory Report: Long-Range Correlated Random Matrices}}\\[0.5em]
+{\large Abbas Ali Saberi and Roderich Moessner}\\[0.25em]
+\texttt{arXiv:2604.22447} \quad \url{https://arxiv.org/abs/2604.22447}
+\end{center}
+
+\textbf{Paper information.} The paper introduces a spatially correlated random-matrix ensemble built from thresholded Gaussian fields with correlations decaying like $r^{-2H}$. The central result is that the one-point eigenvalue density is no longer semicircular in general: depending on $H$, it follows a family of heavy-tailed generalized $t$-laws, becomes Gaussian at a critical value $H_c=3/4$, and only gradually reverts to the semicircle for sufficiently weak correlations.
+
 \section*{Executive summary}
-This report summarizes the highest-scoring paper in the Scholar Inbox digest dated \textbf{2026-04-27}. The abstract states the core claim as follows: \emph{Motivated by the importance ascribed to correlations in random matrices used to model phenomena in various scientific disciplines, we report how algebraic correlations between matrix elements affect the eigenvalue statistics and spectral density of random matrices. These correlations, introduced through a long-range correlated percolation model, decay as a power law \$\textbackslash\{\}propto r\textasciicircum{}\{-2H\}\$, with exponent \$H > 0\$. As \$H\$ varies, both the eigenvalue distribution and excess kurtosis undergo qualitative changes. At the threshold \$H\_c = 3/4\$, characterized by emergent Gaussian statistics, a sign change in excess kurtosis marks a transition from a fat-tailed generalized \$t\$-distribution to one that gradually approaches the standard semicircle law for \$H \textbackslash\{\}gg H\_c\$. Our analytical results, based on scaling analysis and supported by extensive numerical simulations, provide clear predictions and uncover }.
+Standard random matrix theory usually assumes independent or weakly correlated entries and therefore predicts semicircular bulk statistics for Wigner-type ensembles. This paper asks what happens when matrix elements are strongly correlated in space in a controlled algebraic way.
+
+The answer is surprisingly rich. For $H<3/4$, the eigenvalue density has heavy tails that are well fit by a generalized $t$-distribution with an exponent determined explicitly by $H$. At $H=3/4$ the excess kurtosis changes sign and the eigenvalue density becomes Gaussian. For $H\gg 3/4$, correlations become irrelevant and the spectrum drifts back toward semicircle behavior.
+
+So the paper proposes a new universality story: long-range entry correlations can create whole families of non-Wigner spectral laws, with a sharp crossover governed by a percolation-style correlation exponent.
 
 \section*{Problem setup and intuition}
-The introduction reinforces this lens: the paper appears motivated by a gap between practical behavior and theoretical understanding.
+The ensemble is built geometrically. Start with a Gaussian random field on a two-dimensional lattice with covariance
+\[
+C(r)\sim r^{-2H}.
+\]
+Threshold the field to obtain $\pm1$ occupation variables, then symmetrize the resulting matrix so the eigenvalues are real. The matrix entries therefore inherit long-range correlations from the underlying field.
+
+This model is deliberately non-invariant and spatial: matrix indices live on a lattice, and Euclidean distance controls correlation. That already suggests semicircle universality may fail, since the combinatorics of moments now know about geometry.
+
+The paper's intuition comes from scaling of moments. The variance of eigenvalues after the standard $1/\sqrt L$ normalization remains bounded, but the fourth moment and excess kurtosis scale with powers of the system size that depend on $H$. This predicts where tails become heavy, where kurtosis diverges, and where a Gaussian crossover should occur.
+
+\section*{Main result}
+The main conclusions can be organized by the correlation exponent $H$.
+
+For $0\le H<1/4$, the excess kurtosis diverges with system size, which signals very heavy tails. For $1/4<H<3/4$, the excess kurtosis stays finite but positive, so the density is still heavier-tailed than Gaussian or semicircle. At the critical value
+\[
+H_c=\frac34,
+\]
+the excess kurtosis vanishes and the density becomes Gaussian. For $H>3/4$, the effect of correlations weakens and the spectral density progressively approaches the semicircle law.
+
+The proposed limiting one-point density for $H<3/4$ is a generalized $t$-distribution of the form
+\[
+\mathcal P(\lambda)=a_0\Bigl(1+\frac{\lambda^2}{f}\Bigr)^{-(f+1)/2},
+\]
+with the effective tail exponent $f$ given explicitly by
+\[
+f=(1/2-H)^{-1} \quad (0\le H\le 1/4),
+\qquad
+f=2(3/4-H)^{-1} \quad (1/4\le H\le 3/4).
+\]
+As $H\uparrow 3/4$, one has $f\to\infty$, which is exactly how the generalized $t$ law tends to a Gaussian.
 
 \section*{Proof architecture}
-The technical core appears to build the surrogate quantity and the chain of lemmas needed to propagate local control into the final theorem: the paper follows a standard theory-paper structure with structural reduction plus quantitative bounds.
+The paper is lighter on heavy theorem-proof formalism than a long analysis paper, but the structure is still clear.
 
-\section*{Takeaway}
-The key reusable lesson is to define the right object, find the structural reduction, and quantify the error terms clearly.
+\textbf{1. Construct the correlated ensemble from percolation geometry.} The thresholded Gaussian field supplies explicit real-space power-law correlations among entries.
+
+\textbf{2. Compute scaling of low moments.} The second and fourth spectral moments are estimated by tracing powers of the matrix and performing Wick-type decompositions of entry correlations. The scaling of these sums is where $H$ first appears decisively.
+
+\textbf{3. Infer the kurtosis transition.} The fourth-moment scaling yields an explicit prediction for the excess kurtosis as a function of $L$ and $H$, singling out $H=1/4$ and $H=3/4$ as special values.
+
+\textbf{4. Match with a generalized $t$ family.} A generalized $t$-distribution is proposed because it has the correct heavy-tail flexibility and converges to Gaussian when the tail parameter diverges. Matching the kurtosis and scaling relations determines $f(H)$.
+
+\textbf{5. Validate numerically.} Large-scale simulations across multiple lattice sizes show data collapse and strong agreement with the predicted density families and kurtosis scalings.
+
+This is therefore a hybrid theory paper: the central formulas come from scaling arguments, and extensive numerics are used to support the claimed spectral regimes.
+
+\section*{Why it matters, limitations, and takeaway}
+The paper is interesting because it offers a concrete counterpoint to the common intuition that large random matrices ``usually'' wash out details into Wigner universality. Here geometry survives. Long-range correlations in matrix entries can force the spectral density through heavy-tailed, Gaussian, and semicircular regimes.
+
+The main limitation is that the results are primarily about the one-point eigenvalue density and its moment diagnostics, rather than a full theorem on local spacing statistics or edge fluctuations. The closing remarks hint that rigidity and correlation-statistics thresholds may behave differently, to be developed elsewhere.
+
+The takeaway is that algebraic entry correlations define a genuinely new spectral universality landscape, with the exponent $H$ acting as the control knob and $H_c=3/4$ marking the Gaussian crossover.
 \end{document}
