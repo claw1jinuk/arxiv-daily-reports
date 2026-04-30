@@ -1,0 +1,142 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Liberation Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\title{Theory-mode report: Characteristic polynomials of non-Hermitian random band matrices near the threshold}
+\author{Prepared from Scholar Inbox digest dated 2026-04-20}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Paper information}
+\textbf{Title:} Characteristic polynomials of non-Hermitian random band matrices near the threshold
+
+\textbf{Authors:} Mariya Shcherbina and Tatyana Shcherbina
+
+\textbf{arXiv:} \href{https://arxiv.org/abs/2604.15355}{2604.15355}
+
+\textbf{Digest score:} 98 in the Scholar Inbox digest for 2026-04-20.
+
+\section*{Executive summary}
+This paper studies a clean local-statistics observable for non-Hermitian random band matrices: the second correlation function of characteristic polynomials. The key scale is the band width $W$ relative to the matrix size $N$. Prior work had already identified two asymptotic regimes: if $W \gg \sqrt{N}$, the normalized correlation behaves like the Ginibre ensemble, while if $1 \ll W \ll \sqrt{N}$, the observable factorizes. What was missing was the true transition window, namely the critical regime $W \asymp \sqrt{N}$.
+
+The main contribution is a precise asymptotic description exactly at that threshold. When $W = \kappa_* \sqrt{N}(1+o(1))$, the normalized correlation no longer collapses to either the Ginibre formula or the factorized one. Instead, it converges to a nontrivial crossover quantity represented by a one-dimensional differential operator $\mathbb{A}_0$ acting on functions on $[-1,1]$. Informally: the paper identifies the critical scaling limit and packages the answer into an operator semigroup formula $(e^{\mathbb{A}_0}\mathbf 1, \mathbf 1)$.
+
+Conceptually, this is valuable because it confirms that non-Hermitian random band matrices exhibit a threshold phenomenon parallel to the more familiar Hermitian story. Technically, the paper extends a supersymmetric transfer-matrix method from the off-critical regimes into the delicate critical window where the leading contributions balance rather than decisively favor one asymptotic phase.
+
+\section*{Problem setup and intuition}
+The model is an $N \times N$ non-Hermitian Gaussian random band matrix $H_N = (H_{jk})$ with centered complex Gaussian entries and covariance profile
+\[
+\mathbb E\, H_{jk} = 0, \qquad \mathbb E\, |H_{jk}|^2 = J_{jk}, \qquad J = (-W^2\Delta + 1)^{-1}.
+\]
+Here $\Delta$ is the discrete Laplacian on $\{1,\dots,N\}$ with Neumann boundary conditions. Because $J_{jk}$ decays exponentially once $|j-k| \gg W$, the parameter $W$ acts as the effective bandwidth.
+
+The observable of interest is
+\[
+\Theta(z_1,z_2) = \mathbb E\!\left[\prod_{s=1}^2 \det(H_N-z_s)\det(H_N-z_s)^*\right],
+\]
+with microscopic spectral shifts
+\[
+ z_1 = z + \zeta N^{-1/2}, \qquad z_2 = z - \zeta N^{-1/2}, \qquad |z|<1.
+\]
+This quantity is not literally the two-point eigenvalue correlation function, but it is a robust proxy for local spectral behavior and often captures universality transitions in a cleaner analytic form.
+
+Why should $W \sim \sqrt N$ be critical? Random band matrices mix two competing mechanisms. A narrow band means limited spatial communication across indices, so the system behaves more like weakly coupled local blocks; a wide band mixes strongly enough to resemble a mean-field ensemble. The threshold $W \approx \sqrt N$ is exactly where diffusion across the chain becomes strong enough to compete with the system size. In the non-Hermitian setting, this competition is reflected in the normalized characteristic-polynomial correlation: below threshold it factorizes, above threshold it matches Ginibre, and at threshold it forms a genuine interpolation.
+
+\section*{Main theorem / main result}
+The previous paper by the authors established the two-phase picture away from criticality. Roughly, after normalization by diagonal terms,
+\[
+\frac{\Theta(z_1,z_2)}{\Theta(z_1,z_1)^{1/2}\Theta(z_2,z_2)^{1/2}}
+\]
+converges to the Ginibre answer when $W \gg \sqrt N$ and to a factorized expression when $W \ll \sqrt N$.
+
+This paper proves the critical-scale theorem. If
+\[
+W = \kappa_* N^{1/2}(1+o(1)) \qquad (N\to\infty),
+\]
+then the same normalized correlation converges to
+\[
+(e^{\mathbb A_0}\mathbf 1,\mathbf 1),
+\]
+where the differential operator is
+\[
+\mathbb A_0\varphi(x)
+= \frac{1}{8(\kappa_*u_*)^2}\Big((1-x^2)\varphi''(x)-2x\varphi'(x)\Big) + 2x\varphi(x), \qquad x\in[-1,1],
+\]
+with bounded boundary behavior at $x=\pm 1$, and
+\[
+ u_* = \sqrt{1-|z|^2}.
+\]
+
+A useful way to read this theorem is: the critical limit is neither a scalar closed form of the off-critical type nor an arbitrary model-dependent mess. It is a structured continuum object---a semigroup generated by a second-order operator with a diffusion part and a potential part. The diffusion coefficient depends on the critical proportionality constant $\kappa_*$ and on the bulk spectral position $z$ through $u_*$. So the threshold regime retains universal structure, but with a genuinely new crossover law.
+
+\section*{Proof architecture}
+The proof is technical, but the backbone is quite clean. A compact mental model is the following.
+
+\subsection*{1. Supersymmetric integral representation}
+The starting point is a supersymmetric (SUSY) representation of the normalized second correlation function. After standard manipulations, the problem is rewritten as the matrix element of a transfer operator:
+\[
+\widetilde\Theta(z_1,z_2) = (\mathcal K_\zeta^{N-1} g, g).
+\]
+This converts the asymptotic question into spectral analysis of an integral operator $\mathcal K_\zeta$.
+
+Why this matters: products over matrix sites become powers of one operator, which is exactly the right form for extracting large-$N$ asymptotics.
+
+\subsection*{2. Localization near the dominant manifold}
+The next step is to show that the dominant contribution to the integral comes from matrices $Q$ lying close to the manifold where the phase is maximal, essentially
+\[
+Q^*Q \approx u_*^2 I_2.
+\]
+This concentration statement lets the authors restrict the operator to a narrow neighborhood of the saddle manifold. Outside that region, the transfer operator norm loses a definite amount, so those contributions die exponentially fast in iteration.
+
+This is the first structural simplification: the full four-complex-dimensional integration problem collapses to a neighborhood of the relevant saddle geometry.
+
+\subsection*{3. Polar / cylinder decomposition}
+Inside the dominant region, they decompose matrices as
+\[
+Q = U\mathcal R,
+\]
+with $U\in U(2)$ unitary and $\mathcal R>0$ positive. Then $\mathcal R$ is expanded around $u_*I_2$:
+\[
+\mathcal R = u_*(I_2 + W^{-1/2}R).
+\]
+This separates radial fluctuations $R$ from angular variables $U$. The transfer kernel factorizes into a Gaussian-type part in $R$ and a structured group kernel in $U$.
+
+Interpretation: radial modes are approximately quadratic and therefore controllable; angular modes carry the subtle long-range information that survives in the critical limit.
+
+\subsection*{4. Quadratic approximation plus controlled corrections}
+The authors expand the effective phase around the saddle. The leading term is quadratic in the radial variable, while the dependence on the spectral shift parameter $\zeta$ enters through a perturbation involving the unitary component $U$. Cubic and higher-order terms are shown to be negligible after careful operator estimates.
+
+Away from criticality, these perturbations are either too weak or too strong relative to the main Gaussian contraction, which is why one recovers the simple two-phase laws. At criticality, however, the perturbation and the contraction are of the same effective order, so neither can be discarded.
+
+\subsection*{5. Reduction to an effective one-dimensional operator}
+This is the conceptual heart of the paper. After projecting onto the dominant sector of the transfer operator and tracking how the critical scaling survives under repeated composition, the high-dimensional operator problem reduces to an effective scalar differential operator on $[-1,1]$. That operator is precisely $\mathbb A_0$.
+
+The geometry behind the interval $[-1,1]$ comes from the reduced angular dynamics after symmetry reduction. What remains is an effective diffusion with drift/potential, and the limiting correlation is obtained by exponentiating that generator and testing it against the constant function.
+
+\subsection*{6. Matching and error control}
+Finally, the paper proves that the original normalized correlation and the effective semigroup expression differ by a vanishing error. This requires several layers of norm estimates: control of the off-saddle region, comparison of the exact transfer operator with its approximations, and stability of the dominant eigenspaces during the reduction steps.
+
+So the theorem is not merely formal asymptotics; it is a rigorous transfer from the original random-matrix observable to the continuum critical generator.
+
+\section*{Why it matters, limitations, and takeaway}
+\textbf{Why it matters.} The result fills the last missing regime in this particular observable for non-Hermitian random band matrices. The threshold $W\sim\sqrt N$ is the natural place where localization-type behavior and mean-field behavior compete. Showing that the answer converges to a nontrivial operator crossover is strong evidence that the non-Hermitian band model has a genuine critical theory, not just two disconnected asymptotic phases.
+
+It also strengthens the analogy with the Hermitian random band matrix program, where $\sqrt N$ is the famous one-dimensional critical scale. Even though characteristic polynomial correlations are not the same as full local eigenvalue statistics, they are analytically accessible and often encode the same phase transition structure in a rigorous form.
+
+\textbf{Limitations.} The model is Gaussian and the observable is specialized. So the paper does not directly prove the full eigenvalue point-process transition for general non-Hermitian band matrices. The critical limit is given as an operator formula rather than a simple closed-form expression, which is mathematically sharp but less immediately transparent. Also, because the method is heavily SUSY-transfer-matrix based, extending it to more general entry distributions will require additional universality machinery.
+
+\textbf{Takeaway.} The paper identifies the correct critical object at bandwidth $W\asymp\sqrt N$: the normalized second correlation of characteristic polynomials converges to a semigroup generated by an explicit differential operator. In short, the threshold regime is real, nontrivial, and rigorously tractable. If one cares about the emergence of critical phenomena in non-Hermitian random band models, this is exactly the kind of result that clarifies what the crossover looks like before the full local-statistics theory is available.
+
+\end{document}

@@ -1,0 +1,109 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Liberation Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\usepackage{amsmath,amssymb}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+\begin{document}
+
+\begin{center}
+{\LARGE \textbf{Theory Report}}\\[0.5em]
+{\large The circular law for sparse random combinatorial matrices}\\[0.35em]
+Dongbin Li, Alexander E. Litvak, Tingzhou Yu\\
+\href{https://arxiv.org/abs/2604.10446}{arXiv:2604.10446}\\
+Digest date: 2026-04-14
+\end{center}
+
+\section*{Paper information}
+The paper studies a non-Hermitian sparse random matrix model with strong within-row dependence. Let $M_n$ be an $n\times n$ $\{0,1\}$-matrix in which each row is sampled independently and uniformly from the set of binary vectors having exactly $d$ ones. Equivalently, each row has fixed out-degree $d$, but column sums are unconstrained. The main question is whether the empirical spectral distribution (ESD) of the properly normalized matrix obeys the circular law when $d$ grows with $n$ but remains sparse relative to $n$.
+
+The natural normalization is
+\[
+\overline{M_n}=\frac{M_n}{\sqrt{d(1-d/n)}}.
+\]
+The target limiting law is the uniform probability measure on the unit disk in $\mathbb C$.
+
+\section*{Executive summary}
+The headline result is that sparse random combinatorial matrices satisfy the circular law under a polylogarithmic lower bound on the row degree. More precisely, if
+\[
+\min\{d,n-d\}\ge (\log n)^{2+\varepsilon}
+\qquad\text{and}\qquad
+\min\{d,n-d\}/n\to 0,
+\]
+then the ESD of $\overline{M_n}$ converges in probability to the circular law. This extends universality from sparse i.i.d. Bernoulli matrices to a dependent-entry model where each row has an exact combinatorial constraint.
+
+The technical engine is a quantitative lower-tail estimate for the smallest singular value of shifted matrices $M_n-zI$. That estimate is strong enough to support Girko-style hermitization and comparison with sparse Bernoulli matrices. Intuitively, the paper proves that the fixed-row-sum dependence does not change the large-scale complex spectrum once $d$ is at least mildly superlogarithmic, even though local invertibility estimates are significantly harder than in the i.i.d. case.
+
+\section*{Problem setup and intuition}
+For a matrix $A$, its ESD is
+\[
+\mu_A=\frac1n\sum_{i=1}^n \delta_{\lambda_i(A)}.
+\]
+In the non-Hermitian setting, direct moment methods are awkward because eigenvalues live in the plane. The standard route is to study singular values of $A-zI$ for complex shifts $z$, using the logarithmic potential
+\[
+U_{\mu_A}(z)=-\frac1n\log|\det(A-zI)|
+      =-\int_0^{\infty}\log t\,d\nu_{A-zI}(t),
+\]
+where $\nu_{A-zI}$ is the empirical singular-value distribution of $A-zI$.
+
+The model sits between two better-understood ensembles. It is sparser than dense fixed-row-sum matrices previously treated by Nguyen--Vu, and more dependent than sparse i.i.d. Bernoulli matrices. The row independence helps, but exact row sums create strong negative dependence within each row. A naive transplant of i.i.d. least-singular-value arguments fails because anti-concentration and net bounds no longer interact cleanly with the combinatorial constraint.
+
+The intuition is that global spectral behavior should still resemble the sparse Bernoulli model with parameter $p=d/n$: once $d\to\infty$, each row is spread over many coordinates, and after normalization the matrix has approximately the same variance profile as Bernoulli($p$). The hard part is showing that the row-sum constraint does not create too many nearly singular shifts.
+
+\section*{Main theorem and companion invertibility result}
+The main theorem can be stated informally as follows.
+
+\textbf{Circular law.} Fix $\varepsilon\in(0,1)$. If $\min\{d,n-d\}\ge (\log n)^{2+\varepsilon}$ and $\min\{d,n-d\}=o(n)$, then
+\[
+\mu_{\overline{M_n}} \Longrightarrow \mu_{\mathrm{circ}}
+\qquad\text{in probability,}
+\]
+where $\mu_{\mathrm{circ}}$ is the uniform measure on the unit disk.
+
+The key quantitative input is the least-singular-value estimate for shifts.
+
+\textbf{Shifted invertibility.} There exist absolute constants so that, for sufficiently large $n$, whenever
+\[
+C\log n\le d\le n/2,
+\qquad |z|\le \sqrt d\,\log\log d,
+\]
+one has
+\[
+\mathbb P\big(s_n(M_n-zI)\le n^{-\beta}\big)\le C_1/\sqrt d,
+\]
+for some exponent $\beta=\beta(n,d)$ bounded by $O(\log\log n)$, with better numerical bounds when $d$ is larger (for example $\beta<9$ if $d\ge (\log n)^2$).
+
+This is already interesting on its own: in the sparse regime, even proving that $M_n$ is nonsingular with high probability is delicate, and this paper gives a quantitative lower bound on the smallest singular value, not just a zero-probability statement.
+
+\section*{Proof architecture}
+The proof has two intertwined layers.
+
+\textbf{1. Compare to the sparse Bernoulli ensemble.} Let $\mathcal B_{n,p}$ be an $n\times n$ matrix with i.i.d. Bernoulli entries, where $p=d/n$, and normalize it the same way. Since the sparse Bernoulli circular law is known when $np\to\infty$, it suffices to show that the logarithmic potentials of $\overline{M_n}$ and $\overline{\mathcal B_{n,p}}$ are asymptotically close for almost every complex shift $z$. This reduces the problem to controlling singular values of $\overline{M_n}-zI$.
+
+\textbf{2. Hermitization requires uniform integrability of $\log t$.} Weak convergence of singular-value measures alone is not enough. One must rule out excessive mass near zero. Hence the smallest singular value of $M_n-zI$ must be bounded from below with high probability, together with suitable control of intermediate singular values.
+
+\textbf{3. Split the sphere into structured and unstructured vectors.} The authors partition the unit sphere into \emph{almost constant} vectors and their complement. An almost constant vector is one for which most coordinates lie within $\rho/\sqrt n$ of some complex number $\lambda$. This class captures vectors that look like a constant vector plus a sparse perturbation. Such vectors have lower metric complexity and can be handled by net arguments.
+
+\textbf{4. Control the structured class.} For almost constant vectors, the goal is to show that both right multiplication $\|M_nx\|_2$ and left multiplication $\|\bar x M_n\|_2$ stay away from zero. Because the model is not column-exchangeable in the way $d$-regular matrices are, the left and right problems are genuinely different. The proofs combine concentration, negative association within rows, and graph-expansion properties of the random support pattern.
+
+\textbf{5. Control the unstructured class through small-ball bounds.} On the complementary class, the authors exploit the lack of additive structure to obtain anti-concentration for random row evaluations. This requires delicate conditioning because row entries are dependent. A major theme is that one cannot simply reuse dense fixed-row-sum arguments: sparsity weakens the randomness available after conditioning. The paper therefore develops new concentration estimates, including a ``triple norm'' framework and expansion lemmas tailored to sparse combinatorial matrices.
+
+\textbf{6. Build restricted operator norm estimates.} A Kahn--Szemer\'edi-type decomposition handles heavy and light coordinate interactions. This yields restricted operator norm bounds needed to turn combinatorial expansion into quantitative invertibility information.
+
+\textbf{7. Finish the least-singular-value theorem.} After proving lower bounds on all relevant vector classes, a union of the structured and unstructured analyses gives the stated probability estimate for $s_n(M_n-zI)$.
+
+\textbf{8. Return to the ESD.} With singular-value tails in hand, the replacement principle and comparison with sparse Bernoulli matrices imply convergence of logarithmic potentials and therefore the circular law.
+
+\section*{Why it matters, limitations, and takeaway}
+This is a meaningful universality result for a sparse dependent model that is natural from both combinatorics and graph theory. The matrix can be viewed as the adjacency matrix of a random directed graph with fixed out-degree $d$, so the theorem says that exact local combinatorial constraints do not destroy global complex spectral universality once $d$ is moderately large.
+
+The main limitation is the degree assumption. The theorem needs roughly $d\ge (\log n)^{2+\varepsilon}$, while heuristic pictures and numerical evidence suggest the circular law could hold much closer to the information-theoretic threshold $d\to\infty$. The paper also controls shifts only in the regime $|z|\le \sqrt d\,\log\log d$ at the least-singular-value stage; this is enough for the global argument, but it reflects where the current method has traction. So the result is likely not the endpoint, but rather a strong proof-of-concept for handling sparse matrices with exact row-sum dependence.
+
+The conceptual takeaway is simple: for sparse non-Hermitian matrices, the circular law is largely governed by variance scale and robust invertibility rather than by fine independence structure. Once one can prove the right smallest-singular-value estimate, universality survives substantial combinatorial dependence.
+
+\end{document}
