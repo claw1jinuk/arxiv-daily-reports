@@ -1,33 +1,84 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Liberation Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\usepackage{amsmath,amssymb,mathtools}
 \usepackage{hyperref}
-\usepackage{enumitem}
-\usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\title{\textbf{Theory-mode report: Level Crossing in Random Matrices. III. Analogs of Girko's circular and Wigner's semicircle laws}}
-\author{Generated from Scholar Inbox digest}
-\date{Digest date: 2026-04-29}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
 \begin{document}
-\maketitle
-\section*{Paper information}
-\begin{itemize}[leftmargin=1.5em]
-\item \textbf{Title:} Level Crossing in Random Matrices. III. Analogs of Girko's circular and Wigner's semicircle laws
-\item \textbf{Authors:} B. Shapiro
-\item \textbf{arXiv:} \href{https://arxiv.org/abs/2604.25785}{2604.25785}
-\item \textbf{Scholar digest score:} 97.0
-\end{itemize}
-\section*{Executive summary}
-This report summarizes the highest-scoring paper in the Scholar Inbox digest dated \textbf{2026-04-29}. The abstract states the core claim as follows: \emph{We study the asymptotic distribution of level crossings for random matrix pencils A\_n+λB\_n in several ensembles, including complex and real i.i.d. matrices and Gaussian/Hermitian settings. We derive a representation of the normalized log-discriminant in terms of pairwise eigenvalue interactions and formulate conditions under which its limit is governed by a deterministic potential.
-  Under assumptions combining a uniform circular law, logarithmic tail control, and small-spacing (repulsion) estimates, we prove convergence of the empirical measure of level crossings to an explicit deterministic limit. In the complex Gaussian case these assumptions are verified (modulo a uniformity step), while in the general i.i.d. setting the results are conditional and motivated by universality theory.
-  We further analyze the real case, showing that any limiting measure does not concentrate on the real }.
+\begin{center}
+{\Large \textbf{Theory Report: Level Crossing in Random Matrices. III. Analogs of Girko's circular and Wigner's semicircle laws}}\\[0.5em]
+{\large Boris Shapiro}\\[0.25em]
+\texttt{arXiv:2604.25785} \quad \url{https://arxiv.org/abs/2604.25785}
+\end{center}
 
-\section*{Problem setup and intuition}
-The introduction reinforces this lens: the paper appears motivated by a gap between practical behavior and theoretical understanding.
+\textbf{Paper information.} The paper studies the discriminant set of random matrix pencils $A_n+\lambda B_n$: the values of $\lambda\in\mathbb{CP}^1$ for which the pencil develops a repeated eigenvalue. Rather than asking where eigenvalues of one large random matrix live, the paper asks where spectral degeneracies of an entire one-parameter family accumulate. The main message is that, under circular-law and eigenvalue-repulsion inputs, the level-crossing cloud obeys a spherical analogue of classical random-matrix limit laws.
+
+\section*{Executive summary}
+A level crossing is a branch point of the spectral cover of the pencil $A_n+\lambda B_n$, so it is governed by the discriminant of the characteristic polynomial in $\lambda$. For complex Ginibre pencils, previous work showed an exact finite-$n$ miracle: the level crossings are already uniformly distributed on $\mathbb{CP}^1$. This paper asks how far that phenomenon extends beyond the Gaussian setting and how it changes in real and Hermitian symmetry classes.
+
+The central theorem proves a conditional universality statement for full complex i.i.d. pencils. After the natural normalization
+\[
+\widehat C_n(\lambda)=\frac{A_n+\lambda B_n}{\sigma\sqrt{n(1+|\lambda|^2)}},
+\]
+if one has a uniform circular law, a uniform small-spacing estimate, and control of logarithmic tails, then the empirical level-crossing measure converges in probability to the spherical density
+\[
+\frac{dx\,dy}{\pi(1+|\lambda|^2)^2}.
+\]
+So Girko's circular law for eigenvalues is replaced by a \emph{uniform spherical law for discriminant points}.
+
+The paper then turns to real pencils and to Hermitian/GOE/GUE regimes. There the same potential-theoretic framework survives, but the answer may acquire symmetry-class corrections, especially near $\mathbb{RP}^1$. The paper isolates exactly where those corrections could enter and proves conditional results that reduce the problem to asymptotics of suitable logarithmic potentials.
+
+\section*{Problem setup and why it is different from usual spectral laws}
+For a fixed $\lambda$, one can inspect the eigenvalues of $A_n+\lambda B_n$. But the paper tracks the exceptional parameters where two eigenvalues collide. Those exceptional points are the zeros of the discriminant in $\lambda$, hence there are generically $n(n-1)$ of them, counted with multiplicity. Their normalized counting measure is the object of study.
+
+This is genuinely different from standard random-matrix asymptotics. Ordinary eigenvalue laws are one-shot statements about a matrix ensemble. Here the object is a global feature of the whole parameterized family. The natural geometry is therefore the Riemann sphere in the parameter variable rather than the spectral plane alone.
+
+A key identity is that the logarithm of the discriminant can be rewritten as a pair-interaction energy of the eigenvalues of the normalized matrix $\widehat C_n(\lambda)$. Once that is done, the limiting level-crossing measure can be extracted by applying the Poincar\'e--Lelong operator $\frac{1}{2\pi}\Delta_\lambda$ to the asymptotic log-discriminant.
+
+\section*{Main theorem and its meaning}
+The main complex theorem assumes three inputs for $\widehat C_n(\lambda)$, uniformly on compact sets in $\lambda$:
+\begin{itemize}
+\item a uniform circular law for the empirical eigenvalue measure,
+\item a small-repulsion estimate ruling out excessive contribution from extremely close eigenvalue pairs,
+\item and a logarithmic-tail bound controlling far-out eigenvalues in the pair energy.
+\end{itemize}
+Under those hypotheses, the empirical level-crossing measure of $A_n+\lambda B_n$ converges weakly in probability to the uniform spherical measure on $\mathbb{CP}^1$.
+
+Conceptually, the theorem says that once the local pair singularity in the discriminant energy is tamed and the global eigenvalue distribution is circular uniformly in the pencil parameter, the only surviving $\lambda$-dependence is the elementary normalization factor $(1+|\lambda|^2)^{-1/2}$. Its Laplacian gives exactly the density $(\pi(1+|\lambda|^2)^2)^{-1}$.
+
+The real-i.i.d. part proves a matching conditional theorem away from the real axis and adds a no-concentration condition near $\mathbb{RP}^1$. This extra assumption is unavoidable in spirit: real symmetry can force crossings to accumulate on the real projective line, so one must exclude an $O(n^2)$ cloud of almost-real crossings before concluding the same spherical limit.
+
+For GOE pencils, the paper derives an elegant structural reduction: after normalization, the expected potential depends on $\lambda$ only through the pseudocovariance parameter
+\[
+\tau(\lambda)=\frac{1+\lambda^2}{1+|\lambda|^2}.
+\]
+This pins down the functional form of any possible non-uniform correction and clarifies what must be shown to prove true GOE universality.
 
 \section*{Proof architecture}
-The technical core appears to build the surrogate quantity and the chain of lemmas needed to propagate local control into the final theorem: the paper follows a standard theory-paper structure with structural reduction plus quantitative bounds.
+\textbf{1. Discriminant as logarithmic energy.} The discriminant of the characteristic polynomial of the pencil is expressed as a product over squared eigenvalue gaps. Taking logarithms converts level crossings into a two-particle interaction functional of the eigenvalues of $\widehat C_n(\lambda)$.
 
-\section*{Takeaway}
-The key reusable lesson is to define the right object, find the structural reduction, and quantify the error terms clearly.
+\textbf{2. Uniform-in-$\lambda$ control.} The theorem is deliberately formulated with three hypotheses---UCL, SR, LT---that separate the proof into global density, short-distance singularity, and tail control. This packaging makes the argument modular and compatible with future universality inputs from non-Hermitian random matrix theory.
+
+\textbf{3. Potential theory in the parameter variable.} After proving that the normalized log-discriminant equals
+\[
+\frac12\log(1+|\lambda|^2)+\text{constant}+o(1)
+\]
+in local probability sense, one applies $\frac{1}{2\pi}\Delta_\lambda$ distributionally. The constant disappears, while the Laplacian of $\frac12\log(1+|\lambda|^2)$ gives the spherical density.
+
+\textbf{4. Real and Hermitian refinements.} In the real case the same argument works off $\mathbb{RP}^1$, but one must separately rule out hidden singular mass on the real projective line. In the Hermitian sections, the circular-law input is replaced by semicircle-type behavior and by conjectural control of the corresponding logarithmic potentials.
+
+What is nice here is that the proof does not depend on detailed formulas for the discriminant itself. Everything is funneled through asymptotics of eigenvalue statistics plus a clean geometric identity.
+
+\section*{Why it matters, limitations, and takeaway}
+The paper matters because it opens a less standard but very natural branch of random matrix theory: universality for spectral degeneracies of random pencils. The result is conceptually sharp. Girko's circular law describes the equilibrium of eigenvalues of one matrix; this paper shows that the analogous equilibrium for level crossings of a random family is spherical in the parameter space.
+
+The main limitation is that the flagship results outside Gaussian models are conditional. The assumptions are plausible and well aligned with modern local laws and universality heuristics, but the paper does not prove the required uniform small-spacing estimates in the full generality it states. Likewise, the real and GOE sectors isolate the right mechanism, yet still leave a genuine universality problem open.
+
+My takeaway is that the paper turns a messy discriminant problem into a crisp potential-theoretic statement. Once the eigenvalue cloud behaves circularly and near-collisions are controlled uniformly in the pencil parameter, the geometry of $\mathbb{CP}^1$ forces the limit law. That is both elegant and surprisingly robust.
 \end{document}
