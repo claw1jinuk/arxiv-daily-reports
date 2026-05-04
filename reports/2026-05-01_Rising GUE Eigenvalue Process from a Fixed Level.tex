@@ -1,0 +1,109 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+\title{\textbf{Theory-mode report: Rising GUE Eigenvalue Process from a Fixed Level}}
+\author{Generated from Scholar Inbox digest}
+\date{Digest date: 2026-05-01}
+\begin{document}
+\maketitle
+
+\section*{Paper information}
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Title:} Rising GUE Eigenvalue Process from a Fixed Level
+\item \textbf{Author:} Zoe Himwich
+\item \textbf{arXiv:} \href{https://arxiv.org/abs/2604.27619}{2604.27619}
+\item \textbf{Scholar digest score:} 96
+\item \textbf{Primary area:} Probability / random matrix theory
+\end{itemize}
+
+\section*{Executive summary}
+The paper studies the \emph{rising eigenvalue process}: start with a Hermitian matrix, look at the eigenvalues of its top-left $m\times m$ principal minor, then of the $(m+1)\times(m+1)$ minor, then the next, and so on. Because eigenvalues of successive minors interlace, this produces a multilevel random point configuration. For the Gaussian Unitary Ensemble (GUE), the unconditioned version of this process is classical and determinantal. The new problem here is more delicate: fix the entire eigenvalue configuration at level $m$, and ask for an explicit multilevel kernel for the future levels.
+
+Himwich gives that kernel, proves that after only a polylogarithmic number of additional levels the local process already looks like the extended semi-discrete sine kernel, and then uses this as a substitute for a Dyson Brownian motion relaxation step. The payoff is a fixed-energy bulk universality theorem for complex Hermitian Wigner matrices with GUE covariance structure under a finite $4+\varepsilon$ moment assumption. Conceptually, the paper shows that one can inject Gaussian structure in a very localized way---by adding only new rows and columns above a fixed principal minor---and still recover the universal bulk statistics.
+
+\section*{Problem setup and intuition}
+Let $H^{(n)}$ be an $n\times n$ Hermitian Wigner matrix and let
+\[
+\lambda^{(n)}=(\lambda^{(n)}_1>\cdots>\lambda^{(n)}_n)
+\]
+be its ordered eigenvalues. As $n$ grows, the sequence $\lambda^{(1)},\lambda^{(2)},\ldots$ forms the rising eigenvalue process, with interlacing
+\[
+\lambda^{(n+1)}_i \ge \lambda^{(n)}_i \ge \lambda^{(n+1)}_{i+1}.
+\]
+For GUE this is a highly structured integrable object. The paper fixes a starting configuration
+\[
+x^{(m)}=(x^{(m)}_1>\cdots>x^{(m)}_m)
+\]
+at some large level $m$, and studies the conditional law of all future levels $m+1,m+2,\dots$.
+
+Why should this converge to a universal local object? The heuristic is that if the starting configuration already has the right local density and rigidity properties around a bulk energy $X\in(-2,2)$, then repeatedly adding one Gaussian row and column should quickly wash away the fine details of the initial condition. The process should retain only the local density parameter, which in the GUE bulk is encoded by the semicircle density
+\[
+\rho_{\mathrm{sc}}(X)=\frac{1}{2\pi}\sqrt{4-X^2}.
+\]
+The expected limiting object is therefore the extended semi-discrete sine kernel (equivalently Boutillier's bead kernel), the natural multilevel bulk limit of GUE minor statistics.
+
+The second layer of intuition is methodological. Standard fixed-energy universality proofs often add a small Gaussian perturbation to \emph{every} entry and then show fast equilibration of Dyson Brownian motion. This paper instead adds Gaussian structure only through the new rows and columns beyond a frozen principal minor. The resulting conditional multilevel process remains sufficiently explicit to analyze by contour integrals.
+
+\section*{Main theorem/result (informal but precise)}
+The paper has three tightly linked main results.
+
+\textbf{1. Explicit determinantal kernel from a fixed level.} For the GUE rising process started from a deterministic configuration $x^{(m)}$, the future multilevel point process is determinantal. The paper gives an explicit double-contour formula for its kernel $K^{\mathrm{GUE}}_{x^{(m)}}(n_1,x_1;n_2,x_2)$. This is the structural backbone of the paper: once the kernel is available, local statistics can be attacked by asymptotic analysis.
+
+\textbf{2. Fast convergence to the extended semi-discrete sine kernel.} Let $T=T(m)$ satisfy
+\[
+(\log m)^4 \ll T \ll m^{2/3}.
+\]
+Then, on a high-probability event for the starting Wigner configuration at level $m$, if one rescales around a bulk energy $X\sqrt m$, the conditional kernel after $T$ additional levels obeys
+\[
+\frac{1}{\sqrt m}\,\widetilde K^{\mathrm{GUE}}_{x^{(m)}}\!\left(n_1+T, X\sqrt m+\frac{x_1}{\sqrt m};\, n_2+T, X\sqrt m+\frac{x_2}{\sqrt m}\right)
+\approx K^{\mathrm{sine}}_{a(X)}(n_1,x_1;n_2,x_2),
+\]
+uniformly on compact sets, with an $O(T^{-1/2})$ error. Here $a(X)=X/2+i\pi\rho_{\mathrm{sc}}(X)$. In words: after only polylogarithmically many upward steps, the local multilevel statistics forget the microscopic initial condition and become universal.
+
+\textbf{3. Fixed-energy bulk universality for Wigner matrices.} Using that kernel limit plus a Lindeberg comparison, the paper proves that for complex Hermitian Wigner matrices matching the covariance structure of GUE and having finite $4+\varepsilon$ moments, the rescaled $k$-point correlation measures at any bulk energy $X\in(-2+\alpha,2-\alpha)$ converge to the GUE ones. This yields fixed-energy bulk universality without a separate Dyson Brownian motion relaxation argument.
+
+The precise contribution is not merely another universality statement. It identifies a new route to universality: condition on a large principal minor, evolve only through additional Gaussian rows/columns, prove a multilevel kernel limit, and then compare back to the original Wigner ensemble.
+
+\section*{Proof architecture}
+The proof strategy has a clean modular shape.
+
+\textbf{Step 1: Build the conditional kernel.}
+The first task is to express the future GUE minor process conditioned on $x^{(m)}$ as a determinantal point process. The author adapts the Eynard--Mehta framework to a process that starts from a fixed level rather than from the usual unconditioned entrance law. This is technically nontrivial because the conditioning is imposed on an entire level of an interlacing array. The final answer is a double-contour integral with a factor
+\[
+\prod_{r=1}^m \frac{w-x^{(m)}_r}{z-x^{(m)}_r},
+\]
+which packages the influence of the frozen starting configuration.
+
+\textbf{Step 2: Put the starting configuration on a good event.}
+To turn the kernel formula into a universal limit, the initial configuration must resemble a typical Wigner bulk configuration. The paper imports local semicircle law, eigenvalue rigidity, and related control estimates to define a high-probability event $\Omega_m$. On $\Omega_m$, the empirical distribution near $X\sqrt m$ has the right density and no pathological clumping at the scales relevant for steepest descent.
+
+\textbf{Step 3: Analyze the contour integral asymptotically.}
+With the kernel written explicitly, the paper performs a steepest descent analysis after zooming into bulk scale. The saddle point is determined by the bulk energy $X$, and the logarithmic potential generated by the fixed level contributes through the product term above. Because the initial configuration satisfies rigidity and density estimates, this product behaves like the deterministic semicircle potential plus controllable error. After deforming contours and isolating the main saddle contribution, the kernel converges to the extended semi-discrete sine kernel with quantitative error $O(T^{-1/2})$.
+
+\textbf{Step 4: Convert multilevel universality into single-energy universality.}
+The target Wigner matrix of size $n$ is decomposed as an $m\times m$ principal minor plus $T=n-m$ added rows and columns. The conditional law of the Gaussianized extension can be analyzed using the kernel limit from Step 3. This provides the GUE comparison ensemble at the correct fixed energy.
+
+\textbf{Step 5: Lindeberg comparison back to the original Wigner ensemble.}
+The final ingredient is a swap argument adapted to pairs of matrices sharing the same principal minor. Entry-by-entry replacement compares the local statistics of the original Wigner extension with those of the Gaussian extension, using only the finite $4+\varepsilon$ moment assumption and covariance matching. Since the Gaussian extension is already known to have sine-kernel statistics from Step 3, the original Wigner matrix inherits the same limit.
+
+The architecture is elegant because each component does one sharply defined job: integrable probability supplies an exact kernel, random matrix estimates certify the initial data as regular, steepest descent produces the universal limit, and Lindeberg comparison removes the residual Gaussianity.
+
+\section*{Why it matters, limitations, and takeaway}
+\textbf{Why it matters.} The paper strengthens the conceptual toolkit for universality. The dominant modern picture often routes through Dyson Brownian motion: add a tiny Gaussian perturbation everywhere, wait a short time, and prove equilibration. Himwich shows there is another route. One can localize the Gaussianization to the rows and columns beyond a frozen minor, keep an exact conditional kernel, and still recover the same bulk statistics. That is genuinely useful because it separates the ``integrable smoothing'' mechanism from full global matrix diffusion.
+
+It also pushes on assumptions. The result works for complex Hermitian Wigner matrices with finite $4+\varepsilon$ moments, close to the expected threshold where universality should hold. The paper therefore contributes both a new proof style and a proof under near-optimal moment assumptions.
+
+\textbf{Limitations.} The argument is currently tailored to the complex Hermitian/GUE symmetry class and relies on covariance matching with GUE. The time window for the kernel asymptotics is also restricted to $T$ between polylogarithmic scale and $m^{2/3}$ in the main statement, although the paper notes a more flexible variant with weaker rates. Finally, the proof leans heavily on strong input estimates such as rigidity and local semicircle laws rather than deriving those from scratch.
+
+\textbf{Takeaway.} The main lesson is that conditioning on a large principal minor does not destroy universality; instead, with the right kernel formula, it becomes a powerful coordinate system for proving it. The paper's central insight is that a fixed-level conditional GUE process rapidly thermalizes to the bead/sine-kernel world, and that this rapid local thermalization is already enough to prove fixed-energy universality for Wigner matrices. In short: explicit conditional kernel $\rightarrow$ fast multilevel bulk limit $\rightarrow$ fixed-energy universality.
+
+\end{document}
