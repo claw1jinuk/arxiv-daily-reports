@@ -1,0 +1,101 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\setmainfont{Liberation Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath,amssymb}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.7em}
+
+\begin{document}
+
+\begin{center}
+{\Large \textbf{Theory-mode report: A Berry-Esseen Bound for Quantum Lattice Systems}}\\[0.4em]
+Digest date: 2026-05-06\\
+Authors: Marcus Cramer, Fernando G. S. L. Brand\~ao, M\u{a}d\u{a}lin Gu\c{t}\u{a}, \`Alvaro M. Alhambra, Matteo Scandi\\
+ArXiv: \href{https://arxiv.org/abs/2605.03829}{2605.03829}
+\end{center}
+
+\section*{Executive summary}
+This paper proves a finite-size Gaussian approximation theorem for measurements of local observables in large quantum lattice systems. The headline result is a Berry--Esseen-type bound: after centering and rescaling a local Hamiltonian $H$, the cumulative distribution of measurement outcomes is close to the standard normal distribution, with an error that decays as $N^{-1/2}$ up to logarithmic factors when the state has short-range correlations. In plainer language: if a many-body quantum state has sufficiently weak long-distance correlations and the observable is a sum of bounded local terms, then the observable behaves almost like a sum of weakly dependent random variables, not just asymptotically but with an explicit quantitative convergence rate.
+
+The paper matters because central-limit behavior for many-body systems is widely used informally, but rigorous finite-size error bars are harder to get in interacting quantum settings. The authors provide those error bars under broad assumptions: arbitrary spatial dimension, bounded-range local Hamiltonians, and states with either exponential or sufficiently fast algebraic decay of correlations. The argument also clarifies why the right object to study is the characteristic function of the normalized Hamiltonian and how one can compare it to the Gaussian characteristic function $e^{-\omega^2/2}$.
+
+\section*{Problem setup and intuition}
+The system lives on a lattice $\mathcal X$ with $N=|\mathcal X|$ sites. The Hamiltonian is
+\[
+H = \sum_{j\in \mathcal X} h_j,
+\]
+where each local term $h_j$ is $R$-local and uniformly bounded in operator norm. The state $\rho$ is not assumed to be a product state, but it must have decaying correlations: observables supported far apart are approximately independent, with the correlation error controlled by a decay function $\alpha(\ell)$.
+
+The object of interest is the distribution obtained by measuring $H$ in the state $\rho$. Write its mean as $\mu_H=\langle H\rangle_\rho$ and variance as $\sigma_H^2 = \langle (H-\mu_H)^2\rangle_\rho$. The normalized observable is
+\[
+\widehat H = \frac{H-\mu_H}{\sigma_H}.
+\]
+The authors compare the cumulative distribution function of $\widehat H$ to the standard Gaussian cdf $G(y)$. Their error metric is the Kolmogorov distance
+\[
+\Delta = \sup_y |F_{\widehat H}(y)-G(y)|.
+\]
+A lower bound $\sigma_H^2 \ge c_0 E^2 N$ is assumed so the fluctuations are genuinely extensive; otherwise one could not expect macroscopic Gaussian behavior.
+
+The intuition is classical but the implementation is quantum. If $H$ were a sum of independent random variables, the Berry--Esseen theorem would give $\Delta = O(N^{-1/2})$. Here the terms in $H$ are neither commuting nor independent. The paper's main contribution is to show that locality plus correlation decay is still enough to recover nearly the same scaling, because long-range dependence can be controlled and noncommutativity can be organized into manageable error terms.
+
+\section*{Main theorem and what it really says}
+The cleanest warm-up is the product-state case. If $\rho = \bigotimes_i \rho_i$, then the paper proves
+\[
+\Delta \le \frac{K}{\sqrt N},
+\]
+for a constant $K=O(1)$ depending on local parameters but not on system size. This exactly matches the familiar square-root Berry--Esseen scaling.
+
+The more interesting result is for correlated states. Suppose correlations decay exponentially, roughly $\alpha(\ell)\sim e^{-\ell/\xi}$. Then, for sufficiently large $N$,
+\[
+\Delta \le f_1(N)\frac{(\log N)^{2D}}{\sqrt N},
+\]
+where $D$ is the lattice dimension and $f_1(N)$ is explicitly bounded by a constant. So one loses only polylogarithmic factors relative to the ideal i.i.d. rate. For polynomially decaying correlations $\alpha(\ell)\sim \ell^{-(D+\beta)}$, the convergence is slower but still quantitative, with an exponent determined by $\beta$ and $D$.
+
+Informally, the theorem says: short-range correlations do not destroy Gaussian finite-size statistics for extensive local observables. They only weaken the convergence rate in a controlled way. This is strong enough to feed into applications where one needs nonasymptotic control, such as ensemble equivalence, thermometry, thermalization estimates, and the study of scarred or atypical states.
+
+\section*{Proof architecture}
+The proof runs through the characteristic function
+\[
+\varphi_{\widehat H}(\omega)=\langle e^{i\omega \widehat H}\rangle_\rho.
+\]
+For a perfect Gaussian, the characteristic function is exactly $e^{-\omega^2/2}$. So the job is to show that $\varphi_{\widehat H}(\omega)$ stays close to this Gaussian model for a large enough window of frequencies, then convert that comparison into a bound on distribution functions using Esseen's inequality.
+
+The proof has three main layers.
+
+\textbf{1. Derive a near-Gaussian differential equation.} The authors prove that $\varphi_{\widehat H}$ satisfies
+\[
+\varphi'_{\widehat H}(\omega) = (-\omega + \eta(\omega))\varphi_{\widehat H}(\omega) + \nu(\omega),
+\]
+with $\varphi_{\widehat H}(0)=1$. If the error terms $\eta$ and $\nu$ vanished, this differential equation would have the exact solution $e^{-\omega^2/2}$. So the whole problem reduces to bounding $\eta$ and $\nu$.
+
+\textbf{2. Control the error terms from locality and correlation decay.} This is where the quantum work happens. The lattice is partitioned into blocks at a mesoscopic scale $\ell$, and the proof tracks how truncations, commutators, and residual correlations contribute to the deviation from Gaussianity. Roughly speaking, $\eta$ captures multiplicative distortion of the Gaussian differential equation, while $\nu$ captures additive defects. Their bounds depend on block size $\ell$, a separation parameter $M$, and an auxiliary scale $K$. These are tuned so that correlation tails, block-boundary effects, and noncommuting remainders all become small simultaneously.
+
+\textbf{3. Convert characteristic-function control into distributional control.} With the bound
+\[
+|\varphi_{\widehat H}(\omega)-e^{-\omega^2/2}|
+\]
+valid for frequencies up to some cutoff $\Omega$, Esseen's inequality yields an explicit estimate for $\Delta$. Choosing $\Omega$ and the mesoscopic parameters carefully produces the final $N$-dependent rate. For product states the optimization is clean and gives $N^{-1/2}$. For exponentially decaying correlations, one picks $\ell$ proportional to $\log N$, which is exactly where the polylogarithmic loss comes from.
+
+A good way to read the argument is this: the proof manufactures an ``approximately independent block decomposition'' while paying a precise price for residual correlations and noncommutativity. Gaussianity then emerges because, after normalization, the leading behavior of the log-characteristic function is still quadratic in $\omega$.
+
+\section*{Why the result is believable}
+Two ingredients make the theorem feel structurally right.
+
+First, the variance assumption scales like $\sigma_H^2 = \Theta(N)$, which is the correct extensive regime for a central-limit statement. Without this, the normalized observable could be dominated by a small exceptional region and fail to look Gaussian.
+
+Second, the distance metric is the Kolmogorov distance between cumulative distributions, which is exactly the quantity controlled by Esseen's inequality. So the proof target is matched to the Fourier-analytic tool, rather than inferred indirectly from moments alone. That is important in quantum settings because matching low moments is much weaker than showing closeness of the full measurement distribution.
+
+\section*{Why it matters, limitations, and takeaway}
+The paper turns a folk principle into a usable theorem: local quantum many-body observables look Gaussian at large scale, and we now know how fast that approximation improves with system size under realistic correlation assumptions. That makes it valuable as infrastructure. The authors themselves note applications to equivalence of ensembles, effective dimension bounds, thermalization arguments, coarse-grained thermometry, energy filtering, and the analysis of special eigenstate structure.
+
+There are also limits. The theorem needs bounded-range local terms, a variance lower bound, and correlation decay strong enough to make the tail sums finite. The best rate for correlated states still carries logarithmic or correlation-dependent losses, so it is not a perfect transplant of the classical i.i.d. Berry--Esseen theorem. Long-range Hamiltonians are not handled in the same generality, and some technical restrictions in the proof likely reflect the method rather than the true behavior.
+
+The takeaway is sharp and useful: in a large quantum lattice system, locality plus short-range correlation decay is enough to force approximate Gaussian statistics for extensive local observables, with explicit finite-size error bounds. If you need one sentence to remember this paper, it is: \emph{quantum many-body central-limit behavior survives finite size and interactions, and the paper quantifies exactly how close to Gaussian the observable distribution already is at system size $N$.}
+
+\end{document}
