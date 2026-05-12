@@ -1,0 +1,123 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\setmainfont{Liberation Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath,amssymb}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.7em}
+
+\begin{document}
+
+\begin{center}
+{\Large \textbf{Theory-mode report: Multiscale Structure of Eigenstate Thermalization}}\\[0.4em]
+Digest date: 2026-05-11\\
+Authors: Pavel Orlov, Rustem Sharipov, and Enej Ilievski\\
+ArXiv: \href{https://arxiv.org/abs/2605.08079}{2605.08079}
+\end{center}
+
+\section*{Executive summary}
+This paper asks a deceptively simple question: when one studies off-diagonal matrix elements of a local observable between many-body eigenstates, do their statistics depend only on the underlying thermodynamic macrostate, or also on how broadly one samples states inside that macrostate? The authors show that the second option is generically true. In their setting, the suppression and fluctuation statistics of matrix elements depend on a \emph{fluctuation scale} $\gamma$ that quantifies how large the charge fluctuations are in the ensemble of sampled eigenstates. The resulting picture is explicitly multiscale: the same macrostate can exhibit qualitatively different off-diagonal matrix-element behavior depending on whether one probes $O(1)$, $O(L^{1/3})$, $O(L^{1/2})$, or larger separations in the space of conserved charges.
+
+The analysis is carried out in an integrable quantum field theory---a massless bosonic theory containing the quantum Benjamin--Ono hierarchy---because that model permits both efficient sampling of very large eigenstates and exact formulas for certain matrix elements. The headline conclusion is that the mean suppression rate of matrix elements undergoes a sharp crossover at the thermal scale $\gamma=1/2$: below that threshold the leading exponent is $O(1)$, while above it the suppression becomes parametrically stronger, with a scaling exponent $p(\gamma)=2\gamma-1$ and an additional logarithmic factor. The width of the distribution exhibits its own crossover at $\gamma=1/3$. In short: off-diagonal ETH data are not determined by the macrostate alone; they carry a robust multiscale dependence on the sampling ensemble.
+
+\section*{Problem setup and intuition}
+Consider a many-body Hamiltonian with eigenstates $|m\rangle,|n\rangle$ and a local observable $A$. Standard off-diagonal ETH in chaotic systems predicts that for states at the same energy density and with $O(1)$ energy separation,
+\[
+A_{mn} \approx e^{-s(e)L/2} f_A(e,\omega) R_{mn},
+\]
+where $s(e)$ is the entropy density, $\omega=E_n-E_m$ is an $O(1)$ frequency, $f_A$ is a smooth spectral function, and $R_{mn}$ is an $O(1)$ pseudo-random variable. This viewpoint implicitly assumes a narrow microcanonical window and therefore a very specific notion of ``nearby eigenstates.''
+
+The paper broadens that notion. In an interacting integrable system, a macrostate is not determined only by energy density; it is specified by the entire collection of local or quasilocal charge densities $\{q^{(k)}\}$. The authors therefore introduce ensembles $\mathcal E_\gamma$ in which the average charges scale extensively,
+\[
+\langle Q^{(k)}\rangle_{\mathcal E_\gamma}=Lq^{(k)}+o(L),
+\]
+but the typical charge fluctuations scale as
+\[
+\delta Q^{(k)}=O(L^\gamma), \qquad 0\le \gamma\le 1.
+\]
+Here $\gamma$ is the key control parameter. For $\gamma<1$, all sampled eigenstates still represent the same macrostate in the thermodynamic limit, but the ensemble becomes broader as $\gamma$ increases. The extreme case $\gamma=1$ mixes different macrostates.
+
+To quantify matrix elements, the paper defines
+\[
+\kappa_{mn}= -\frac{1}{L}\log |A_{mn}|^2,
+\]
+so larger $\kappa_{mn}$ means stronger suppression. The ensemble mean $\kappa$ gives the typical suppression rate, while the standard deviation $\delta\kappa$ measures how random the matrix elements are. The goal is to understand how both quantities scale with system size $L$ as one varies $\gamma$.
+
+The central intuition is that ETH should not be tested only at the microscopic $\gamma=0$ scale. In quenches, Gibbs states, and integrable systems with many conserved quantities, physically natural ensembles have broader charge fluctuations. Once one allows those broader ensembles, matrix elements can reveal structure invisible in the standard narrow-window ETH analysis.
+
+\section*{Main result, informally but precisely}
+The main outcome is a pair of scaling laws for the algebraic exponents governing the mean and width of $\kappa_{mn}$. Writing
+\[
+p(\gamma)=\frac{\partial \log \kappa}{\partial \log L}, \qquad q(\gamma)=\frac{\partial \log \delta\kappa}{\partial \log L},
+\]
+the paper finds, in the modified Vershik ensembles of the integrable model,
+\[
+p(\gamma)=
+\begin{cases}
+0, & \gamma<1/2,\\
+2\gamma-1, & \gamma\ge 1/2,
+\end{cases}
+\qquad
+q(\gamma)=
+\begin{cases}
+-\gamma, & \gamma<1/3,\\
+2\gamma-1, & \gamma\ge 1/3.
+\end{cases}
+\]
+These formulas are the paper's cleanest summary of the multiscale ETH structure.
+
+For the mean suppression rate, the important threshold is $\gamma=1/2$, the thermal fluctuation scale associated with canonical-like ensembles. When $\gamma<1/2$, the leading suppression remains $O(1)$ in the exponent, so the matrix elements resemble the standard ETH scale at leading order. Once $\gamma\ge 1/2$, the suppression grows more strongly with $L$; more precisely the relevant scaling variable is
+\[
+u = \frac{d^2}{L}\log\!\left(\frac{L}{d}\right),
+\]
+where $d$ is the typical distance between sampled eigenstates in charge space and scales like $d=O(L^\gamma)$. This produces
+\[
+\kappa \sim f_\kappa\!\left(\frac{d^2}{L}\log\!\frac{L}{d}\right),
+\]
+with linear growth at large argument and saturation to a constant at small argument. Hence for $\gamma\ge 1/2$, one gets the enhanced law $\kappa = O(L^{2\gamma-1}\log L)$.
+
+The paper also identifies a distributional crossover. At the thermal scale $\gamma=1/2$, the fluctuations of $\kappa_{mn}$ are well described by a Gumbel distribution, in line with earlier numerical work in the Lieb--Liniger gas and the Heisenberg chain. The authors then show this is not an isolated accident: Gumbel behavior persists throughout the regime $\gamma>1/3$, while for $\gamma<1/3$ the distribution deviates and is better approximated by a skew-normal law.
+
+One more important point: the anomalous-looking $L\log L$ suppression seen in prior integrable-model studies is not presented here as a pathology. The paper argues it is the natural signature of probing the thermal scale $\gamma=1/2$ while letting higher conserved charges fluctuate.
+
+\section*{Proof architecture}
+The proof strategy has three layers: build the right notion of distance, solve one analytically tractable family exactly, and then show the same scaling survives in a much broader sampled ensemble.
+
+\textbf{1. Replace single-energy separation by a charge-sensitive distance.}
+In chaotic systems one often measures distance between eigenstates by the energy difference alone. That is inadequate in integrable models because two states can have similar energy but differ substantially in higher conserved charges. The authors therefore introduce a distance that accounts for the entire charge content of eigenstates. In the concrete bosonic model this distance is implemented through the combinatorics of integer partitions (Young diagrams), which label eigenstates explicitly.
+
+\textbf{2. Solve a special family of states exactly: the staircase diagrams.}
+The analytically tractable core of the paper is a class of eigenstates called staircase diagrams. For this family, matrix elements of the relevant vertex operators can be computed in closed form, and the suppression rate becomes
+\[
+\kappa = \kappa_0 + \frac{1}{2}u,
+\qquad
+u = \frac{d^2}{L}\log\!\left(\frac{L}{d}\right),
+\]
+up to subleading corrections. This exact formula is the conceptual engine of the paper. Once $d=O(L^\gamma)$ is imposed, one immediately reads off the crossover at $\gamma=1/2$: the scaling variable vanishes for $\gamma<1/2$ and diverges for $\gamma>1/2$.
+
+\textbf{3. Construct broad ensembles with tunable fluctuation scale and sample them numerically.}
+To move beyond the special staircase family, the authors use the Vershik ensemble, a canonical Gibbs-type ensemble of Young diagrams whose fluctuations are already understood. They then modify it by rescaling the fluctuation amplitude to enforce a desired $\gamma$. This gives a computationally efficient way to sample pairs of eigenstates with controlled typical distance $d$ while keeping the same macrostate. Numerical analysis over very large effective system sizes confirms that the exact staircase scaling variable still governs the generic ensemble.
+
+\textbf{4. Extract exponents and full distributions.}
+With sampled matrix elements in hand, the paper studies both the mean $\kappa$ and the width $\delta\kappa$ as functions of $L$ and $d$, then performs scaling collapses to identify $p(\gamma)$ and $q(\gamma)$. The full probability density of $\kappa_{mn}$ is also compared across scales, revealing the Gumbel-to-skew-normal crossover at $\gamma=1/3$.
+
+The point of this architecture is that the paper is not merely fitting numerics. The exact staircase calculation explains \emph{why} the controlling variable should be $d^2L^{-1}\log(L/d)$, and the broader sampling analysis shows this is not an artifact of one special family.
+
+\section*{Why it matters}
+The paper sharpens the meaning of ETH data in integrable and possibly even broader many-body settings. A common informal assumption is that once the macrostate is fixed, statistical properties of matrix elements should be universal. This work says: not so fast. Even within one macrostate, the ensemble used to sample eigenstates matters, and the dependence is strong enough to change the large-$L$ exponents.
+
+That matters for at least three reasons. First, it clarifies past anomalies in integrable ETH studies by tracing them to thermal-scale fluctuations of higher charges rather than to an outright failure of statistical structure. Second, it provides a framework that can interpolate between narrow-window ETH tests and broad, physically motivated ensembles arising in quenches or Gibbs states. Third, it suggests a possible universality class for integrable off-diagonal matrix elements: different models may share the same thermal-scale statistics once the correct fluctuation parameter is identified.
+
+The paper also offers a conceptual warning for future numerics. If two studies use different ensemble widths or constrain different subsets of charges, they may be probing genuinely different asymptotic regimes even if they claim to study ``the same macrostate.''
+
+\section*{Limitations and takeaway}
+The strongest results are obtained in a specially chosen integrable field theory where eigenstates are explicitly representable by partitions and certain matrix elements are known in closed form. That is a feature, not a bug, but it means the paper does not yet prove the same multiscale formulas for generic chaotic systems. Likewise, the observable class is tailored to dense vertex operators, and the distributional conclusions rely in part on large-scale numerics rather than a fully general theorem for every integrable model.
+
+Even so, the conceptual takeaway is crisp. The paper shows that off-diagonal matrix elements possess a genuine multiscale structure: the large-system asymptotics depend not only on which macrostate one studies, but on the fluctuation scale of the ensemble used to probe that macrostate. The thermal scale $\gamma=1/2$ is a real transition point for the suppression exponent, and $\gamma=1/3$ is a second transition point for the fluctuation statistics. If you want one sentence to remember it, it is this: \emph{ETH-style matrix-element statistics are ensemble-sensitive across scales, and integrable systems make that multiscale structure sharply visible.}
+
+\end{document}
