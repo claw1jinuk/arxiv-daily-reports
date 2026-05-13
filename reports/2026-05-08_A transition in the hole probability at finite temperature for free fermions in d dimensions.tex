@@ -1,64 +1,235 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem,hyperref}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
-\setlength{\parskip}{0.55em}
-\setlength{\parindent}{0pt}
+\title{\textbf{Theory-mode report: A transition in the hole probability at finite temperature for free fermions in \$d\$ dimensions}}
+\author{Generated from Scholar Inbox digest}
+\date{Digest date: 2026-05-08}
 \begin{document}
-\begin{center}
-{\LARGE \textbf{Theory-mode report}}\\[0.4em]
-{\large \textbf{A transition in the hole probability at finite temperature for free fermions in \$d\$ dimensions}}\\[0.3em]
-Giuseppe Del Vecchio Del Vecchio, Pierre Le Doussal, Gregory Schehr\\
-\href{https://arxiv.org/abs/2605.05431}{https://arxiv.org/abs/2605.05431}\\
-Digest date: 2026-05-08
-\end{center}
+\maketitle
 \section*{Paper information}
-\textbf{Title.} A transition in the hole probability at finite temperature for free fermions in \$d\$ dimensions \\
-\textbf{Authors.} Giuseppe Del Vecchio Del Vecchio, Pierre Le Doussal, Gregory Schehr \\
-\textbf{arXiv.} \href{https://arxiv.org/abs/2605.05431}{2605.05431}
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Title:} A transition in the hole probability at finite temperature for free fermions in $d$ dimensions
+\item \textbf{Authors:} Giuseppe Del Vecchio Del Vecchio, Pierre Le Doussal, Grégory Schehr
+\item \textbf{arXiv:} \href{https://arxiv.org/abs/2605.05431}{2605.05431}
+\item \textbf{Scholar digest score:} 94.0
+\end{itemize}
+
 \section*{Executive summary}
-This report reconstructs the paper's core theoretical message from the public metadata and abstract, with emphasis on the problem formulation, central claim, and likely proof strategy. The digest ranked this paper highest with score 94.0. The abstract states: ``This report summarizes the highest-scoring paper in the Scholar Inbox digest dated \textbf{2026-05-08}. The abstract states the core claim as follows: \emph{In a free Fermi gas at temperature \$T\$ much higher than the Fermi temperature one expects that the fluctuations of the number of particles in a given region has Poissonian/classical statistics. On the other hand at low temperature the Pauli exclusion principle leads to non trivial counting statistics. It is of great interest from a theoretical and experimental point of view to characterize the crossover between these two limits. Here we focus on the hole probability \$P(R,T)\$, i.e. the probability that a region of size \$R\$ is devoid of particles, in dimension \$d\$, and on the case of a spherical region of large radius \$R\$. We show that at low temperature it takes the scaling form \$P(R,T)\textbackslash\{\}sim \textbackslash\{\}exp\textbackslash\{\}big[-(k\_F R)\textasciicircum{}\{d+1\}Φ\_d(u=2R\textbackslash\{\},T/k\_F)\textbackslash\{\}big],\$ where \$k\_F\$ is the Fermi momentum. By mapping the problem to an effective Coulomb gas, we compute exactly the scaling function \$Φ\_d(u)\$ in any dimension. }.''
-
-At a high level, the paper appears to study a formal learning, inference, or optimization question under a structured model and then prove that a specific algorithmic or analytical principle yields a strong guarantee. For a theory reader, the key issue is the exact quantity that is controlled, the assumptions under which control is possible, and the argument that connects the method to the guarantee.
-
-The main value of a theory-mode reading is that it turns the paper into a dependency graph: problem setup $\to$ target quantity $\to$ technical lemmas $\to$ theorem $\to$ limitations. That makes the paper reusable even outside its exact application setting.
-\section*{Problem setup and intuition}
-Let $\mathcal{X}$ denote the input space and let the target object be a predictor, latent parameter, or structured representation defined through an unknown distribution $P$. The learner receives samples, measurements, or optimization feedback generated from $P$ and constructs an estimator $\hat f$ in a hypothesis class $\mathcal{F}$. The relevant population criterion is a functional $\mathcal{R}(f)$ such as excess risk, estimation error, regret, or divergence to a reference object.
-
-The abstract suggests that the paper's theoretical problem is not merely whether the method works empirically, but why it works in a mathematically identifiable regime. Typically this means proving that the method has small error once three ingredients line up: the model class can represent the target well, the finite data fluctuations are controlled, and the optimization procedure reaches a stable region.
-
-The right intuition is to view the theorem as an error decomposition result. If the method includes regularization, architectural constraints, normalization, or a special objective, those design choices are usually there to suppress one of the terms in that decomposition. The proof then explains exactly which pathology would appear without them.
-\section*{Main theorem/result (informal but precise)}
-A precise informal template for the main result is the following. Under structural assumptions on the distribution, model class, and possibly smoothness or identifiability constants, the paper proves that the proposed estimator or algorithm satisfies a bound of the form
+This paper analyzes the probability $P(R,T)$ that a spherical region of radius $R$ in a homogeneous free Fermi gas is completely empty at finite temperature. The central question is how this \emph{hole probability} crosses over from classical Poisson-like behavior at high temperature to strongly correlated Pauli-driven behavior at low temperature. The main result is a sharp low-temperature large-radius scaling law
 \[
-\mathcal{E}(\hat f) \le C_1\,\text{approximation} + C_2\,\text{statistical fluctuation} + C_3\,\text{optimization residual},
+P(R,T)\sim \exp\big(-(k_F R)^{d+1}\Phi_d(u)\big),
+\qquad u=\frac{2RT}{k_F}=\frac{2}{\pi}\frac{R}{\xi_T},
 \]
-with high probability or in expectation, where $\mathcal{E}(\hat f)$ is the target error metric and the constants depend only on controlled problem parameters.
+where $k_F$ is the Fermi momentum and $\xi_T$ the thermal correlation length. The striking point is that the scaling function $\Phi_d(u)$ has a genuine nonanalytic transition at the universal critical value
+\[
+u_c=\frac{2}{\pi},
+\]
+of order $\frac32(d+1)$. In the Coulomb-gas reformulation, this transition corresponds to the opening of a macroscopic gap in the optimal momentum-space density that realizes the rare event.
 
-In words: once the representation gap is small enough and enough data or iterations are available, the remaining error contracts at an explicit rate. If the paper is minimax in flavor, the result may be optimal up to constants or logarithmic factors. If it is optimization-centric, the theorem may instead show convergence to a good solution despite apparent nonconvexity because the landscape or algorithm preserves a favorable invariant.
+So this is not just a crossover story. In the joint limit $k_F R\to\infty$, $T/T_F\to0$ with $u$ fixed, the rare-fluctuation mechanism itself changes phase.
 
-When reading the actual theorem, the most important checklist is: what is being bounded, is the claim finite-sample or asymptotic, is it deterministic or probabilistic, and which assumptions are genuinely essential rather than technical.
-\section*{Proof architecture (step-by-step)}
-\textbf{1. Choose a reference object.} The proof fixes an oracle object such as a population optimizer, true parameter, or Bayes rule. That turns the theorem into a comparison statement.
+\section*{Physical setting and observable}
+The model is the grand-canonical free Fermi gas in $d$ dimensions at temperature $T=1/\beta$ and chemical potential $\tilde\mu$, with fixed average density $\rho$. The one-body occupation factor is
+\[
+\sigma(k)=\frac{1}{e^{\beta(k^2/2-\tilde\mu)}+1},
+\]
+and the free fermions form a determinantal point process. The observable is the hole probability
+\[
+P(R,T)=\mathbb P(\mathcal N_R=0)=\lim_{s\to\infty}\langle e^{-s\mathcal N_R}\rangle,
+\]
+where $\mathcal N_R$ counts particles in the ball of radius $R$.
 
-\textbf{2. Decompose the error.} The total discrepancy is split into interpretable components, typically approximation, estimation, and optimization terms. This is the backbone of the argument because it identifies the terms that need separate control.
+At very high temperature one expects classical independent-particle behavior, so for a Poisson process one has
+\[
+P^{\rm Poi}(R)=e^{-\rho V_d R^d}.
+\]
+At zero temperature, the Pauli principle makes emptiness much rarer, and the known asymptotic is
+\[
+P(R,0)\sim e^{-\kappa_d (k_F R)^{d+1}},
+\qquad
+\kappa_d=\frac{2}{(d+1)^2\Gamma(d+1)}.
+\]
+The paper asks: what happens between these two regimes, and can the crossover be described sharply in any dimension?
 
-\textbf{3. Control fluctuations.} The random term is bounded using concentration or uniform convergence tools such as Bernstein-type inequalities, symmetrization, stability, covering arguments, or martingale bounds, depending on the setting.
+\section*{Main asymptotic regimes}
+The paper identifies two different large-$R$ regimes.
 
-\textbf{4. Exploit problem structure.} This is usually where the paper's real idea lives. The authors may use convexity, smoothness, restricted curvature, spectral properties, invariances, or an algebraic identity specific to the method. This step explains why the chosen procedure is aligned with the geometry of the task rather than being an arbitrary heuristic.
+\subsection*{1. High-temperature / classical regime}
+For fixed $T\sim T_F$ and $R/\lambda_T\gg1$, with $\lambda_T$ the thermal de Broglie wavelength,
+\[
+\log P(R,T)\simeq -(R\sqrt T)^d A_d(T/T_F) + (R\sqrt T)^{d-1} B_d(T/T_F).
+\]
+The functions $A_d$ and $B_d$ are given explicitly in terms of polylogarithms:
+\[
+A_d(t)= -\frac{1}{2^{d/2}\Gamma(1+d/2)}\,\mathrm{Li}_{d/2+1}(-e^{\beta\tilde\mu}),
+\]
+\[
+B_d(t)= \frac{2^{(d-3)/2}}{\pi\Gamma(d)}\int_0^{\infty} dv\, v^{(d-1)/2}
+\big[\mathrm{Li}_{1/2}(-e^{\beta\tilde\mu}-v)\big]^2.
+\]
+In the extreme high-temperature limit $T/T_F\gg1$, $A_d$ reduces so that the Poisson law is recovered. So the leading term is volume-like and classical, exactly as expected.
 
-\textbf{5. Close the inequality.} The bounded terms are recombined into an oracle inequality, contraction estimate, or iterative potential argument. Lower-order terms are absorbed and the stated theorem follows.
+\subsection*{2. Low-temperature / quantum large-deviation regime}
+For $T\ll T_F$ and $k_F R\gg1$ with
+\[
+u = \frac{2RT}{k_F}=\frac{2}{\pi}\frac{R}{\xi_T}
+\]
+held fixed, the hole probability obeys
+\[
+\log P(R,T)\simeq -(k_F R)^{d+1}\Phi_d(u).
+\]
+This is the main scaling regime. The authors compute $\Phi_d(u)$ exactly in any dimension and show that it has two branches,
+\[
+\Phi_d(u)=
+\begin{cases}
+\Phi_{d,+}(u), & u>2/\pi,\\
+\Phi_{d,-}(u), & u<2/\pi.
+\end{cases}
+\]
+The two branches meet nonanalytically at $u_c=2/\pi$, with
+\[
+\Phi_{d,+}(u)-\Phi_{d,-}(u)\propto (u_c-u)^{\frac32(d+1)}
+\qquad (u\uparrow u_c).
+\]
+Hence the transition is of order $\frac32(d+1)$.
 
-\textbf{6. Specialize to regimes of interest.} Corollaries then translate the main theorem into concrete cases: large-sample behavior, noisy vs. noiseless settings, or scaling with dimension, depth, horizon, or complexity.
+\section*{Explicit scaling functions}
+For $u>2/\pi$, the function $\Phi_{d,+}(u)$ is a polynomial in $1/u$ of degree $d+1$. The paper gives explicit formulas, e.g.
+\[
+\Phi_{1,+}(u)=\frac{4}{3\pi u}-\frac{1}{\pi^2 u^2},
+\]
+\[
+\Phi_{2,+}(u)=\frac{1}{8u}-\frac{8}{15\pi^2u^2}+\frac{1}{12\pi^2u^3},
+\]
+\[
+\Phi_{3,+}(u)=\frac{4}{45\pi u}-\frac{1}{6\pi^2u^2}+\frac{16}{105\pi^3u^3}-\frac{1}{18\pi^4u^4}.
+\]
+These large-$u$ forms match the asymptotics from the high-temperature/Widom regime, so the two asymptotic theories glue consistently.
 
-A good way to audit the real proof is to mark which assumption is first used in each step. That immediately reveals whether an assumption is central or just a technical convenience.
-\section*{Why it matters / limitations / takeaway}
-Theory matters when it explains mechanism, not just outcome. A result of this kind is useful if it either justifies a broadly used method, identifies a new regime where the method is provably effective, or clarifies the real price of good performance through its dependence on complexity, condition number, sample size, or noise.
+For $u<2/\pi$, the zero-temperature-like branch depends on parity of $d$. Examples given in the paper are
+\[
+\Phi_{1,-}(u)=\frac12-\frac{\pi^2u^2}{48},
+\qquad
+\Phi_{3,-}(u)=\frac{1}{48}-\frac{\pi^2u^2}{1440}+\frac{\pi^4u^4}{53760},
+\]
+and in $d=2$,
+\[
+\Phi_{2,-}(u)=
+\sqrt{4-\pi^2u^2}\left(-\frac{\pi^2u^2}{1440}+\frac{9}{40\pi^2u^2}+\frac{7}{360}\right)
+-\frac{8}{15\pi^2u^2}
++\left(\frac{1}{6\pi^3u^3}+\frac{1}{4\pi u}\right)\sin^{-1}\left(\frac{\pi u}{2}\right).
+\]
+At $u=0$, one recovers exactly the known zero-temperature coefficient $\kappa_d$, as one should.
 
-The main limitation of this report is intentional: it is self-contained and theory-oriented, but reconstructed from metadata and abstract information rather than the full paper text. Exact constants, technical conditions, and especially the most delicate lemmas should therefore be verified against the source PDF.
+\section*{What the transition means}
+The really nice part is the mechanism. The hole probability is mapped to an effective Coulomb gas in momentum space. In that picture, the rare event ``a large real-space hole is empty'' is realized by an optimal momentum density $\rho^*(p)$ minimizing an energy functional. The support of that optimizer changes qualitatively at $u_c=2/\pi$.
 
-The takeaway is simple. This is the highest-scoring item in the latest Scholar digest and is likely worth reading from the theorem statement outward. Start by identifying the target quantity, write down the assumptions in one place, and map each proof section to one piece of the error decomposition. If that map is clean, the paper is likely to be reusable beyond its immediate application.
+\begin{itemize}[leftmargin=1.5em]
+\item For $u>u_c$, the optimal density reaches down to zero momentum: no macroscopic momentum gap.
+\item For $u<u_c$, the support is shifted away from the origin: a genuine momentum gap opens.
+\end{itemize}
+
+So the nonanalyticity of $\Phi_d(u)$ is not an accident of formulas; it reflects a change in the constrained optimal configuration of the Coulomb gas. The paper interprets this as a sharp change in the mechanism of rare fluctuations.
+
+A good intuition is: when thermal effects are still strong enough compared with the region size ($u>u_c$), the optimal rare event uses a ``soft'' reorganization of occupations. Below the threshold ($u<u_c$), emptiness is so demanding that the system creates a hard depletion window in momentum space.
+
+\section*{Determinantal and angular decomposition}
+The exact starting point is the Fredholm determinant formula
+\[
+P(R,T)=\det(I-\Pi_R K),
+\]
+where $K$ is the finite-temperature fermionic kernel. In dimensions $d>1$, the authors use angular decomposition to factor the problem into independent radial sectors labeled by angular momentum $\ell$:
+\[
+P(R,T)=\prod_{\ell\ge0} \big(P^{(\ell)}(R,T)\big)^{g_d(\ell)},
+\]
+where $g_d(\ell)$ is the degeneracy and each sector is expressed as a Fredholm determinant involving a finite-temperature Bessel kernel,
+\[
+P^{(\ell)}(R,T)=\det(I-\Pi_{[0,R]} \hat K_\nu),
+\qquad \nu=\ell+\frac d2-1.
+\]
+This reduction is important because it turns the $d$-dimensional problem into a family of effectively one-dimensional problems, which can then be attacked by random-matrix/Coulomb-gas tools.
+
+\section*{Coulomb-gas reformulation}
+A duality relation rewrites each sector's Fredholm determinant as a linear statistic for the zero-temperature Bessel determinantal process. From there, the event is represented by minimizing a Coulomb-gas energy
+\[
+E_\nu[\rho]
+= -\frac12\iint \log|p-p'|\,\hat\rho(p)\hat\rho(p')\,dp\,dp'
++ \frac12\int \rho(p)\log\!\left(1+e^{-\beta(p/(2R^2)-\tilde\mu)}\right)dp,
+\]
+with positivity constraints and a background equilibrium density. In the large-$R$ limit,
+\[
+P^{(\ell)}(R,T)\sim e^{-2E_{0,\nu}},
+\qquad E_{0,\nu}=\min_{\rho\ge0} E_\nu[\rho].
+\]
+The minimizer develops the support transition mentioned above.
+
+For fixed angular sector $\ell=O(1)$, the paper already finds a transition at $u_c=2/\pi$, with an asymptotic of the form
+\[
+\log P^{(\ell)}(R,T)\simeq -z^2
+\begin{cases}
+\frac{2}{3\pi u}-\frac{1}{2\pi^2u^2}, & u>2/\pi,\\
+\frac14-\frac{\pi^2u^2}{96}, & u<2/\pi,
+\end{cases}
+\qquad z=k_FR.
+\]
+But for the full $d$-dimensional hole probability, the dominant contribution comes from large angular momentum sectors $\ell\sim R$, not finite $\ell$. The authors therefore solve the Coulomb-gas problem in the scaling $\ell\sim \nu\sim \lambda z$ and integrate over $\lambda$.
+
+That yields the exact representation
+\[
+-\log P(R,T)\simeq \frac{2}{\Gamma(d-1)} z^{d+1}
+\int_0^1 d\lambda\, \lambda^{d-2} \phi\big(\lambda,\tilde a(u,\lambda)\big),
+\]
+which becomes the explicit scaling function $\Phi_d(u)$ after a change of variables. The lower limit of the integral is controlled by the critical support edge $\tilde a_c(u)$, and this is exactly where the transition enters.
+
+\section*{Critical region}
+The paper also identifies a critical scaling window around the transition. If
+\[
+y=(2k_FR)^{2/3}\frac{u-u_c}{u_c},
+\]
+then in the regime $y=O(1)$,
+\[
+P(R,T)\simeq G_d(y)\, e^{-(k_FR)^{d+1}\Phi_{d,+}(u)}.
+\]
+The scaling function $G_d(y)$ tends to $1$ for $y\to+\infty$, while for $y\to-\infty$ it reproduces the singular matching needed for the two branches. The temperature scale of the critical window is
+\[
+\delta T \sim T_c (k_F R)^{-2/3}
+\sim T_F (k_F R)^{-5/3},
+\qquad T_c=\frac{k_F}{\pi R}.
+\]
+So the transition sharpens with increasing $R$, and the critical region becomes parametrically narrow.
+
+\section*{Why the result matters}
+There are several reasons this is a strong paper.
+
+\begin{itemize}[leftmargin=1.5em]
+\item It gives an exact large-deviation scaling function for a nontrivial finite-temperature fermionic observable in any dimension.
+\item It identifies a universal critical value $u_c=2/\pi$ and a clear order of nonanalyticity.
+\item It ties together free-fermion determinantal structure, Widom asymptotics, Bessel/sine kernels, and Coulomb-gas variational methods.
+\item It is experimentally relevant: the hole probability is directly measurable in quantum gas microscope setups.
+\end{itemize}
+
+Conceptually, the nicest point is that even for \emph{free} fermions, a sufficiently sharp rare-event question reveals a bona fide phase transition in the optimal fluctuation problem.
+
+\section*{Numerics and checks}
+The authors back the formulas with precise numerical evaluations of the relevant Fredholm determinants using Bornemann-type methods and finite-$z$ extrapolation. They also recover known rigorous results in $d=1$ and known $T=0$ formulas in any $d$, which makes the whole asymptotic picture feel very solid.
+
+\section*{For our group}
+\begin{itemize}[leftmargin=1.5em]
+\item The most reusable structural idea is the \textbf{rare-event-as-Coulomb-gas-optimum} viewpoint: the nonanalyticity comes from a change in support of the optimizer, not from any interaction in the underlying fermion Hamiltonian.
+\item The scaling variable
+\[
+u=\frac{2RT}{k_F}=\frac{2}{\pi}\frac{R}{\xi_T}
+\]
+is the right knob: it compares the hole size directly with the thermal correlation length.
+\item For asymptotic matching problems, this paper is a nice example of combining \textbf{Widom/high-$T$ asymptotics} with a \textbf{low-$T$ Coulomb-gas large-deviation theory} and showing they meet consistently.
+\end{itemize}
+
+\section*{Bottom line}
+A very elegant paper. It turns a natural full-counting-statistics observable for free fermions into an exactly analyzable variational problem and finds a universal finite-temperature transition in the hole-probability scaling function. If you're interested in determinantal processes, Coulomb gases, quantum large deviations, or the geometry of rare events, this one is absolutely worth reading.
+
 \end{document}
