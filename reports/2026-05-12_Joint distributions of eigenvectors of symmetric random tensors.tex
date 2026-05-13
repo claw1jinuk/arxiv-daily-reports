@@ -1,0 +1,112 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,hyperref,enumitem}
+\usepackage{fontspec}
+\setmainfont{Liberation Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+\begin{document}
+
+\begin{center}
+{\LARGE \textbf{Theory-mode report}}\\[0.4em]
+{\large \textbf{Joint distributions of eigenvectors of symmetric random tensors}}\\[0.3em]
+Naoki Sasakura\\
+\href{https://arxiv.org/abs/2605.09804}{arXiv:2605.09804}\\
+Scholar Inbox digest date: 2026-05-12
+\end{center}
+
+\section*{Paper information}
+\textbf{Title.} Joint distributions of eigenvectors of symmetric random tensors.\\
+\textbf{Author.} Naoki Sasakura.\\
+\textbf{arXiv.} \href{https://arxiv.org/abs/2605.09804}{2605.09804}.\\
+\textbf{Abstract-level claim.} The paper computes joint distributions of arbitrary numbers of eigenvectors of real and complex symmetric random tensors, derives random-matrix representations, and proves large-dimension asymptotics governed by a common function of tensor geometries, extending a previously observed universality for mean distributions to full joint distributions.
+
+\section*{Executive summary}
+This paper lives at the interface of random tensor theory, random matrix techniques, and field-theoretic asymptotics. The central object is not merely a single random eigenvector, or even a marginal law of one coordinate, but the \emph{joint law of several eigenvectors} of a symmetric random tensor. That is the real upgrade: instead of describing average behavior one direction at a time, the paper asks how several eigenvectors coexist geometrically and statistically.
+
+The main message appears to be that these joint distributions admit a tractable random-matrix representation and, in the large-dimension regime, collapse onto a universal form determined by tensor-geometric data. In other words, the many-eigenvector problem is complicated microscopically, but the asymptotic answer is organized by a much smaller set of geometric invariants. That kind of result is exactly what theory readers want: it isolates the right effective variables and proves that everything else washes out asymptotically.
+
+Why this matters is that eigenvectors of random tensors are substantially less mature as a theory object than eigenvectors of random matrices. Once one has a joint-distribution theorem, one can ask sharper questions about correlations, overlaps, spacing in configuration space, and effective independence or dependence between extremal directions. The paper therefore looks like a foundational step toward a genuine multi-eigenvector statistical theory for random tensors.
+
+\section*{Problem setup and intuition}
+A symmetric tensor of order $p$ on $\mathbb{R}^N$ can be viewed as a homogeneous polynomial or multilinear form with random coefficients. An eigenvector of such a tensor is a direction $x \in \mathbb{R}^N$ satisfying a nonlinear stationarity relation of schematic form
+\[
+T(x,\ldots,x)=\lambda x,
+\]
+after the appropriate normalization convention. Unlike the matrix case $p=2$, the eigenvalue equation is nonlinear, the number of solutions can be much larger, and the geometry of the solution set is richer.
+
+If one samples the tensor from a rotationally invariant random ensemble, a natural first question is the distribution of a single eigenvector. Earlier work evidently handled mean distributions. This paper asks for the joint law of several eigenvectors $x^{(1)},\dots,x^{(k)}$. The hard part is that these objects are not independent. They are coupled through the same underlying tensor realization, and the coupling is strongly nonlinear.
+
+The right intuition is to separate two levels of structure.
+\begin{enumerate}[leftmargin=1.5em]
+\item \textbf{Microscopic structure:} the exact coefficient-level randomness of the tensor and the algebraic constraints defining eigenvectors.
+\item \textbf{Macroscopic geometric structure:} mutual overlaps, angular relations, and other invariants describing how several eigenvectors sit relative to each other.
+\end{enumerate}
+A successful asymptotic theorem should show that in high dimension, the microscopic details contribute only through a reduced set of geometric descriptors. That is what the abstract strongly suggests.
+
+\section*{Main theorem/result (informal but precise)}
+A faithful informal version of the main result is this:
+
+\emph{For real and complex symmetric random tensor ensembles, the joint distribution of any fixed finite number of eigenvectors admits an explicit random-matrix representation. In the large-dimension limit, this joint distribution has an asymptotic form controlled by a universal function of the tensor geometry, thereby extending previously known universality from one-point/mean distributions to multi-point joint distributions.}
+
+That statement has four important pieces.
+
+First, the theorem concerns \emph{arbitrary finite joint order}. The paper is not restricted to pairs or a special low-order correlation; it aims at the general $k$-eigenvector law for fixed $k$.
+
+Second, there is an \emph{exact or semi-exact representation} in terms of random matrices. This is crucial because random-matrix representations are often the bridge between a complicated nonlinear algebraic object and an analyzable asymptotic model.
+
+Third, the theorem is \emph{large-dimension asymptotic}. So the practical reading is: when $N\to\infty$ with tensor order fixed and the number of observed eigenvectors fixed, the law simplifies in a precise way.
+
+Fourth, the asymptotic answer depends on a \emph{common function of tensor geometries}. That is the universality claim. The details of the ensemble no longer matter separately; what survives is a geometric summary. This is the conceptual center of the paper.
+
+A theory reader should expect the exact theorem to specify the admissible ensembles, the precise normalization of eigenvectors, the mode of convergence, and the formula for the limiting density or correlation functional. But even before reading the proof, the theorem already signals what the paper contributes: it identifies the correct effective coordinates for multi-eigenvector statistics.
+
+\section*{Proof architecture}
+The proof strategy is likely modular. A reasonable reconstruction is the following.
+
+\textbf{Step 1: Re-express eigenvector constraints as an integral/statistical object.}
+Field-theoretic methods usually start by converting algebraic counting or density questions into integral representations. In this setting, one expects delta constraints enforcing the tensor eigenvector equations together with normalization constraints. Auxiliary variables then linearize nonlinear expressions so that Gaussian or near-Gaussian averages become available.
+
+\textbf{Step 2: Package the multi-eigenvector configuration by overlap geometry.}
+Once several eigenvectors are present, the natural collective variables are their pairwise overlaps, Gram-type matrices, or related invariant tensors. This step reduces the dependence on ambient coordinates and isolates the rotationally meaningful data. The point is not merely computational convenience: these are the coordinates that should survive asymptotically.
+
+\textbf{Step 3: Derive a random-matrix representation.}
+A central derivation apparently rewrites the joint law in terms of a random matrix model. Conceptually, this says that after the correct change of variables and averaging over the tensor ensemble, the complicated tensor-statistical problem becomes equivalent to studying a matrix-valued effective object. This is the bridge that makes asymptotics feasible.
+
+\textbf{Step 4: Analyze the large-$N$ saddle or effective action.}
+In high-dimensional random systems, one commonly evaluates integral representations by Laplace/saddle-point methods. The dominant contribution should come from configurations minimizing or stationarizing an effective action depending only on overlap geometry. Fluctuation analysis around the saddle then yields the asymptotic joint density.
+
+\textbf{Step 5: Identify the universal geometric function.}
+The universality statement means the leading asymptotic term can be written through a common function of geometric invariants. This is probably where several ensemble-specific details cancel or become subleading. A strong result here is that the same functional form works across real and complex settings after the appropriate parameter translation.
+
+\textbf{Step 6: Monte Carlo crosschecks.}
+The abstract mentions Monte Carlo verification. In a theory paper, these checks matter less as evidence of discovery and more as validation that the asymptotic formula is numerically faithful in finite dimension and that the representation has been implemented correctly.
+
+\section*{Why the result is interesting}
+The interesting part is not just that one more random-object distribution was computed. The result appears to advance the \emph{structure theory} of random tensor eigenvectors.
+
+For random matrices, joint eigenvalue and eigenvector statistics are central because they reveal correlations, universality classes, and effective repulsion phenomena. Random tensors are a substantially more nonlinear world. If this paper successfully derives explicit joint laws and asymptotics, it provides the raw material for analogous questions in tensor models: when are eigenvectors nearly orthogonal, what correlation patterns are forced by the shared tensor background, and which statistics are universal as dimension grows?
+
+There is also a methodological payoff. A random-matrix representation for tensor-eigenvector statistics means future work may import matrix-theoretic tools into tensor settings. That kind of transference often matters more than the first theorem itself because it creates a reusable proof pipeline.
+
+\section*{Limitations and reading advice}
+The main limitation is likely the regime of validity. Universality results of this kind often hold for fixed joint order $k$ as dimension tends to infinity, and may rely on rotationally invariant Gaussian-type ensembles or related tractable distributions. The conclusions may therefore be less directly applicable to heavily structured, sparse, or non-isotropic tensor models.
+
+A second limitation is interpretability of the exact formulas. Even when a random-matrix representation is explicit, it may still be analytically dense. The theorem's real value is then conceptual: it identifies the correct state variables and asymptotic mechanism, even if finite-$N$ formulas remain cumbersome.
+
+If reading the paper in full, I would suggest this order:
+\begin{enumerate}[leftmargin=1.5em]
+\item isolate the precise definition of tensor eigenvector being used;
+\item write down the geometric invariants controlling the joint law;
+\item locate the random-matrix representation theorem;
+\item read only enough of the field-theoretic derivation to understand where the effective action comes from;
+\item then jump to the large-$N$ asymptotic theorem and compare the formula against the one-point case.
+\end{enumerate}
+
+\section*{Takeaway}
+My concise takeaway is: this paper appears to turn multi-eigenvector statistics of symmetric random tensors into a tractable asymptotic theory. The headline contribution is not merely a computation but a reduction principle: the joint law of finitely many eigenvectors can be represented through a random-matrix model and asymptotically summarized by universal tensor-geometry data. If that reduction is as clean as the abstract suggests, this is a useful foundational result for anyone thinking about random tensors beyond single-vector marginals.
+
+\end{document}
