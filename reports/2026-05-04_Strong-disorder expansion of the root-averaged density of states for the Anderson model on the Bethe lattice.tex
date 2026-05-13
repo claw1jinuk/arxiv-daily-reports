@@ -1,64 +1,80 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem,hyperref}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
-\setlength{\parskip}{0.55em}
-\setlength{\parindent}{0pt}
+\title{\textbf{Theory-mode report: Strong-disorder expansion of the root-averaged density of states for the Anderson model on the Bethe lattice}}
+\author{Generated from Scholar Inbox digest}
+\date{Digest date: 2026-05-04}
 \begin{document}
-\begin{center}
-{\LARGE \textbf{Theory-mode report}}\\[0.4em]
-{\large \textbf{Strong-disorder expansion of the root-averaged density of states for the Anderson model on the Bethe lattice}}\\[0.3em]
-Masahiro Kaminaga\\
-\href{https://arxiv.org/abs/2605.00478}{https://arxiv.org/abs/2605.00478}\\
-Digest date: 2026-05-04
-\end{center}
+\maketitle
 \section*{Paper information}
-\textbf{Title.} Strong-disorder expansion of the root-averaged density of states for the Anderson model on the Bethe lattice \\
-\textbf{Authors.} Masahiro Kaminaga \\
-\textbf{arXiv.} \href{https://arxiv.org/abs/2605.00478}{2605.00478}
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Title:} Strong-disorder expansion of the root-averaged density of states for the Anderson model on the Bethe lattice
+\item \textbf{Author:} Masahiro Kaminaga
+\item \textbf{arXiv:} \href{https://arxiv.org/abs/2605.00478}{2605.00478}
+\end{itemize}
 \section*{Executive summary}
-This report reconstructs the paper's core theoretical message from the public metadata and abstract, with emphasis on the problem formulation, central claim, and likely proof strategy. The digest ranked this paper highest with score 91.0. The abstract states: ``This report summarizes the highest-scoring paper in the Scholar Inbox digest dated \textbf{2026-05-04}. The abstract states the core claim as follows: \emph{}.''
+This paper studies the Anderson model on the Bethe lattice in the strong-disorder regime and focuses on the \emph{root-averaged density of states}, i.e. the spectral measure seen from the root rather than a finite-volume eigenvalue counting measure. The main theorem is a local regularity and asymptotic expansion result on scaled energy windows of size $\lambda$, where $\lambda$ is the disorder strength. Under compact support and local analyticity assumptions on the single-site distribution, the averaged diagonal resolvent admits a holomorphic continuation to a complex neighborhood of a target interval once $\lambda$ is large enough. By Stieltjes inversion, the corresponding density of states on the window $E=\lambda\xi$ is absolutely continuous, real analytic in $\xi$, and has a finite-order asymptotic expansion in inverse powers of $\lambda$.
 
-At a high level, the paper appears to study a formal learning, inference, or optimization question under a structured model and then prove that a specific algorithmic or analytical principle yields a strong guarantee. For a theory reader, the key issue is the exact quantity that is controlled, the assumptions under which control is possible, and the argument that connects the method to the guarantee.
-
-The main value of a theory-mode reading is that it turns the paper into a dependency graph: problem setup $\to$ target quantity $\to$ technical lemmas $\to$ theorem $\to$ limitations. That makes the paper reusable even outside its exact application setting.
-\section*{Problem setup and intuition}
-Let $\mathcal{X}$ denote the input space and let the target object be a predictor, latent parameter, or structured representation defined through an unknown distribution $P$. The learner receives samples, measurements, or optimization feedback generated from $P$ and constructs an estimator $\hat f$ in a hypothesis class $\mathcal{F}$. The relevant population criterion is a functional $\mathcal{R}(f)$ such as excess risk, estimation error, regret, or divergence to a reference object.
-
-The abstract suggests that the paper's theoretical problem is not merely whether the method works empirically, but why it works in a mathematically identifiable regime. Typically this means proving that the method has small error once three ingredients line up: the model class can represent the target well, the finite data fluctuations are controlled, and the optimization procedure reaches a stable region.
-
-The right intuition is to view the theorem as an error decomposition result. If the method includes regularization, architectural constraints, normalization, or a special objective, those design choices are usually there to suppress one of the terms in that decomposition. The proof then explains exactly which pathology would appear without them.
-\section*{Main theorem/result (informal but precise)}
-A precise informal template for the main result is the following. Under structural assumptions on the distribution, model class, and possibly smoothness or identifiability constants, the paper proves that the proposed estimator or algorithm satisfies a bound of the form
+The structural point is that the leading coefficient is just the local density of the single-site potential law, while all odd coefficients vanish. The even coefficients are computable from short closed walks on the tree. So the paper turns the strong-disorder regime into a clean combinatorial-plus-complex-analytic expansion problem.
+\section*{Model and observable}
+The operator is the Anderson Hamiltonian on the Bethe lattice,
 \[
-\mathcal{E}(\hat f) \le C_1\,\text{approximation} + C_2\,\text{statistical fluctuation} + C_3\,\text{optimization residual},
+H_\lambda = T + \lambda V,
 \]
-with high probability or in expectation, where $\mathcal{E}(\hat f)$ is the target error metric and the constants depend only on controlled problem parameters.
+where $T$ is the adjacency operator on the regular tree and $V$ is an i.i.d. random potential. The object of interest is the root spectral measure, or equivalently the averaged diagonal Green function
+\[
+G_\lambda(z)=\mathbb E\,\langle \delta_o,(H_\lambda-z)^{-1}\delta_o\rangle.
+\]
+The density of states here means the measure recovered from $G_\lambda$ by the Stieltjes inversion formula. This is different from the more common finite-volume density of states and is better adapted to the rooted tree geometry.
 
-In words: once the representation gap is small enough and enough data or iterations are available, the remaining error contracts at an explicit rate. If the paper is minimax in flavor, the result may be optimal up to constants or logarithmic factors. If it is optimization-centric, the theorem may instead show convergence to a good solution despite apparent nonconvexity because the landscape or algorithm preserves a favorable invariant.
+The paper studies the scaled energy variable $E=\lambda \xi$ with $\xi$ in a fixed compact interval $I$ contained in a slightly larger interval $I^{\sharp}$ on which the single-site density is assumed analytic. Intuitively, when disorder is large, the on-site randomness should dominate the hopping operator, so the density of states should look like the potential density plus controlled corrections coming from short excursions away from the root.
+\section*{Main results}
+The main results are Theorems 2.1 and 2.2.
+\begin{itemize}[leftmargin=1.5em]
+\item Theorem 2.1 gives holomorphic continuation of a scaled averaged diagonal resolvent to a complex neighborhood of $I$ for all sufficiently large $\lambda$.
+\item Theorem 2.2 converts this into a strong-disorder expansion for the root-averaged density of states on the window $\lambda I$.
+\end{itemize}
+More concretely, if $\rho_\lambda(\lambda\xi)$ denotes the density in scaled form, then the paper proves an expansion of the form
+\[
+\rho_\lambda(\lambda\xi)
+= r(\xi)+\sum_{m=1}^{M} \lambda^{-2m} a_{2m}(\xi)+O(\lambda^{-2M-2}),
+\]
+uniformly on the interval of interest. Here $r(\xi)$ is the density of the single-site law and the odd powers of $\lambda^{-1}$ are absent. This vanishing of odd coefficients is not cosmetic; it comes from the parity structure of closed walks on the tree and is one of the cleanest outputs of the method.
 
-When reading the actual theorem, the most important checklist is: what is being bounded, is the claim finite-sample or asymptotic, is it deterministic or probabilistic, and which assumptions are genuinely essential rather than technical.
-\section*{Proof architecture (step-by-step)}
-\textbf{1. Choose a reference object.} The proof fixes an oracle object such as a population optimizer, true parameter, or Bayes rule. That turns the theorem into a comparison statement.
+For the uniform single-site distribution, the first nonzero correction term is computed explicitly. So the result is not just abstract asymptotics: it produces concrete formulas.
+\section*{Why the Bethe lattice helps}
+The tree geometry removes the combinatorial mess of arbitrary loops in finite-dimensional lattices. Every return to the root can be organized by a closed walk profile, and the adjacency operator contributes through walk lengths and multiplicities. In the strong-disorder regime, the hopping part acts perturbatively, and the Green function can be expanded into a random-walk series around the root.
 
-\textbf{2. Decompose the error.} The total discrepancy is split into interpretable components, typically approximation, estimation, and optimization terms. This is the backbone of the argument because it identifies the terms that need separate control.
+The crucial advantage is that on a tree, short closed walks have a rigid structure. That makes it possible to express coefficients of the resolvent expansion as finite sums over occupation profiles of such walks. The coefficients are therefore local, combinatorial, and explicit in principle.
+\section*{Proof strategy}
+The argument has three layers.
+\subsection*{1. Random-walk expansion}
+The resolvent at the root is expanded using the walk representation of powers of the adjacency operator. After scaling by $\lambda$, one obtains a formal series in $\lambda^{-1}$ whose coefficients depend on products of single-site Stieltjes transforms evaluated along vertices visited by a closed walk. The tree structure allows one to organize these contributions by occupation multiplicities.
 
-\textbf{3. Control fluctuations.} The random term is bounded using concentration or uniform convergence tools such as Bernstein-type inequalities, symmetrization, stability, covering arguments, or martingale bounds, depending on the setting.
+A key combinatorial fact, reflected in Lemma 3.1, is that odd orders vanish. This fits the intuition that a closed walk on a bipartite tree has even length, so only even-order perturbative corrections survive in the density expansion.
+\subsection*{2. Complex-analytic control of the single-site transforms}
+Formal expansions are not enough; one needs analytic continuation in a full complex neighborhood of the target interval. This is where the local analyticity of the single-site density enters. The paper studies single-site Stieltjes transforms and proves their continuation and uniform control near the real axis. Lemma 4.1 supplies the analytic continuation estimates needed to sum the walk contributions safely.
+\subsection*{3. Stieltjes inversion and extraction of the density}
+Once the averaged diagonal resolvent is controlled holomorphically, one applies the Stieltjes inversion formula to pass from resolvent asymptotics to density asymptotics. Real analyticity of the resulting density follows from holomorphic continuation, and the finite-order expansion is then read off term by term.
+\section*{What is actually new}
+The novelty is not ``there is a perturbative expansion'' in some vague sense. It is the combination of three precise features:
+\begin{itemize}[leftmargin=1.5em]
+\item a local analyticity theorem for the scaled resolvent on real-energy windows,
+\item a finite-order strong-disorder expansion for the root density of states,
+\item an explicit combinatorial description of the coefficients through short closed walks.
+\end{itemize}
+The leading coefficient being the local potential density is exactly what one expects physically, but the theorem quantifies the correction mechanism and shows that the expansion is rigid enough to kill all odd orders.
+\section*{Interpretation}
+In scaled variables, the strong-disorder picture is simple: the operator is dominated by the diagonal potential, and hopping only produces rare return corrections. The density of states therefore begins by reproducing the single-site density. The next corrections are suppressed by even powers of $\lambda^{-1}$ and encode the probability-weighted effect of short excursions on the tree.
 
-\textbf{4. Exploit problem structure.} This is usually where the paper's real idea lives. The authors may use convexity, smoothness, restricted curvature, spectral properties, invariances, or an algebraic identity specific to the method. This step explains why the chosen procedure is aligned with the geometry of the task rather than being an arbitrary heuristic.
-
-\textbf{5. Close the inequality.} The bounded terms are recombined into an oracle inequality, contraction estimate, or iterative potential argument. Lower-order terms are absorbed and the stated theorem follows.
-
-\textbf{6. Specialize to regimes of interest.} Corollaries then translate the main theorem into concrete cases: large-sample behavior, noisy vs. noiseless settings, or scaling with dimension, depth, horizon, or complexity.
-
-A good way to audit the real proof is to mark which assumption is first used in each step. That immediately reveals whether an assumption is central or just a technical convenience.
-\section*{Why it matters / limitations / takeaway}
-Theory matters when it explains mechanism, not just outcome. A result of this kind is useful if it either justifies a broadly used method, identifies a new regime where the method is provably effective, or clarifies the real price of good performance through its dependence on complexity, condition number, sample size, or noise.
-
-The main limitation of this report is intentional: it is self-contained and theory-oriented, but reconstructed from metadata and abstract information rather than the full paper text. Exact constants, technical conditions, and especially the most delicate lemmas should therefore be verified against the source PDF.
-
-The takeaway is simple. This is the highest-scoring item in the latest Scholar digest and is likely worth reading from the theorem statement outward. Start by identifying the target quantity, write down the assumptions in one place, and map each proof section to one piece of the error decomposition. If that map is clean, the paper is likely to be reusable beyond its immediate application.
+This is a nice example where disorder asymptotics are not merely probabilistic but genuinely analytic: the regularity of the potential law gets transferred to regularity of the spectral density in the strong-disorder window.
+\section*{Limitations}
+The assumptions are local and fairly strong. The single-site law is required to have compact support and a density that is analytic on a neighborhood of the interval of interest. So the result is not aimed at rough distributions or singular laws. Also, the observable is the root-averaged density of states on the Bethe lattice; it does not directly settle analogous expansions for finite-dimensional lattices or for the usual infinite-volume integrated density of states.
+\section*{Bottom line}
+A clean, well-targeted strong-disorder paper. The key message is that for the Anderson model on the Bethe lattice, the root density of states near energies $E=\lambda\xi$ is not only perturbatively close to the single-site potential density, but admits a controlled analytic expansion with explicitly structured coefficients. The mix of walk combinatorics and complex analysis is the heart of the paper.
 \end{document}
